@@ -339,12 +339,13 @@
     .edu-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
     /* ── Lang ── */
-    .lang-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px dotted #ccc; font-size: 13px; }
+    .lang-row { display: grid; grid-template-columns: 90px auto 1fr; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dotted #ccc; font-size: 13px; }
     .lang-row:last-child { border-bottom: none; }
+    .lang-name { }
     .lang-dots { display: flex; gap: 3px; }
     .lang-dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; }
     .lang-dot.filled { background: var(--ink); }
-    .lang-level { font-size: 11px; color: var(--muted); font-style: italic; }
+    .lang-level { font-size: 11px; color: var(--muted); font-style: italic; text-align: right; }
 
     /* ── Footer ── */
     footer {
@@ -601,22 +602,22 @@
       <div class="sidebar-section">
         <div class="sidebar-heading">Language portfolio</div>
         <div class="lang-row">
-          <span>Tamil</span>
+          <span class="lang-name">Tamil</span>
           <div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div></div>
           <span class="lang-level">Native</span>
         </div>
         <div class="lang-row">
-          <span>English</span>
+          <span class="lang-name">English</span>
           <div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div></div>
           <span class="lang-level">Full professional</span>
         </div>
         <div class="lang-row">
-          <span>Hindi</span>
+          <span class="lang-name">Hindi</span>
           <div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot"></div><div class="lang-dot"></div></div>
           <span class="lang-level">Conversational</span>
         </div>
         <div class="lang-row">
-          <span>German</span>
+          <span class="lang-name">German</span>
           <div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div></div>
           <span class="lang-level" style="color:var(--gold)">A2 · Building</span>
         </div>
