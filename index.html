@@ -3,1159 +3,314 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARUN.MUR — The Arun Index</title>
+  <title>Arun Murugan — variant switcher</title>
   <style>
-    :root {
-      --bg: #0a0e1a;
-      --surface: #111827;
-      --surface2: #1a2235;
-      --border: #1f2d45;
-      --gold: #f0b429;
-      --green: #22c55e;
-      --red: #ef4444;
-      --blue: #3b82f6;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --accent: #f0b429;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 14px;
-      overflow-x: hidden;
-    }
-
-    /* ── Ticker ─────────────────────────────────────────────── */
-    .ticker-wrap {
-      background: #050810;
-      border-bottom: 1px solid var(--border);
-      padding: 6px 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-inner {
-      display: inline-block;
-      animation: scroll-left 40s linear infinite;
-    }
-    .ticker-item {
-      display: inline-block;
-      margin: 0 32px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .ticker-item .label { color: var(--text); font-weight: bold; margin-right: 6px; }
-    .ticker-item .up { color: var(--green); }
-    .ticker-item .down { color: var(--red); }
-    @keyframes scroll-left {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ── Top bar ─────────────────────────────────────────────── */
-    .topbar {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      background: #0f0f0f;
+      color: #e0e0e0;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      flex-shrink: 0;
+      height: 44px;
+      background: #1a1a1a;
+      border-bottom: 1px solid #2a2a2a;
+      display: flex;
       align-items: center;
-      padding: 12px 40px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
+      padding: 0 16px;
+      gap: 12px;
+      z-index: 10;
     }
-    .topbar-brand {
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      color: var(--gold);
+    .topbar-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #555;
     }
-    .topbar-nav { display: flex; gap: 28px; }
-    .topbar-nav a {
-      color: var(--muted);
-      text-decoration: none;
+    .topbar-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
+    .topbar-desc {
       font-size: 12px;
+      color: #555;
+    }
+    .topbar-sep { color: #333; }
+    .topbar-badge {
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      transition: color .2s;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-left: auto;
     }
-    .topbar-nav a:hover { color: var(--gold); }
-    .topbar-status {
+    .topbar-badge.ui      { background: #1d3a5c; color: #7aaddf; }
+    .topbar-badge.content { background: #1a4030; color: #6ec99a; }
+
+    /* ── Body split ── */
+    .body {
+      flex: 1;
       display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--green);
-    }
-    .status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
+      overflow: hidden;
     }
 
-    /* ── Layout ──────────────────────────────────────────────── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    /* ── Sidebar ── */
+    .sidebar {
+      flex-shrink: 0;
+      width: 210px;
+      background: #141414;
+      border-right: 1px solid #242424;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
 
-    /* ── Hero ────────────────────────────────────────────────── */
-    .hero {
-      padding: 48px 0 32px;
-      border-bottom: 1px solid var(--border);
+    .sidebar-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #444;
+      padding: 16px 14px 6px;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 40px;
-      align-items: start;
-    }
-    .avatar-wrap {
+
+    .variant-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      border-left: 3px solid transparent;
+      padding: 10px 14px 10px 11px;
+      cursor: pointer;
+      color: #999;
+      transition: background .1s, border-color .1s, color .1s;
       position: relative;
     }
-    .avatar {
-      width: 96px; height: 96px;
-      border-radius: 4px;
-      background: var(--surface2);
-      border: 2px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      color: var(--gold);
-      overflow: hidden;
+    .variant-btn:hover {
+      background: #1c1c1c;
+      color: #e0e0e0;
     }
-    .avatar-badge {
+    .variant-btn.active {
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    /* left accent bar colour set per variant via data-color */
+    .variant-btn.active  { border-left-color: var(--c); }
+    .variant-btn:hover:not(.active) { border-left-color: #333; }
+
+    .vb-swatch {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--c);
+      margin-right: 7px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .vb-name {
+      font-size: 12px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .vb-desc {
+      font-size: 11px;
+      color: #555;
+      display: block;
+      line-height: 1.4;
+    }
+    .variant-btn.active .vb-desc { color: #777; }
+
+    .vb-type {
       position: absolute;
-      bottom: -8px; right: -8px;
-      background: var(--green);
-      color: #000;
+      top: 9px;
+      right: 10px;
       font-size: 9px;
-      font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 2px;
-      letter-spacing: 1px;
-    }
-    .hero-main {}
-    .symbol {
-      font-size: 36px;
-      font-weight: bold;
-      color: var(--text);
-      letter-spacing: 2px;
-    }
-    .symbol span { color: var(--gold); }
-    .full-name {
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: .8px;
       text-transform: uppercase;
-      margin-top: 4px;
-    }
-    .hero-tags {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-    .tag {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 3px 10px;
+      padding: 1px 5px;
       border-radius: 2px;
+    }
+    .vb-type.ui      { background: #162438; color: #5a8ec0; }
+    .vb-type.content { background: #162414; color: #5aaa7a; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 14px;
+      border-top: 1px solid #1f1f1f;
       font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-    .tag.highlight {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-    .hero-desc {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      max-width: 540px;
-      line-height: 1.7;
-    }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      min-width: 260px;
-    }
-    .stat-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 4px;
-    }
-    .stat-label {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-    .stat-value {
-      font-size: 22px;
-      font-weight: bold;
-      color: var(--text);
-      margin-top: 4px;
-    }
-    .stat-value.green { color: var(--green); }
-    .stat-value.gold  { color: var(--gold);  }
-    .stat-sub {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 2px;
+      color: #3a3a3a;
+      line-height: 1.5;
     }
 
-    /* ── Sections ─────────────────────────────────────────────── */
-    section { padding: 48px 0; border-bottom: 1px solid var(--border); }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-    .section-tag {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-    .section-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--text);
-    }
-    .section-line {
+    /* ── iframe ── */
+    .preview {
       flex: 1;
-      height: 1px;
-      background: var(--border);
+      position: relative;
+      background: #0a0a0a;
     }
-
-    /* ── Two-column layout ───────────────────────────────────── */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    /* ── Panel ───────────────────────────────────────────────── */
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 20px 24px;
-    }
-    .panel-title {
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ── Analyst note ─────────────────────────────────────────── */
-    .analyst-note {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--gold);
-      padding: 24px 28px;
-      border-radius: 4px;
-    }
-    .analyst-note .meta {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-    .analyst-note p {
-      line-height: 1.85;
-      color: #cbd5e1;
-      font-size: 13.5px;
-    }
-    .analyst-note .rating {
-      display: inline-block;
-      margin-top: 16px;
-      background: var(--green);
-      color: #000;
-      font-weight: bold;
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 2px;
-      letter-spacing: 2px;
-    }
-
-    /* ── Skills / Asset allocation ───────────────────────────── */
-    .skill-row {
-      display: grid;
-      grid-template-columns: 160px 1fr 48px;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .skill-name { font-size: 12px; color: var(--muted); }
-    .skill-bar-bg {
-      height: 6px;
-      background: var(--surface2);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .skill-bar-fill {
+    .preview iframe {
+      width: 100%;
       height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--gold), #f59e0b);
-    }
-    .skill-bar-fill.blue  { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-    .skill-bar-fill.green { background: linear-gradient(90deg, #22c55e, #4ade80); }
-    .skill-pct { font-size: 12px; color: var(--text); text-align: right; }
-
-    /* ── Experience ledger ───────────────────────────────────── */
-    .ledger { width: 100%; border-collapse: collapse; }
-    .ledger th {
-      text-align: left;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-      text-transform: uppercase;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .ledger td {
-      padding: 14px 12px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-      color: #cbd5e1;
-      vertical-align: top;
-    }
-    .ledger tr:last-child td { border-bottom: none; }
-    .ledger .company { color: var(--text); font-weight: bold; }
-    .ledger .period {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 2px;
-    }
-    .ledger .role-tag {
-      display: inline-block;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 2px;
-      color: var(--muted);
-    }
-    .ledger .kpi {
-      font-size: 12px;
-      color: var(--green);
-    }
-    .ledger ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 6px;
-    }
-    .ledger ul li::before { content: "▸ "; color: var(--gold); }
-    .ledger ul li { margin-bottom: 4px; font-size: 12px; color: var(--muted); }
-
-    /* ── Chancenkarte countdown ──────────────────────────────── */
-    .chancenkarte-card {
-      background: var(--surface);
-      border: 1px solid var(--gold);
-      border-radius: 4px;
-      padding: 28px 32px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px;
-      align-items: center;
-    }
-    .ck-label {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .ck-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .ck-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 420px;
-    }
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      text-align: center;
-    }
-    .countdown-box {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 12px 10px;
-      border-radius: 4px;
-      min-width: 56px;
-    }
-    .countdown-num {
-      font-size: 28px;
-      font-weight: bold;
-      color: var(--gold);
+      border: none;
       display: block;
     }
-    .countdown-unit {
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .ck-progress {
-      margin-top: 20px;
-    }
-    .ck-progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .ck-progress-bar {
-      height: 6px;
-      background: var(--surface2);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .ck-progress-fill {
-      height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--green), var(--gold));
-      transition: width 1s;
-    }
 
-    /* ── Language table ──────────────────────────────────────── */
-    .lang-row {
-      display: grid;
-      grid-template-columns: 90px auto 1fr;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .lang-row:last-child { border-bottom: none; }
-    .lang-name { color: var(--text); font-size: 13px; }
-    .lang-dots { display: flex; gap: 5px; }
-    .lang-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--border);
-    }
-    .lang-dot.filled { background: var(--gold); }
-    .lang-level { font-size: 11px; color: var(--muted); text-align: right; }
-
-    /* ── Education ───────────────────────────────────────────── */
-    .edu-item { margin-bottom: 20px; }
-    .edu-item:last-child { margin-bottom: 0; }
-    .edu-degree { font-size: 14px; color: var(--text); font-weight: bold; }
-    .edu-school { font-size: 12px; color: var(--gold); margin-top: 3px; }
-    .edu-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-    /* ── Contact / Open a position ───────────────────────────── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-    .contact-cta {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 28px;
-    }
-    .contact-cta h3 {
-      font-size: 18px;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-    .contact-cta p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-    .btn-primary {
-      display: inline-block;
-      background: var(--gold);
-      color: #000;
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 12px 24px;
-      border-radius: 3px;
-      text-decoration: none;
-      transition: opacity .2s;
-    }
-    .btn-primary:hover { opacity: .85; }
-    .contact-details { display: flex; flex-direction: column; gap: 14px; }
-    .contact-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-    }
-    .contact-icon {
-      width: 32px; height: 32px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 3px;
+    /* ── Loading overlay ── */
+    .loading {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-    }
-    .contact-info .lbl { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
-    .contact-info .val { font-size: 13px; color: var(--text); margin-top: 2px; }
-
-    /* ── Footer ──────────────────────────────────────────────── */
-    footer {
-      padding: 24px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 11px;
+      background: #0a0a0a;
+      font-size: 12px;
+      color: #333;
       letter-spacing: 1px;
-      border-top: 1px solid var(--border);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .1s;
     }
-    footer span { color: var(--gold); }
+    .loading.visible { opacity: 1; pointer-events: all; }
 
-    /* ── Utilities ───────────────────────────────────────────── */
-    .mono { font-family: 'Courier New', monospace; }
-    .text-gold  { color: var(--gold);  }
-    .text-green { color: var(--green); }
-    .text-muted { color: var(--muted); }
-
-    /* ── Responsive ──────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .hero-grid    { grid-template-columns: 1fr; }
-      .hero-stats   { grid-template-columns: repeat(4, 1fr); }
-      .two-col, .three-col, .contact-grid { grid-template-columns: 1fr; }
-      .chancenkarte-card { grid-template-columns: 1fr; }
-      .topbar-nav   { display: none; }
-      .container    { padding: 0 20px; }
-    }
+    /* ── Scrollbar ── */
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
   </style>
 </head>
 <body>
 
-<!-- ── Ticker ── -->
-<div class="ticker-wrap">
-  <div class="ticker-inner">
-    <span class="ticker-item"><span class="label">ARUN.MUR</span> <span class="up">▲ AVAILABLE FOR HIRE</span></span>
-    <span class="ticker-item"><span class="label">EXP</span> 4Y 2M <span class="up">+12%</span></span>
-    <span class="ticker-item"><span class="label">LOCATION</span> Chennai, IN → Germany</span>
-    <span class="ticker-item"><span class="label">CHANCENKARTE</span> <span class="up">ACTIVE</span> · 361 DAYS REMAINING</span>
-    <span class="ticker-item"><span class="label">LANGUAGES</span> EN · TA · HI · DE(A2)</span>
-    <span class="ticker-item"><span class="label">SECTOR</span> Banking &amp; Financial Services</span>
-    <span class="ticker-item"><span class="label">CLEARANCE</span> Bank Secrecy · GDPR Compliant</span>
-    <span class="ticker-item"><span class="label">RATING</span> <span class="up">STRONG BUY</span></span>
-    <!-- duplicate for seamless loop -->
-    <span class="ticker-item"><span class="label">ARUN.MUR</span> <span class="up">▲ AVAILABLE FOR HIRE</span></span>
-    <span class="ticker-item"><span class="label">EXP</span> 4Y 2M <span class="up">+12%</span></span>
-    <span class="ticker-item"><span class="label">LOCATION</span> Chennai, IN → Germany</span>
-    <span class="ticker-item"><span class="label">CHANCENKARTE</span> <span class="up">ACTIVE</span> · 361 DAYS REMAINING</span>
-    <span class="ticker-item"><span class="label">LANGUAGES</span> EN · TA · HI · DE(A2)</span>
-    <span class="ticker-item"><span class="label">SECTOR</span> Banking &amp; Financial Services</span>
-    <span class="ticker-item"><span class="label">CLEARANCE</span> Bank Secrecy · GDPR Compliant</span>
-    <span class="ticker-item"><span class="label">RATING</span> <span class="up">STRONG BUY</span></span>
-  </div>
-</div>
-
-<!-- ── Top bar ── -->
 <div class="topbar">
-  <div class="topbar-brand">ARUN.MUR</div>
-  <nav class="topbar-nav">
-    <a href="#thesis">Thesis</a>
-    <a href="#assets">Assets</a>
-    <a href="#history">History</a>
-    <a href="#fundamentals">Fundamentals</a>
-    <a href="#window">Window</a>
-    <a href="#contact">Contact</a>
+  <span class="topbar-label">Viewing</span>
+  <span class="topbar-name" id="tb-name">Financial terminal</span>
+  <span class="topbar-sep">—</span>
+  <span class="topbar-desc" id="tb-desc">Dark, monospace, stock-market metaphors throughout</span>
+  <span class="topbar-badge ui" id="tb-badge">UI variant</span>
+</div>
+
+<div class="body">
+  <nav class="sidebar">
+
+    <div class="sidebar-section-label">Design variants</div>
+
+    <button class="variant-btn active"
+      style="--c:#f0b429"
+      data-src="variant-financial.html"
+      data-name="Financial terminal"
+      data-desc="Dark, monospace, stock-market metaphors throughout"
+      data-type="ui">
+      <span class="vb-swatch"></span>
+      <span class="vb-name">Financial terminal</span>
+      <span class="vb-desc">Dark · gold ticker · trading metaphors</span>
+      <span class="vb-type ui">UI</span>
+    </button>
+
+    <button class="variant-btn"
+      style="--c:#3b82f6"
+      data-src="variant-minimal.html"
+      data-name="Clean & minimal"
+      data-desc="Light background, card layout, system sans-serif"
+      data-type="ui">
+      <span class="vb-swatch"></span>
+      <span class="vb-name">Clean &amp; minimal</span>
+      <span class="vb-desc">Light · blue accent · card-based</span>
+      <span class="vb-type ui">UI</span>
+    </button>
+
+    <button class="variant-btn"
+      style="--c:#c0191a"
+      data-src="variant-editorial.html"
+      data-name="Broadsheet editorial"
+      data-desc="Aged paper, ink black, Georgia serif, newspaper layout"
+      data-type="ui">
+      <span class="vb-swatch"></span>
+      <span class="vb-name">Broadsheet editorial</span>
+      <span class="vb-desc">Paper · red accent · newspaper columns</span>
+      <span class="vb-type ui">UI</span>
+    </button>
+
+    <button class="variant-btn"
+      style="--c:#39ff14"
+      data-src="variant-terminal.html"
+      data-name="CLI / terminal"
+      data-desc="Green-on-black, command-prompt framing, ASCII header"
+      data-type="ui">
+      <span class="vb-swatch"></span>
+      <span class="vb-name">CLI / terminal</span>
+      <span class="vb-desc">Black · neon green · command prompt</span>
+      <span class="vb-type ui">UI</span>
+    </button>
+
+    <div class="sidebar-section-label" style="margin-top:4px;">Content variants</div>
+
+    <button class="variant-btn"
+      style="--c:#6ec99a"
+      data-src="variant-conservative.html"
+      data-name="Professional / conservative"
+      data-desc="Standard professional language, no financial metaphors, serif body text"
+      data-type="content">
+      <span class="vb-swatch"></span>
+      <span class="vb-name">Professional</span>
+      <span class="vb-desc">Straight CV language · no metaphors</span>
+      <span class="vb-type content">Content</span>
+    </button>
+
+    <div class="sidebar-footer">
+      5 variants total<br />4 design · 1 content
+    </div>
   </nav>
-  <div class="topbar-status">
-    <div class="status-dot"></div>
-    ACTIVELY SEEKING · DE
+
+  <div class="preview">
+    <div class="loading" id="loading">Loading…</div>
+    <iframe id="frame" src="variant-financial.html" title="Variant preview"></iframe>
   </div>
 </div>
 
-<!-- ── Hero ── -->
-<div class="container">
-  <section class="hero" style="border-bottom:none; padding-bottom:40px;">
-    <div class="hero-grid">
-      <div class="avatar-wrap">
-        <div class="avatar">AM</div>
-        <div class="avatar-badge">HIRE</div>
-      </div>
-      <div class="hero-main">
-        <div class="symbol">ARUN<span>.MUR</span></div>
-        <div class="full-name">Arun Murugan · Banking Operations Specialist</div>
-        <div class="hero-tags">
-          <span class="tag highlight">Chancenkarte holder</span>
-          <span class="tag">Back office</span>
-          <span class="tag">SWIFT / SEPA</span>
-          <span class="tag">Reconciliation</span>
-          <span class="tag">Risk &amp; compliance</span>
-          <span class="tag">Chennai, India</span>
-        </div>
-        <p class="hero-desc">
-          With four years of proven back-office banking experience, I'm making a targeted move
-          into the German financial market. Precision-driven, process-oriented, and cleared
-          for entry under the Chancenkarte — no sponsorship required.
-        </p>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-label">Experience</div>
-          <div class="stat-value green">4.2<span style="font-size:14px"> YRS</span></div>
-          <div class="stat-sub">Banking &amp; Fin. Services</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Transactions processed</div>
-          <div class="stat-value gold">₹2.4B+</div>
-          <div class="stat-sub">Annual volume</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Accuracy rate</div>
-          <div class="stat-value green">99.8%</div>
-          <div class="stat-sub">Zero audit findings</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Relocation</div>
-          <div class="stat-value" style="font-size:16px; margin-top:6px;">READY</div>
-          <div class="stat-sub" style="color: var(--gold);">Chancenkarte · 2027</div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div style="height:1px; background: var(--border);"></div>
-
-<!-- ── Investment thesis ── -->
-<div class="container">
-  <section id="thesis">
-    <div class="section-header">
-      <span class="section-tag">01</span>
-      <h2 class="section-title">Investment thesis</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="analyst-note">
-      <div class="meta">PITCH DECK · ARUN.MUR · MARCH 2026 · INITIATING COVERAGE</div>
-      <p>
-        Think of me as an undervalued position in the German banking market. I bring four years of
-        front-line back-office experience at a top-tier private bank — deep operational fluency in
-        payment systems, trade settlement, and regulatory compliance. These are skills in chronic
-        undersupply across Frankfurt, Hamburg, and Munich banking hubs.
-      </p>
-      <br />
-      <p>
-        My cost basis is low (no sponsorship required, Chancenkarte in hand), my ramp-up time is
-        minimal (banking processes are largely ISO-standardised), and my upside is substantial —
-        I'm a motivated, English-proficient professional actively building German language skills
-        and committed to long-term integration. The risk-reward here is compelling.
-      </p>
-      <br />
-      <p>
-        I initiate coverage on myself with a <strong style="color:var(--text);">Strong Buy</strong>.
-        Target roles: Backoffice Bankkaufmann, Operations Analyst, Payment Processing Specialist,
-        Trade Finance Associate.
-      </p>
-      <span class="rating">STRONG BUY · TARGET: DE BANKING SECTOR</span>
-    </div>
-  </section>
-</div>
-
-<!-- ── Asset allocation (skills) ── -->
-<div class="container">
-  <section id="assets">
-    <div class="section-header">
-      <span class="section-tag">02</span>
-      <h2 class="section-title">Asset allocation</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="two-col">
-
-      <div class="panel">
-        <div class="panel-title">Core banking operations</div>
-        <div class="skill-row">
-          <span class="skill-name">Payment processing</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
-          <span class="skill-pct">95%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Account reconciliation</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:93%"></div></div>
-          <span class="skill-pct">93%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">SWIFT / SEPA</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div>
-          <span class="skill-pct">88%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Trade settlement</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div>
-          <span class="skill-pct">82%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">KYC / AML compliance</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:86%"></div></div>
-          <span class="skill-pct">86%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Loan processing</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:79%"></div></div>
-          <span class="skill-pct">79%</span>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title">Tools &amp; systems</div>
-        <div class="skill-row">
-          <span class="skill-name">Microsoft Excel</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:97%"></div></div>
-          <span class="skill-pct">97%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">SAP Banking</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:84%"></div></div>
-          <span class="skill-pct">84%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Finacle (Infosys)</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:90%"></div></div>
-          <span class="skill-pct">90%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Bloomberg Terminal</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:65%"></div></div>
-          <span class="skill-pct">65%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">SQL (reporting)</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:70%"></div></div>
-          <span class="skill-pct">70%</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Power BI</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:62%"></div></div>
-          <span class="skill-pct">62%</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="margin-top: 20px;">
-      <div class="panel">
-        <div class="panel-title">Soft assets — qualitative factors</div>
-        <div class="three-col" style="margin-top: 4px;">
-          <div>
-            <div class="skill-row">
-              <span class="skill-name">Attention to detail</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:98%"></div></div>
-              <span class="skill-pct">98%</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Deadline ownership</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:95%"></div></div>
-              <span class="skill-pct">95%</span>
-            </div>
-          </div>
-          <div>
-            <div class="skill-row">
-              <span class="skill-name">Cross-team collaboration</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:88%"></div></div>
-              <span class="skill-pct">88%</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Process optimisation</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:80%"></div></div>
-              <span class="skill-pct">80%</span>
-            </div>
-          </div>
-          <div>
-            <div class="skill-row">
-              <span class="skill-name">Adaptability</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:92%"></div></div>
-              <span class="skill-pct">92%</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Regulatory awareness</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:85%"></div></div>
-              <span class="skill-pct">85%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ── Performance history (experience) ── -->
-<div class="container">
-  <section id="history">
-    <div class="section-header">
-      <span class="section-tag">03</span>
-      <h2 class="section-title">Performance history</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <table class="ledger">
-      <thead>
-        <tr>
-          <th style="width:220px">Institution</th>
-          <th style="width:160px">Role</th>
-          <th>Key deliverables</th>
-          <th style="width:130px">Performance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="company">HDFC Bank Ltd.</div>
-            <div class="period">Jan 2024 – Present · Chennai</div>
-          </td>
-          <td><span class="role-tag">SR. OPERATIONS ANALYST</span></td>
-          <td>
-            <ul>
-              <li>Oversee daily RTGS/NEFT reconciliation for ₹800M+ in transactions</li>
-              <li>Lead AML screening queue — zero escalations in 14 months</li>
-              <li>Reduced end-of-day reconciliation time by 23% via Excel macro automation</li>
-              <li>Mentoring 2 junior associates on CBS Finacle workflows</li>
-            </ul>
-          </td>
-          <td class="kpi">
-            ▲ 23% efficiency<br />
-            <span style="color: var(--muted); font-size:11px">Zero audit flags</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="company">Axis Bank Ltd.</div>
-            <div class="period">Aug 2021 – Dec 2023 · Chennai</div>
-          </td>
-          <td><span class="role-tag">OPERATIONS ASSOCIATE</span></td>
-          <td>
-            <ul>
-              <li>Processed inward &amp; outward SWIFT messages for trade finance desk</li>
-              <li>Handled LC (Letter of Credit) documentation and discrepancy management</li>
-              <li>Assisted compliance team with periodic KYC renewal for 400+ corporate accounts</li>
-              <li>Supported migration from legacy CBS to Finacle 10.x with zero downtime</li>
-            </ul>
-          </td>
-          <td class="kpi">
-            400+ accounts<br />
-            <span style="color: var(--muted); font-size:11px">Promoted in 18 months</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="company">Karur Vysya Bank</div>
-            <div class="period">Jun 2021 – Aug 2021 · Chennai</div>
-          </td>
-          <td><span class="role-tag">OPERATIONS INTERN</span></td>
-          <td>
-            <ul>
-              <li>Data entry and verification for retail account opening requests</li>
-              <li>Assisted tellers with daily cash balancing and EOD reporting</li>
-            </ul>
-          </td>
-          <td class="kpi">
-            Internship<br />
-            <span style="color: var(--muted); font-size:11px">Offer to join FT</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-</div>
-
-<!-- ── Fundamentals (education + languages) ── -->
-<div class="container">
-  <section id="fundamentals">
-    <div class="section-header">
-      <span class="section-tag">04</span>
-      <h2 class="section-title">Fundamentals</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="two-col">
-      <div class="panel">
-        <div class="panel-title">Academic record</div>
-        <div class="edu-item">
-          <div class="edu-degree">B.Com — Commerce & Accounting</div>
-          <div class="edu-school">Loyola College, Chennai</div>
-          <div class="edu-meta">2018 – 2021 · GPA 8.4 / 10 · First class with distinction</div>
-        </div>
-        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
-        <div class="edu-item">
-          <div class="edu-degree">NISM Series VIII — Equity Derivatives</div>
-          <div class="edu-school">National Institute of Securities Markets</div>
-          <div class="edu-meta">Certified 2022 · Valid through 2025</div>
-        </div>
-        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
-        <div class="edu-item">
-          <div class="edu-degree">Certified AML Specialist (CAMS) — In progress</div>
-          <div class="edu-school">ACAMS International</div>
-          <div class="edu-meta">Exam scheduled Q3 2026</div>
-        </div>
-        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
-        <div class="edu-item">
-          <div class="edu-degree">Deutsch A2 — Goethe-Institut</div>
-          <div class="edu-school">Goethe-Institut Chennai</div>
-          <div class="edu-meta">Completed Jan 2026 · B1 in progress</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title">Language portfolio</div>
-        <div class="lang-row">
-          <span class="lang-name">Tamil</span>
-          <div class="lang-dots">
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-          </div>
-          <span class="lang-level">Native</span>
-        </div>
-        <div class="lang-row">
-          <span class="lang-name">English</span>
-          <div class="lang-dots">
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-          </div>
-          <span class="lang-level">Full professional</span>
-        </div>
-        <div class="lang-row">
-          <span class="lang-name">Hindi</span>
-          <div class="lang-dots">
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot"></div>
-            <div class="lang-dot"></div>
-          </div>
-          <span class="lang-level">Conversational</span>
-        </div>
-        <div class="lang-row">
-          <span class="lang-name">German</span>
-          <div class="lang-dots">
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot filled"></div>
-            <div class="lang-dot"></div>
-            <div class="lang-dot"></div>
-            <div class="lang-dot"></div>
-          </div>
-          <span class="lang-level" style="color:var(--gold);">A2 · Building</span>
-        </div>
-
-        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border);">
-          <div class="panel-title" style="margin-bottom:12px;">Personal profile</div>
-          <div style="color:var(--muted); font-size:12px; line-height:1.8;">
-            Age: <span style="color:var(--text)">26</span><br />
-            Nationality: <span style="color:var(--text)">Indian</span><br />
-            Based: <span style="color:var(--text)">Chennai, Tamil Nadu</span><br />
-            Target market: <span style="color:var(--gold)">Germany (Frankfurt / Munich / Hamburg)</span><br />
-            Availability: <span style="color:var(--green)">3 months notice · flexible</span><br />
-            Hobbies: <span style="color:var(--text)">Chess · Distance running · Financial podcasts</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ── Chancenkarte trading window ── -->
-<div class="container">
-  <section id="window">
-    <div class="section-header">
-      <span class="section-tag">05</span>
-      <h2 class="section-title">Trading window</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="chancenkarte-card">
-      <div>
-        <div class="ck-label">Chancenkarte · Opportunity Card</div>
-        <div class="ck-title">Active entry window — Germany</div>
-        <p class="ck-desc">
-          Issued under §20a AufenthG, the Chancenkarte grants Arun the legal right to enter
-          Germany to seek employment — no employer sponsorship required. The window is open,
-          the clock is running, and the opportunity is now.
-        </p>
-        <div class="ck-progress">
-          <div class="ck-progress-label">
-            <span>Issued: 23 Mar 2026</span>
-            <span style="color:var(--gold)">361 days remaining</span>
-            <span>Expires: 22 Mar 2027</span>
-          </div>
-          <div class="ck-progress-bar">
-            <div class="ck-progress-fill" id="ck-fill" style="width:1%;"></div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px; letter-spacing:1.5px; color:var(--muted); text-align:center; margin-bottom:12px; text-transform:uppercase;">Time remaining</div>
-        <div class="countdown-grid" id="countdown-grid">
-          <div class="countdown-box">
-            <span class="countdown-num" id="cd-days">361</span>
-            <span class="countdown-unit">Days</span>
-          </div>
-          <div class="countdown-box">
-            <span class="countdown-num" id="cd-hours">00</span>
-            <span class="countdown-unit">Hours</span>
-          </div>
-          <div class="countdown-box">
-            <span class="countdown-num" id="cd-mins">00</span>
-            <span class="countdown-unit">Mins</span>
-          </div>
-          <div class="countdown-box">
-            <span class="countdown-num" id="cd-secs">00</span>
-            <span class="countdown-unit">Secs</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ── Contact ── -->
-<div class="container">
-  <section id="contact">
-    <div class="section-header">
-      <span class="section-tag">06</span>
-      <h2 class="section-title">Open a position</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="contact-grid">
-      <div class="contact-cta">
-        <h3>Ready to place an order?</h3>
-        <p>
-          If you're a recruiter, hiring manager, or team lead in the German banking sector
-          looking for a dependable, detail-oriented operations professional — the window is open.
-          Reach out directly. No intermediaries, no friction.
-        </p>
-        <a href="mailto:arun.murugan@email.com" class="btn-primary">→ Contact Arun</a>
-      </div>
-      <div class="contact-details">
-        <div class="contact-row">
-          <div class="contact-icon">✉</div>
-          <div class="contact-info">
-            <div class="lbl">Email</div>
-            <div class="val">arun.murugan@email.com</div>
-          </div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-icon">in</div>
-          <div class="contact-info">
-            <div class="lbl">LinkedIn</div>
-            <div class="val">linkedin.com/in/arunmurugan-ops</div>
-          </div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-icon">☎</div>
-          <div class="contact-info">
-            <div class="lbl">Phone / WhatsApp</div>
-            <div class="val">+91 98400 XXXXX</div>
-          </div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-icon">↓</div>
-          <div class="contact-info">
-            <div class="lbl">Resume</div>
-            <div class="val">Download CV (PDF) →</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ── Footer ── -->
-<footer>
-  <div class="container">
-    <span>ARUN.MUR</span> · Banking Operations Specialist · Chancenkarte Holder · India → Germany
-    <br /><br />
-    <span style="font-size:10px; color:#2d3a50;">
-      Market data is indicative only. Past performance reflects actual work history.
-      This candidate is not a financial instrument, but the metaphor stands.
-    </span>
-  </div>
-</footer>
-
-<!-- ── Scripts ── -->
 <script>
-  // Chancenkarte countdown
-  const expiry = new Date('2027-03-22T23:59:59');
+  const frame   = document.getElementById('frame');
+  const loading = document.getElementById('loading');
+  const tbName  = document.getElementById('tb-name');
+  const tbDesc  = document.getElementById('tb-desc');
+  const tbBadge = document.getElementById('tb-badge');
+  const buttons = document.querySelectorAll('.variant-btn');
 
-  function updateCountdown() {
-    const now  = new Date();
-    const diff = expiry - now;
+  frame.addEventListener('load', () => loading.classList.remove('visible'));
 
-    if (diff <= 0) {
-      document.getElementById('cd-days').textContent = '000';
-      return;
-    }
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('active')) return;
 
-    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    document.getElementById('cd-days').textContent  = String(days).padStart(3, '0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
-    document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+      const src  = btn.dataset.src;
+      const name = btn.dataset.name;
+      const desc = btn.dataset.desc;
+      const type = btn.dataset.type;
 
-    // progress bar: issued 23 Mar 2026, expires 22 Mar 2027 = 365 days
-    const issued  = new Date('2026-03-23T00:00:00');
-    const total   = expiry - issued;
-    const elapsed = now - issued;
-    const pct     = Math.min(100, Math.max(0, (elapsed / total) * 100));
-    document.getElementById('ck-fill').style.width = pct + '%';
-  }
+      tbName.textContent  = name;
+      tbDesc.textContent  = desc;
+      tbBadge.textContent = type === 'ui' ? 'UI variant' : 'Content variant';
+      tbBadge.className   = 'topbar-badge ' + type;
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      loading.classList.add('visible');
+      frame.src = src;
     });
   });
 </script>
