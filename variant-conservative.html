@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arun Murugan — Banking Operations Professional</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f9f9f9;
+      --border: #e0e0e0;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --accent: #1b3a5c;
+      --accent-light: #eef2f7;
+      --green: #1a5c35;
+      --gold: #8a6a00;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--accent);
+      color: #fff;
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-size: 15px; font-weight: bold; letter-spacing: .5px; font-family: Georgia, serif; }
+    nav { display: flex; gap: 28px; }
+    nav a { color: rgba(255,255,255,.8); font-size: 13px; font-family: Arial, sans-serif; transition: color .15s; }
+    nav a:hover { color: #fff; text-decoration: none; }
+    .availability-note {
+      font-size: 12px;
+      background: rgba(255,255,255,.15);
+      padding: 4px 14px;
+      border-radius: 3px;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 32px;
+      align-items: start;
+    }
+    .avatar {
+      width: 90px; height: 90px;
+      background: var(--accent-light);
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--accent);
+      font-family: Georgia, serif;
+      flex-shrink: 0;
+    }
+    .hero-name { font-size: 30px; font-weight: bold; color: var(--text); line-height: 1.2; letter-spacing: -.3px; }
+    .hero-title { font-size: 15px; color: var(--muted); margin-top: 5px; font-style: italic; }
+    .hero-location { font-size: 13px; color: var(--muted); margin-top: 4px; font-family: Arial, sans-serif; }
+    .hero-summary {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+    .hero-meta {
+      min-width: 220px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-key { color: var(--muted); }
+    .meta-val { color: var(--text); font-weight: 600; text-align: right; }
+    .meta-val.green { color: var(--green); }
+    .meta-val.accent { color: var(--accent); }
+
+    /* ── Sections ── */
+    section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-title {
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* ── Profile ── */
+    .profile-body {
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: #2a2a2a;
+      max-width: 740px;
+      columns: 2;
+      column-gap: 36px;
+      column-rule: 1px solid var(--border);
+    }
+    .profile-body p { margin-bottom: 10px; }
+
+    /* ── Two-col ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    /* ── Experience ── */
+    .exp-item {
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .exp-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px; }
+    .exp-company { font-size: 16px; font-weight: bold; color: var(--text); }
+    .exp-role { font-size: 13px; color: var(--accent); font-style: italic; margin-top: 2px; font-family: Arial, sans-serif; }
+    .exp-period { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.5; }
+    .exp-bullets { list-style: none; margin-top: 10px; }
+    .exp-bullets li {
+      font-size: 13.5px;
+      color: #333;
+      padding: 3px 0 3px 18px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .exp-bullets li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+    .exp-highlight {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      color: var(--green);
+      background: #f0f7f2;
+      border: 1px solid #c3dece;
+      padding: 2px 10px;
+      border-radius: 3px;
+    }
+
+    /* ── Skills ── */
+    .skills-group { margin-bottom: 24px; }
+    .skills-group:last-child { margin-bottom: 0; }
+    .skills-group-title {
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 1fr 80px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+    .skill-name { font-size: 13.5px; color: var(--text); }
+    .skill-right { display: flex; align-items: center; gap: 8px; }
+    .skill-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+    .skill-pct { font-size: 12px; color: var(--muted); font-family: Arial, sans-serif; text-align: right; width: 32px; }
+
+    /* ── Education ── */
+    .edu-item { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .edu-degree { font-size: 14.5px; font-weight: bold; color: var(--text); }
+    .edu-school { font-size: 13px; color: var(--accent); margin-top: 2px; font-style: italic; }
+    .edu-meta { font-size: 12px; color: var(--muted); margin-top: 2px; font-family: Arial, sans-serif; }
+
+    /* ── Languages ── */
+    .lang-row {
+      display: grid;
+      grid-template-columns: 90px auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-name { font-size: 14px; color: var(--text); }
+    .lang-dots { display: flex; gap: 5px; }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .lang-dot.filled { background: var(--accent); }
+    .lang-dot.half { background: var(--gold); }
+    .lang-level { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; }
+
+    /* ── Visa note ── */
+    .visa-note {
+      background: var(--accent-light);
+      border: 1px solid #c0cfe0;
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      color: #2a2a2a;
+      line-height: 1.75;
+      max-width: 700px;
+    }
+    .visa-note strong { color: var(--accent); }
+
+    /* ── Contact ── */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .contact-intro { font-size: 14.5px; line-height: 1.8; color: #333; margin-bottom: 20px; }
+    .contact-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px 24px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .contact-btn:hover { background: #142d48; text-decoration: none; }
+    .contact-items { display: flex; flex-direction: column; gap: 10px; }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+    .contact-icon {
+      width: 34px; height: 34px;
+      background: var(--accent-light);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .contact-lbl { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+    .contact-val { font-size: 13px; color: var(--text); margin-top: 1px; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 22px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 840px) {
+      .hero { grid-template-columns: 1fr; }
+      .two-col, .contact-layout { grid-template-columns: 1fr; }
+      .profile-body { columns: 1; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">Arun Murugan</div>
+    <nav>
+      <a href="#profile">Profile</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="availability-note">Available for roles in Germany</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="avatar">AM</div>
+    <div>
+      <h1 class="hero-name">Arun Murugan</h1>
+      <p class="hero-title">Banking operations professional</p>
+      <p class="hero-location">Chennai, Tamil Nadu, India &nbsp;·&nbsp; Seeking opportunities in Germany</p>
+      <p class="hero-summary">
+        Results-oriented banking operations professional with over four years of experience in
+        back-office banking, payment processing, and regulatory compliance at leading private-sector
+        banks in India. Committed to accuracy, process improvement, and professional development,
+        including active preparation for the German market through language study and certification.
+      </p>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-row"><span class="meta-key">Experience</span><span class="meta-val">4+ years</span></div>
+      <div class="meta-row"><span class="meta-key">Sector</span><span class="meta-val">Banking &amp; finance</span></div>
+      <div class="meta-row"><span class="meta-key">Accuracy</span><span class="meta-val green">99.8%</span></div>
+      <div class="meta-row"><span class="meta-key">Notice period</span><span class="meta-val">3 months</span></div>
+      <div class="meta-row"><span class="meta-key">Work authorisation</span><span class="meta-val accent">Chancenkarte</span></div>
+      <div class="meta-row"><span class="meta-key">Sponsorship</span><span class="meta-val green">Not required</span></div>
+    </div>
+  </div>
+
+  <!-- Profile -->
+  <section id="profile">
+    <div class="section-title">Professional profile</div>
+    <div class="profile-body">
+      <p>
+        Arun Murugan is an experienced banking operations professional currently employed as
+        Senior Operations Analyst at HDFC Bank in Chennai. Over four years, he has built
+        strong expertise across payment systems (RTGS, NEFT, SWIFT, SEPA), trade finance,
+        account reconciliation, KYC/AML compliance, and core banking platforms including
+        Finacle and SAP.
+      </p>
+      <p>
+        He is known for high accuracy and a disciplined, process-driven approach. At HDFC Bank,
+        he introduced Excel macro automation that reduced end-of-day reconciliation time by 23%
+        and has maintained a zero-escalation record on AML screening for over fourteen months.
+      </p>
+      <p>
+        Arun holds a Bachelor of Commerce from Loyola College, Chennai, and is currently
+        pursuing the Certified Anti-Money Laundering Specialist (CAMS) qualification through
+        ACAMS International. He is also actively studying German at the Goethe-Institut, having
+        completed the A2 level in January 2026 and now working towards B1.
+      </p>
+      <p>
+        He holds a Chancenkarte (Opportunity Card) under §20a AufenthG, which permits him to
+        enter Germany to seek employment without requiring prior employer sponsorship. He is
+        available to relocate and prepared to begin a role in Germany following a three-month
+        notice period.
+      </p>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="section-title">Work experience</div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">HDFC Bank Ltd.</div>
+          <div class="exp-role">Senior operations analyst</div>
+        </div>
+        <div class="exp-period">January 2024 – Present<br />Chennai, India</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Oversee daily RTGS/NEFT reconciliation covering ₹800M+ in transaction volume</li>
+        <li>Manage AML screening queue; zero escalations over a fourteen-month period</li>
+        <li>Reduced end-of-day reconciliation cycle time by 23% through Excel macro automation</li>
+        <li>Support and train two junior operations associates on CBS Finacle workflows</li>
+      </ul>
+      <span class="exp-highlight">23% efficiency improvement · Zero audit findings</span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">Axis Bank Ltd.</div>
+          <div class="exp-role">Operations associate</div>
+        </div>
+        <div class="exp-period">August 2021 – December 2023<br />Chennai, India</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Processed inward and outward SWIFT messages for the trade finance desk</li>
+        <li>Managed Letter of Credit documentation and resolved discrepancies with counterparties</li>
+        <li>Supported KYC renewal for over 400 corporate accounts in collaboration with the compliance team</li>
+        <li>Contributed to a zero-downtime migration from the legacy core banking system to Finacle 10.x</li>
+      </ul>
+      <span class="exp-highlight">Promoted to senior role within 18 months</span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">Karur Vysya Bank</div>
+          <div class="exp-role">Operations intern</div>
+        </div>
+        <div class="exp-period">June – August 2021<br />Chennai, India</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Data entry and verification for retail account opening requests</li>
+        <li>Assisted branch tellers with daily cash balancing and end-of-day reporting</li>
+      </ul>
+      <span class="exp-highlight">Full-time offer extended at internship conclusion</span>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-title">Core competencies</div>
+    <div class="two-col">
+      <div>
+        <div class="skills-group">
+          <div class="skills-group-title">Banking operations</div>
+          <div class="skill-row">
+            <span class="skill-name">Payment processing (RTGS/NEFT)</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:95%"></div></div><span class="skill-pct">95%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Account reconciliation</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:93%"></div></div><span class="skill-pct">93%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">SWIFT / SEPA messaging</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:88%"></div></div><span class="skill-pct">88%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">KYC / AML compliance</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:86%"></div></div><span class="skill-pct">86%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Trade finance &amp; settlement</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:82%"></div></div><span class="skill-pct">82%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Loan processing</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:79%"></div></div><span class="skill-pct">79%</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="skills-group">
+          <div class="skills-group-title">Systems &amp; tools</div>
+          <div class="skill-row">
+            <span class="skill-name">Microsoft Excel (incl. macros)</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:97%"></div></div><span class="skill-pct">97%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Finacle (Infosys CBS)</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">SAP Banking</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:84%"></div></div><span class="skill-pct">84%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">SQL (reporting &amp; queries)</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:70%"></div></div><span class="skill-pct">70%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Bloomberg Terminal</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:65%"></div></div><span class="skill-pct">65%</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Power BI</span>
+            <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:62%"></div></div><span class="skill-pct">62%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Languages -->
+  <section id="education">
+    <div class="section-title">Education, certifications &amp; languages</div>
+    <div class="two-col">
+      <div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Commerce — Commerce &amp; Accounting</div>
+          <div class="edu-school">Loyola College, Chennai (University of Madras)</div>
+          <div class="edu-meta">2018 – 2021 &nbsp;·&nbsp; GPA 8.4 / 10 &nbsp;·&nbsp; First class with distinction</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">NISM Series VIII — Equity Derivatives</div>
+          <div class="edu-school">National Institute of Securities Markets</div>
+          <div class="edu-meta">Certified 2022 &nbsp;·&nbsp; Valid through 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Certified Anti-Money Laundering Specialist (CAMS)</div>
+          <div class="edu-school">ACAMS International</div>
+          <div class="edu-meta">In progress &nbsp;·&nbsp; Examination scheduled Q3 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">German Language — Level A2</div>
+          <div class="edu-school">Goethe-Institut Chennai</div>
+          <div class="edu-meta">Completed January 2026 &nbsp;·&nbsp; B1 course in progress</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px;font-family:Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:14px;">Languages</p>
+        <div class="lang-row">
+          <span class="lang-name">Tamil</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+          </div>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+          </div>
+          <span class="lang-level">Full professional</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">Hindi</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot"></div><div class="lang-dot"></div>
+          </div>
+          <span class="lang-level">Conversational</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">German</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot half"></div>
+            <div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div>
+          </div>
+          <span class="lang-level" style="color:var(--gold)">A2 · In progress</span>
+        </div>
+
+        <div style="margin-top:24px;">
+          <p style="font-size:12px;font-family:Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;">Personal details</p>
+          <table style="font-size:13px;font-family:Arial,sans-serif;border-collapse:collapse;width:100%">
+            <tr><td style="color:var(--muted);padding:4px 0;width:130px">Date of birth</td><td style="color:var(--text)">1999 (age 26)</td></tr>
+            <tr><td style="color:var(--muted);padding:4px 0">Nationality</td><td style="color:var(--text)">Indian</td></tr>
+            <tr><td style="color:var(--muted);padding:4px 0">Current location</td><td style="color:var(--text)">Chennai, Tamil Nadu</td></tr>
+            <tr><td style="color:var(--muted);padding:4px 0">Target location</td><td style="color:var(--accent);font-weight:600">Germany (Frankfurt · Munich · Hamburg)</td></tr>
+            <tr><td style="color:var(--muted);padding:4px 0">Notice period</td><td style="color:var(--green);font-weight:600">3 months (flexible)</td></tr>
+          </table>
+        </div>
+
+        <div style="margin-top:20px;">
+          <div class="visa-note">
+            <strong>Work authorisation:</strong> Holds a Chancenkarte (§20a AufenthG), valid through
+            March 2027, permitting entry to Germany for the purpose of seeking employment.
+            No employer sponsorship is required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-title">Contact</div>
+    <div class="contact-layout">
+      <div>
+        <p class="contact-intro">
+          Arun welcomes enquiries from recruiters, hiring managers, and employers in the
+          German banking and financial services sector. Please feel free to reach out by
+          email or LinkedIn for further information or to request a copy of his CV.
+        </p>
+        <a href="mailto:arun.murugan@email.com" class="contact-btn">Send an email</a>
+      </div>
+      <div class="contact-items">
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div><div class="contact-lbl">Email</div><div class="contact-val">arun.murugan@email.com</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">in</div>
+          <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">linkedin.com/in/arunmurugan-ops</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">☎</div>
+          <div><div class="contact-lbl">Phone / WhatsApp</div><div class="contact-val">+91 98400 XXXXX</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">↓</div>
+          <div><div class="contact-lbl">Curriculum vitae</div><div class="contact-val"><a href="#">Download PDF</a></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Arun Murugan &nbsp;·&nbsp; Banking operations professional &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; Available for opportunities in Germany
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a =>
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    })
+  );
+</script>
+</body>
+</html>

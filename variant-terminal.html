@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arun@murugan:~$ whoami</title>
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --surface: #111111;
+      --border: #1f1f1f;
+      --green: #39ff14;
+      --green-dim: #1a7a09;
+      --amber: #ffb000;
+      --cyan: #00e5ff;
+      --red: #ff3b3b;
+      --white: #d4d4d4;
+      --muted: #6b6b6b;
+      --cursor: #39ff14;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--green); color: #000; }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Window chrome ── */
+    .window-bar {
+      background: #1e1e1e;
+      border-bottom: 1px solid #333;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .window-dots { display: flex; gap: 7px; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red    { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green  { background: #27c93f; }
+    .window-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      letter-spacing: .5px;
+    }
+    .window-status {
+      font-size: 11px;
+      color: var(--green);
+    }
+
+    /* ── Layout ── */
+    .terminal { max-width: 980px; margin: 0 auto; padding: 32px 40px 60px; }
+
+    /* ── Prompt line ── */
+    .prompt { display: flex; align-items: baseline; gap: 0; margin-bottom: 2px; }
+    .ps1-user   { color: var(--green); font-weight: bold; }
+    .ps1-at     { color: var(--white); }
+    .ps1-host   { color: var(--cyan); font-weight: bold; }
+    .ps1-colon  { color: var(--white); }
+    .ps1-path   { color: var(--amber); }
+    .ps1-dollar { color: var(--white); margin-left: 4px; margin-right: 8px; }
+    .cmd        { color: var(--white); }
+    .cmd-arg    { color: var(--cyan); }
+    .cmd-flag   { color: var(--amber); }
+
+    /* ── Output blocks ── */
+    .output {
+      margin: 6px 0 28px 0;
+      padding-left: 0;
+    }
+
+    .blank { height: 10px; }
+
+    /* ── ASCII header ── */
+    .ascii-art {
+      color: var(--green);
+      font-size: 11px;
+      line-height: 1.25;
+      white-space: pre;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      color: var(--amber);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .tagline-sub { color: var(--muted); font-size: 12px; }
+
+    /* ── Cursor blink ── */
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--cursor);
+      vertical-align: middle;
+      animation: blink .9s step-end infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    /* ── Section headings as comments ── */
+    .section-comment {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .section-comment::before { content: "# "; color: var(--green-dim); }
+
+    /* ── Key-value pairs ── */
+    .kv-table { display: grid; grid-template-columns: 200px 1fr; gap: 2px 0; }
+    .kv-key   { color: var(--cyan); }
+    .kv-key::after { content: ":"; color: var(--muted); }
+    .kv-val   { color: var(--white); padding-left: 12px; }
+    .kv-val.green  { color: var(--green); }
+    .kv-val.amber  { color: var(--amber); }
+    .kv-val.red    { color: var(--red);   }
+    .kv-val.muted  { color: var(--muted); }
+
+    /* ── Progress bars ── */
+    .bar-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 48px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .bar-label { color: var(--cyan); font-size: 13px; }
+    .bar-track { position: relative; height: 10px; background: #1a1a1a; border: 1px solid #2a2a2a; }
+    .bar-fill  { height: 100%; background: var(--green); }
+    .bar-fill.amber { background: var(--amber); }
+    .bar-fill.cyan  { background: var(--cyan); }
+    .bar-pct   { color: var(--green); font-size: 12px; text-align: right; }
+    .bar-pct.amber { color: var(--amber); }
+    .bar-pct.cyan  { color: var(--cyan); }
+
+    /* ── Table ── */
+    .tbl { width: 100%; border-collapse: collapse; }
+    .tbl thead tr { border-bottom: 1px solid var(--green-dim); }
+    .tbl th { text-align: left; padding: 6px 12px; font-size: 11px; color: var(--green); letter-spacing: 1px; text-transform: uppercase; }
+    .tbl td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl .co { color: var(--amber); font-weight: bold; }
+    .tbl .period { color: var(--muted); font-size: 11px; }
+    .tbl .role { color: var(--cyan); font-size: 12px; }
+    .tbl .kpi  { color: var(--green); font-size: 12px; }
+    .tbl ul    { list-style: none; margin-top: 4px; padding: 0; }
+    .tbl ul li { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+    .tbl ul li::before { content: "  > "; color: var(--green-dim); }
+
+    /* ── Countdown (inline) ── */
+    .cd-inline {
+      display: inline-grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 0 16px;
+      margin-top: 8px;
+    }
+    .cd-cell { text-align: center; }
+    .cd-num  { font-size: 32px; font-weight: bold; color: var(--amber); display: block; line-height: 1; }
+    .cd-unit { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Progress bar (chancenkarte) ── */
+    .ck-bar-wrap { margin-top: 10px; }
+    .ck-bar-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .ck-bar-meta .remaining { color: var(--amber); }
+    .ck-track { height: 12px; background: #1a1a1a; border: 1px solid #2a2a2a; position: relative; }
+    .ck-fill  { height: 100%; background: var(--red); transition: width 1s; }
+    .ck-track .ck-label-inside {
+      position: absolute;
+      right: 6px; top: 0;
+      font-size: 9px;
+      color: #fff;
+      line-height: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* ── Lang table ── */
+    .lang-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 13px; }
+    .lang-name { color: var(--cyan); width: 80px; flex-shrink: 0; }
+    .lang-bars { display: flex; gap: 4px; }
+    .lang-pip { width: 14px; height: 12px; border: 1px solid #2a2a2a; background: #111; }
+    .lang-pip.on { background: var(--green); border-color: var(--green-dim); }
+    .lang-pip.half { background: var(--amber); border-color: #7a5500; }
+    .lang-level { color: var(--muted); font-size: 11px; }
+
+    /* ── Contact ── */
+    .contact-box {
+      border: 1px solid var(--green-dim);
+      padding: 20px 24px;
+      background: #0a120a;
+    }
+
+    /* ── Divider ── */
+    .hr { border: none; border-top: 1px solid var(--border); margin: 4px 0 20px; }
+    .hr-green { border-top-color: var(--green-dim); }
+
+    /* ── Inline badge ── */
+    .badge {
+      display: inline-block;
+      background: var(--green);
+      color: #000;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 1px 8px;
+      letter-spacing: 1px;
+    }
+    .badge.amber { background: var(--amber); }
+    .badge.red   { background: var(--red); color: #fff; }
+    .badge.cyan  { background: var(--cyan); color: #000; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .terminal { padding: 20px 20px 40px; }
+      .kv-table { grid-template-columns: 140px 1fr; }
+      .bar-row { grid-template-columns: 130px 1fr 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Window chrome -->
+<div class="window-bar">
+  <div class="window-dots">
+    <div class="dot dot-red"></div>
+    <div class="dot dot-yellow"></div>
+    <div class="dot dot-green"></div>
+  </div>
+  <div class="window-title">arun@murugan: ~ — bash — 120×40</div>
+  <div class="window-status">● ACTIVELY SEEKING · DE</div>
+</div>
+
+<div class="terminal">
+
+  <!-- Boot sequence / ASCII header -->
+  <div class="output">
+    <pre class="ascii-art">
+ █████╗ ██████╗ ██╗   ██╗███╗   ██╗
+██╔══██╗██╔══██╗██║   ██║████╗  ██║
+███████║██████╔╝██║   ██║██╔██╗ ██║
+██╔══██║██╔══██╗██║   ██║██║╚██╗██║
+██║  ██║██║  ██║╚██████╔╝██║ ╚████║
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝  .MUR
+</pre>
+    <div class="tagline">Banking operations specialist · Chancenkarte holder · Chennai, India → Germany</div>
+    <div class="tagline-sub">session started at 2026-03-23T09:00:00+05:30 · tty pts/0</div>
+  </div>
+
+  <!-- whoami -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">whoami <span class="cmd-flag">--full</span></span>
+  </div>
+  <div class="output">
+    <div class="kv-table">
+      <span class="kv-key">name</span>       <span class="kv-val">Arun Murugan</span>
+      <span class="kv-key">role</span>       <span class="kv-val amber">Banking operations specialist</span>
+      <span class="kv-key">experience</span><span class="kv-val green">4.2 years</span>
+      <span class="kv-key">location</span>  <span class="kv-val">Chennai, Tamil Nadu, India</span>
+      <span class="kv-key">target</span>    <span class="kv-val cyan">Germany (Frankfurt · Munich · Hamburg)</span>
+      <span class="kv-key">visa</span>      <span class="kv-val green">Chancenkarte §20a AufenthG — ACTIVE</span>
+      <span class="kv-key">sponsorship</span><span class="kv-val green">not required</span>
+      <span class="kv-key">age</span>       <span class="kv-val">26</span>
+      <span class="kv-key">status</span>    <span class="kv-val red">ACTIVELY SEEKING</span>
+      <span class="kv-key">hobbies</span>   <span class="kv-val muted">Chess · Distance running · Financial podcasts</span>
+    </div>
+  </div>
+
+  <!-- thesis -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">cat <span class="cmd-arg">investment_thesis.txt</span></span>
+  </div>
+  <div class="output">
+    <div class="section-comment">analyst brief · ARUN.MUR · March 2026 · initiating coverage</div>
+    <div class="hr hr-green"></div>
+    <p style="color:var(--white);line-height:1.9;font-size:13px;max-width:780px">
+      Arun Murugan represents a high-conviction, asymmetric opportunity in the German labour market.
+      With four years of front-line back-office experience at a top-tier private bank in India, he brings
+      deep operational fluency in payment systems, trade settlement, and regulatory compliance — skills
+      in chronic undersupply across Frankfurt, Hamburg, and Munich banking hubs.
+    </p>
+    <br />
+    <p style="color:var(--white);line-height:1.9;font-size:13px;max-width:780px">
+      Cost basis is low (no sponsorship required, Chancenkarte in hand). Ramp-up time is minimal
+      (banking processes are largely ISO-standardised). Upside is substantial — a motivated,
+      English-proficient professional actively building German language skills and invested in
+      long-term integration.
+    </p>
+    <br />
+    <p style="color:var(--white);font-size:13px">
+      Analyst rating: <span class="badge">STRONG BUY</span>
+      &nbsp; Target: <span class="badge cyan">DE BANKING SECTOR</span>
+      &nbsp; Target roles: <span class="badge amber">BACKOFFICE BANKKAUFMANN</span>
+    </p>
+  </div>
+
+  <!-- stats -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">./stats.sh</span>
+  </div>
+  <div class="output">
+    <div class="kv-table">
+      <span class="kv-key">transactions/yr</span><span class="kv-val amber">₹2.4B+ processed</span>
+      <span class="kv-key">accuracy_rate</span>  <span class="kv-val green">99.8% — zero audit findings</span>
+      <span class="kv-key">efficiency_gain</span><span class="kv-val green">+23% (reconciliation automation)</span>
+      <span class="kv-key">aml_escalations</span><span class="kv-val green">0 in 14 months</span>
+      <span class="kv-key">accounts_managed</span><span class="kv-val">400+ corporate (KYC/AML)</span>
+      <span class="kv-key">promotions</span>     <span class="kv-val green">1x (18 months at Axis Bank)</span>
+    </div>
+  </div>
+
+  <!-- skills -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">ls <span class="cmd-flag">-la</span> <span class="cmd-arg">skills/</span></span>
+  </div>
+  <div class="output">
+    <div class="section-comment">core banking operations</div>
+    <div class="bar-row"><span class="bar-label">payment_processing</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="bar-pct">95%</span></div>
+    <div class="bar-row"><span class="bar-label">account_reconciliation</span><div class="bar-track"><div class="bar-fill" style="width:93%"></div></div><span class="bar-pct">93%</span></div>
+    <div class="bar-row"><span class="bar-label">swift_sepa</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="bar-pct">88%</span></div>
+    <div class="bar-row"><span class="bar-label">kyc_aml_compliance</span><div class="bar-track"><div class="bar-fill" style="width:86%"></div></div><span class="bar-pct">86%</span></div>
+    <div class="bar-row"><span class="bar-label">trade_settlement</span><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><span class="bar-pct">82%</span></div>
+    <div class="bar-row"><span class="bar-label">loan_processing</span><div class="bar-track"><div class="bar-fill" style="width:79%"></div></div><span class="bar-pct">79%</span></div>
+    <div class="blank"></div>
+    <div class="section-comment">tools &amp; systems</div>
+    <div class="bar-row"><span class="bar-label">microsoft_excel</span><div class="bar-track"><div class="bar-fill amber" style="width:97%"></div></div><span class="bar-pct amber">97%</span></div>
+    <div class="bar-row"><span class="bar-label">finacle_infosys</span><div class="bar-track"><div class="bar-fill amber" style="width:90%"></div></div><span class="bar-pct amber">90%</span></div>
+    <div class="bar-row"><span class="bar-label">sap_banking</span><div class="bar-track"><div class="bar-fill amber" style="width:84%"></div></div><span class="bar-pct amber">84%</span></div>
+    <div class="bar-row"><span class="bar-label">sql_reporting</span><div class="bar-track"><div class="bar-fill amber" style="width:70%"></div></div><span class="bar-pct amber">70%</span></div>
+    <div class="bar-row"><span class="bar-label">bloomberg_terminal</span><div class="bar-track"><div class="bar-fill amber" style="width:65%"></div></div><span class="bar-pct amber">65%</span></div>
+    <div class="bar-row"><span class="bar-label">power_bi</span><div class="bar-track"><div class="bar-fill amber" style="width:62%"></div></div><span class="bar-pct amber">62%</span></div>
+    <div class="blank"></div>
+    <div class="section-comment">soft assets (qualitative)</div>
+    <div class="bar-row"><span class="bar-label">attention_to_detail</span><div class="bar-track"><div class="bar-fill cyan" style="width:98%"></div></div><span class="bar-pct cyan">98%</span></div>
+    <div class="bar-row"><span class="bar-label">deadline_ownership</span><div class="bar-track"><div class="bar-fill cyan" style="width:95%"></div></div><span class="bar-pct cyan">95%</span></div>
+    <div class="bar-row"><span class="bar-label">adaptability</span><div class="bar-track"><div class="bar-fill cyan" style="width:92%"></div></div><span class="bar-pct cyan">92%</span></div>
+    <div class="bar-row"><span class="bar-label">cross_team_collab</span><div class="bar-track"><div class="bar-fill cyan" style="width:88%"></div></div><span class="bar-pct cyan">88%</span></div>
+  </div>
+
+  <!-- experience -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">git log <span class="cmd-flag">--oneline</span> <span class="cmd-arg">experience/</span></span>
+  </div>
+  <div class="output">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th style="width:180px">institution</th>
+          <th style="width:160px">role</th>
+          <th>key deliverables</th>
+          <th style="width:120px">output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="co">HDFC Bank Ltd.</div>
+            <div class="period">Jan 2024 – Present</div>
+            <div class="period">Chennai</div>
+          </td>
+          <td><span class="role">sr. operations analyst</span></td>
+          <td>
+            <ul>
+              <li>Daily RTGS/NEFT reconciliation — ₹800M+ volume</li>
+              <li>AML screening — zero escalations, 14 months</li>
+              <li>23% efficiency gain via Excel macro automation</li>
+              <li>Mentoring 2 juniors on CBS Finacle</li>
+            </ul>
+          </td>
+          <td class="kpi">+23% efficiency<br /><span style="color:var(--muted);font-size:11px">zero audit flags</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="co">Axis Bank Ltd.</div>
+            <div class="period">Aug 2021 – Dec 2023</div>
+            <div class="period">Chennai</div>
+          </td>
+          <td><span class="role">operations associate</span></td>
+          <td>
+            <ul>
+              <li>SWIFT messages — trade finance desk</li>
+              <li>LC documentation, discrepancy management</li>
+              <li>KYC renewal — 400+ corporate accounts</li>
+              <li>CBS → Finacle 10.x migration, zero downtime</li>
+            </ul>
+          </td>
+          <td class="kpi">400+ accounts<br /><span style="color:var(--muted);font-size:11px">promoted 18mo</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="co">Karur Vysya Bank</div>
+            <div class="period">Jun – Aug 2021</div>
+            <div class="period">Chennai</div>
+          </td>
+          <td><span class="role">operations intern</span></td>
+          <td>
+            <ul>
+              <li>Account opening data entry and verification</li>
+              <li>Daily cash balancing and EOD reporting</li>
+            </ul>
+          </td>
+          <td class="kpi">internship<br /><span style="color:var(--muted);font-size:11px">FT offer extended</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- education -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">cat <span class="cmd-arg">education.json</span></span>
+  </div>
+  <div class="output">
+    <div class="kv-table">
+      <span class="kv-key">degree</span>        <span class="kv-val">B.Com — Commerce &amp; Accounting</span>
+      <span class="kv-key">institution</span>   <span class="kv-val amber">Loyola College, Chennai</span>
+      <span class="kv-key">period</span>        <span class="kv-val">2018 – 2021</span>
+      <span class="kv-key">gpa</span>           <span class="kv-val green">8.4 / 10 · First class with distinction</span>
+    </div>
+    <div class="blank"></div>
+    <div class="kv-table">
+      <span class="kv-key">cert</span>          <span class="kv-val">NISM Series VIII — Equity Derivatives</span>
+      <span class="kv-key">issuer</span>        <span class="kv-val amber">NISM</span>
+      <span class="kv-key">status</span>        <span class="kv-val green">certified 2022</span>
+    </div>
+    <div class="blank"></div>
+    <div class="kv-table">
+      <span class="kv-key">cert</span>          <span class="kv-val">CAMS — Certified AML Specialist</span>
+      <span class="kv-key">issuer</span>        <span class="kv-val amber">ACAMS International</span>
+      <span class="kv-key">status</span>        <span class="kv-val amber">in progress · exam Q3 2026</span>
+    </div>
+    <div class="blank"></div>
+    <div class="kv-table">
+      <span class="kv-key">lang_cert</span>     <span class="kv-val">Deutsch A2</span>
+      <span class="kv-key">issuer</span>        <span class="kv-val amber">Goethe-Institut Chennai</span>
+      <span class="kv-key">status</span>        <span class="kv-val green">completed Jan 2026 · B1 in progress</span>
+    </div>
+  </div>
+
+  <!-- languages -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">locale <span class="cmd-flag">-a</span></span>
+  </div>
+  <div class="output">
+    <div class="lang-row">
+      <span class="lang-name">Tamil</span>
+      <div class="lang-bars"><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div></div>
+      <span class="lang-level">native · ta_IN</span>
+    </div>
+    <div class="lang-row">
+      <span class="lang-name">English</span>
+      <div class="lang-bars"><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div></div>
+      <span class="lang-level">full professional · en_GB</span>
+    </div>
+    <div class="lang-row">
+      <span class="lang-name">Hindi</span>
+      <div class="lang-bars"><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip on"></div><div class="lang-pip"></div><div class="lang-pip"></div></div>
+      <span class="lang-level">conversational · hi_IN</span>
+    </div>
+    <div class="lang-row">
+      <span class="lang-name">German</span>
+      <div class="lang-bars"><div class="lang-pip on"></div><div class="lang-pip half"></div><div class="lang-pip"></div><div class="lang-pip"></div><div class="lang-pip"></div></div>
+      <span class="lang-level" style="color:var(--amber)">A2 · building → B1 · de_DE</span>
+    </div>
+  </div>
+
+  <!-- chancenkarte countdown -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">visa <span class="cmd-flag">--status</span> <span class="cmd-arg">chancenkarte</span></span>
+  </div>
+  <div class="output">
+    <div class="kv-table">
+      <span class="kv-key">type</span>      <span class="kv-val cyan">Chancenkarte §20a AufenthG</span>
+      <span class="kv-key">issued</span>    <span class="kv-val">23 March 2026</span>
+      <span class="kv-key">expires</span>   <span class="kv-val amber">22 March 2027</span>
+      <span class="kv-key">status</span>    <span class="kv-val green">ACTIVE</span>
+      <span class="kv-key">sponsorship</span><span class="kv-val green">not required</span>
+    </div>
+    <div class="ck-bar-wrap">
+      <div class="ck-bar-meta">
+        <span>issued 2026-03-23</span>
+        <span class="remaining" id="ck-remaining">361 days remaining</span>
+        <span>expires 2027-03-22</span>
+      </div>
+      <div class="ck-track">
+        <div class="ck-fill" id="ck-fill" style="width:1%"></div>
+        <span class="ck-label-inside">elapsed</span>
+      </div>
+    </div>
+    <div class="blank"></div>
+    <div class="cd-inline">
+      <div class="cd-cell"><span class="cd-num" id="cd-days">361</span><span class="cd-unit">days</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-hours">00</span><span class="cd-unit">hours</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-mins">00</span><span class="cd-unit">mins</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-secs">00</span><span class="cd-unit">secs</span></div>
+    </div>
+  </div>
+
+  <!-- contact -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cmd">cat <span class="cmd-arg">contact.txt</span></span>
+  </div>
+  <div class="output">
+    <div class="contact-box">
+      <div class="section-comment">open a position — reach out directly</div>
+      <div class="hr hr-green"></div>
+      <p style="color:var(--white);font-size:13px;line-height:1.9;max-width:680px;margin-bottom:16px">
+        If you're a recruiter, hiring manager, or team lead in the German banking sector
+        looking for a dependable, detail-oriented operations professional — the window is open.
+        No intermediaries, no friction.
+      </p>
+      <div class="kv-table">
+        <span class="kv-key">email</span>    <span class="kv-val"><a href="mailto:arun.murugan@email.com">arun.murugan@email.com</a></span>
+        <span class="kv-key">linkedin</span> <span class="kv-val"><a href="#">linkedin.com/in/arunmurugan-ops</a></span>
+        <span class="kv-key">phone</span>    <span class="kv-val">+91 98400 XXXXX (WhatsApp OK)</span>
+        <span class="kv-key">resume</span>   <span class="kv-val"><a href="#">Download CV (PDF)</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- final prompt -->
+  <div class="prompt">
+    <span class="ps1-user">arun</span><span class="ps1-at">@</span><span class="ps1-host">murugan</span><span class="ps1-colon">:</span><span class="ps1-path">~</span><span class="ps1-dollar">$</span>
+    <span class="cursor"></span>
+  </div>
+
+  <div style="margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
+    ARUN.MUR · Banking operations specialist · Chancenkarte holder · India → Germany<br />
+    Past performance reflects actual work history. Not a financial instrument, but the metaphor holds.
+  </div>
+
+</div>
+
+<script>
+  const expiry = new Date('2027-03-22T23:59:59');
+  function tick() {
+    const now = new Date(), diff = expiry - now;
+    if (diff <= 0) return;
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(3,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    document.getElementById('ck-remaining').textContent = days + ' days remaining';
+    const issued = new Date('2026-03-23'), total = expiry - issued;
+    document.getElementById('ck-fill').style.width = Math.min(100, Math.max(0,(now - issued)/total*100)) + '%';
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
