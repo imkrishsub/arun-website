@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arun Murugan — Banking Operations Specialist</title>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #1d4ed8;
+      --accent-light: #eff6ff;
+      --green: #16a34a;
+      --red: #dc2626;
+      --gold: #d97706;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Top bar ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -.3px;
+      color: var(--text);
+    }
+    .brand span { color: var(--accent); }
+    nav { display: flex; gap: 24px; }
+    nav a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    nav a:hover { color: var(--accent); }
+    .status-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid #bfdbfe;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 64px 0 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-avatar {
+      width: 80px; height: 80px;
+      border-radius: 12px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .hero-name {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .hero-title {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .chip.accent {
+      background: var(--accent-light);
+      border-color: #bfdbfe;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero-desc {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 520px;
+      line-height: 1.75;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      min-width: 280px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+    .stat-value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .stat-value.blue  { color: var(--accent); }
+    .stat-value.green { color: var(--green);  }
+    .stat-value.gold  { color: var(--gold);   }
+    .stat-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* ── Sections ── */
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    /* ── Analyst note ── */
+    .note-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      border-left: 4px solid var(--accent);
+    }
+    .note-meta { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .note-body { font-size: 14px; color: var(--muted); line-height: 1.85; }
+    .note-body strong { color: var(--text); }
+    .note-rating {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--green);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      letter-spacing: .5px;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .skills-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+    .skills-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .skill-row:last-child { margin-bottom: 0; }
+    .skill-name { font-size: 13px; color: var(--text); }
+    .skill-right { display: flex; align-items: center; gap: 10px; }
+    .skill-bar-bg {
+      width: 100px;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--accent);
+    }
+    .skill-fill.green { background: var(--green); }
+    .skill-pct { font-size: 12px; color: var(--muted); width: 30px; text-align: right; }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin-bottom: 16px;
+    }
+    .exp-item:last-child { margin-bottom: 0; }
+    .exp-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+    .exp-company { font-size: 16px; font-weight: 700; color: var(--text); }
+    .exp-role { font-size: 13px; color: var(--accent); margin-top: 2px; font-weight: 600; }
+    .exp-period { font-size: 12px; color: var(--muted); text-align: right; }
+    .exp-kpi {
+      display: inline-block;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+    .exp-bullets { list-style: none; margin-top: 10px; }
+    .exp-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 3px 0 3px 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ── Fundamentals ── */
+    .fundamentals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .fund-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+    .fund-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .edu-degree { font-size: 14px; font-weight: 600; color: var(--text); }
+    .edu-school { font-size: 12px; color: var(--accent); margin-top: 2px; }
+    .edu-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .lang-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .lang-dots { display: flex; gap: 4px; }
+    .lang-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .lang-dot.filled { background: var(--accent); }
+    .lang-dot.half { background: var(--gold); }
+    .lang-level { font-size: 12px; color: var(--muted); min-width: 80px; text-align: right; }
+
+    .profile-grid {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 12px;
+      font-size: 13px;
+    }
+    .profile-grid .key { color: var(--muted); font-size: 12px; }
+    .profile-grid .val { color: var(--text); }
+    .profile-grid .val.accent { color: var(--accent); font-weight: 600; }
+    .profile-grid .val.green { color: var(--green); }
+
+    /* ── Chancenkarte ── */
+    .ck-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+      border-top: 4px solid var(--accent);
+    }
+    .ck-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .ck-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .ck-desc { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 400px; margin-bottom: 20px; }
+    .ck-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .ck-progress-label span:last-child { color: var(--gold); font-weight: 600; }
+    .ck-bar-bg { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .ck-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--gold)); transition: width 1s; }
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .cd-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      min-width: 60px;
+    }
+    .cd-num { font-size: 28px; font-weight: 700; color: var(--accent); display: block; line-height: 1; margin-bottom: 6px; }
+    .cd-unit { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .cta-card {
+      background: var(--accent);
+      border-radius: 14px;
+      padding: 32px;
+      color: #fff;
+    }
+    .cta-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .cta-card p { font-size: 13px; opacity: .85; line-height: 1.75; margin-bottom: 22px; }
+    .btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .9; }
+    .contact-rows { display: flex; flex-direction: column; gap: 12px; }
+    .contact-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-lbl { font-size: 11px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+    .contact-val { font-size: 13px; color: var(--text); margin-top: 2px; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 28px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: repeat(4, 1fr); }
+      .skills-grid, .fundamentals-grid, .contact-grid { grid-template-columns: 1fr; }
+      .ck-card { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">Arun <span>Murugan</span></div>
+    <nav>
+      <a href="#thesis">Thesis</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#fundamentals">Education</a>
+      <a href="#window">Chancenkarte</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="status-badge">Open to work · Germany</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <div class="hero-avatar">AM</div>
+      <h1 class="hero-name">Arun Murugan</h1>
+      <p class="hero-title">Banking operations specialist · Chennai, India → Germany</p>
+      <div class="hero-chips">
+        <span class="chip accent">Chancenkarte holder</span>
+        <span class="chip">Back office</span>
+        <span class="chip">SWIFT / SEPA</span>
+        <span class="chip">Reconciliation</span>
+        <span class="chip">Risk &amp; compliance</span>
+      </div>
+      <p class="hero-desc">
+        Four years of proven back-office banking experience, now targeting a high-impact move
+        into the German financial market. Precision-driven, process-oriented, and cleared for
+        deployment under the Chancenkarte entry channel — no sponsorship required.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-label">Experience</div>
+        <div class="stat-value blue">4.2 <span style="font-size:16px">yrs</span></div>
+        <div class="stat-sub">Banking &amp; fin. services</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Volume processed</div>
+        <div class="stat-value gold">₹2.4B+</div>
+        <div class="stat-sub">Annual</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Accuracy rate</div>
+        <div class="stat-value green">99.8%</div>
+        <div class="stat-sub">Zero audit findings</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Relocation</div>
+        <div class="stat-value blue" style="font-size:18px; margin-top:6px;">Ready</div>
+        <div class="stat-sub" style="color:var(--gold)">Chancenkarte · 2027</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <section id="thesis">
+    <div class="section-eyebrow">01 — Investment thesis</div>
+    <h2 class="section-title">Why hire Arun</h2>
+    <div class="note-card">
+      <div class="note-meta">Analyst brief · Arun Murugan · March 2026 · Initiating coverage</div>
+      <p class="note-body">
+        Arun Murugan represents a high-conviction, asymmetric opportunity in the German labour market.
+        With four years of front-line back-office experience at a top-tier private bank in India,
+        he brings deep operational fluency in payment systems, trade settlement, and regulatory
+        compliance — skills in chronic undersupply across Frankfurt, Hamburg, and Munich banking hubs.
+      </p>
+      <br />
+      <p class="note-body">
+        His cost basis is low (no sponsorship required, Chancenkarte in hand), his ramp-up time is
+        minimal (banking processes are largely ISO-standardised), and his upside is substantial —
+        a motivated, English-proficient professional actively building German language skills and
+        invested in long-term integration. The risk-reward here is compelling.
+      </p>
+      <br />
+      <p class="note-body">
+        We initiate coverage with a <strong>Strong Buy</strong> recommendation.
+        Target roles: Backoffice Bankkaufmann, Operations Analyst, Payment Processing Specialist,
+        Trade Finance Associate.
+      </p>
+      <div class="note-rating">Strong buy · Target: DE banking sector</div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-eyebrow">02 — Asset allocation</div>
+    <h2 class="section-title">Skills &amp; competencies</h2>
+    <div class="skills-grid">
+      <div class="skills-card">
+        <div class="skills-card-title">Core banking operations</div>
+        <div class="skill-row">
+          <span class="skill-name">Payment processing</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:95%"></div></div><span class="skill-pct">95%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Account reconciliation</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:93%"></div></div><span class="skill-pct">93%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SWIFT / SEPA</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:88%"></div></div><span class="skill-pct">88%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Trade settlement</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:82%"></div></div><span class="skill-pct">82%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">KYC / AML compliance</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:86%"></div></div><span class="skill-pct">86%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Loan processing</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill" style="width:79%"></div></div><span class="skill-pct">79%</span></div>
+        </div>
+      </div>
+      <div class="skills-card">
+        <div class="skills-card-title">Tools &amp; systems</div>
+        <div class="skill-row">
+          <span class="skill-name">Microsoft Excel</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:97%"></div></div><span class="skill-pct">97%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SAP Banking</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:84%"></div></div><span class="skill-pct">84%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Finacle (Infosys)</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Bloomberg Terminal</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:65%"></div></div><span class="skill-pct">65%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SQL (reporting)</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:70%"></div></div><span class="skill-pct">70%</span></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Power BI</span>
+          <div class="skill-right"><div class="skill-bar-bg"><div class="skill-fill green" style="width:62%"></div></div><span class="skill-pct">62%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="section-eyebrow">03 — Performance history</div>
+    <h2 class="section-title">Work experience</h2>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">HDFC Bank Ltd.</div>
+            <div class="exp-role">Sr. operations analyst</div>
+            <span class="exp-kpi">+23% efficiency · zero audit flags</span>
+          </div>
+          <div class="exp-period">Jan 2024 – Present<br />Chennai</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Oversee daily RTGS/NEFT reconciliation for ₹800M+ in transactions</li>
+          <li>Lead AML screening queue — zero escalations in 14 months</li>
+          <li>Reduced end-of-day reconciliation time by 23% via Excel macro automation</li>
+          <li>Mentoring 2 junior associates on CBS Finacle workflows</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Axis Bank Ltd.</div>
+            <div class="exp-role">Operations associate</div>
+            <span class="exp-kpi">400+ accounts · promoted in 18 months</span>
+          </div>
+          <div class="exp-period">Aug 2021 – Dec 2023<br />Chennai</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Processed inward &amp; outward SWIFT messages for trade finance desk</li>
+          <li>Handled LC documentation and discrepancy management</li>
+          <li>Assisted compliance team with periodic KYC renewal for 400+ corporate accounts</li>
+          <li>Supported migration from legacy CBS to Finacle 10.x with zero downtime</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Karur Vysya Bank</div>
+            <div class="exp-role">Operations intern</div>
+            <span class="exp-kpi">Full-time offer extended</span>
+          </div>
+          <div class="exp-period">Jun 2021 – Aug 2021<br />Chennai</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Data entry and verification for retail account opening requests</li>
+          <li>Assisted tellers with daily cash balancing and EOD reporting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fundamentals -->
+  <section id="fundamentals">
+    <div class="section-eyebrow">04 — Fundamentals</div>
+    <h2 class="section-title">Education &amp; languages</h2>
+    <div class="fundamentals-grid">
+      <div class="fund-card">
+        <div class="fund-card-title">Academic record</div>
+        <div class="edu-item">
+          <div class="edu-degree">B.Com — Commerce &amp; accounting</div>
+          <div class="edu-school">Loyola College, Chennai</div>
+          <div class="edu-meta">2018 – 2021 · GPA 8.4 / 10 · First class with distinction</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">NISM Series VIII — Equity derivatives</div>
+          <div class="edu-school">National Institute of Securities Markets</div>
+          <div class="edu-meta">Certified 2022 · Valid through 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Certified AML Specialist (CAMS) — In progress</div>
+          <div class="edu-school">ACAMS International</div>
+          <div class="edu-meta">Exam scheduled Q3 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Deutsch A2 — Goethe-Institut</div>
+          <div class="edu-school">Goethe-Institut Chennai</div>
+          <div class="edu-meta">Completed Jan 2026 · B1 in progress</div>
+        </div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-card-title">Language portfolio</div>
+        <div class="lang-row">
+          <span class="lang-name">Tamil</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+          </div>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+          </div>
+          <span class="lang-level">Full professional</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">Hindi</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div><div class="lang-dot"></div><div class="lang-dot"></div>
+          </div>
+          <span class="lang-level">Conversational</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">German</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div><div class="lang-dot half"></div>
+            <div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div>
+          </div>
+          <span class="lang-level" style="color:var(--gold)">A2 · Building</span>
+        </div>
+        <div class="profile-grid">
+          <span class="key">Age</span><span class="val">26</span>
+          <span class="key">Nationality</span><span class="val">Indian</span>
+          <span class="key">Based</span><span class="val">Chennai, Tamil Nadu</span>
+          <span class="key">Target</span><span class="val accent">Frankfurt · Munich · Hamburg</span>
+          <span class="key">Availability</span><span class="val green">3 months notice · flexible</span>
+          <span class="key">Hobbies</span><span class="val">Chess · Distance running · Financial podcasts</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chancenkarte -->
+  <section id="window">
+    <div class="section-eyebrow">05 — Trading window</div>
+    <h2 class="section-title">Chancenkarte entry window</h2>
+    <div class="ck-card">
+      <div>
+        <div class="ck-eyebrow">Chancenkarte · Opportunity card</div>
+        <div class="ck-title">Active entry window — Germany</div>
+        <p class="ck-desc">
+          Issued under §20a AufenthG, the Chancenkarte grants Arun the legal right to enter
+          Germany to seek employment — no employer sponsorship required. The window is open,
+          the clock is running, and the opportunity is now.
+        </p>
+        <div>
+          <div class="ck-progress-label">
+            <span>Issued: 23 Mar 2026</span>
+            <span>361 days remaining</span>
+            <span>Expires: 22 Mar 2027</span>
+          </div>
+          <div class="ck-bar-bg">
+            <div class="ck-bar-fill" id="ck-fill" style="width:1%;"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Time remaining</p>
+        <div class="countdown">
+          <div class="cd-box"><span class="cd-num" id="cd-days">361</span><span class="cd-unit">Days</span></div>
+          <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-unit">Hours</span></div>
+          <div class="cd-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-unit">Mins</span></div>
+          <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-unit">Secs</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-eyebrow">06 — Open a position</div>
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-grid">
+      <div class="cta-card">
+        <h3>Ready to place an order?</h3>
+        <p>
+          If you're a recruiter, hiring manager, or team lead in the German banking sector
+          looking for a dependable, detail-oriented operations professional — the window is open.
+          Reach out directly. No intermediaries, no friction.
+        </p>
+        <a href="mailto:arun.murugan@email.com" class="btn">Contact Arun</a>
+      </div>
+      <div class="contact-rows">
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div><div class="contact-lbl">Email</div><div class="contact-val">arun.murugan@email.com</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">in</div>
+          <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">linkedin.com/in/arunmurugan-ops</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">☎</div>
+          <div><div class="contact-lbl">Phone / WhatsApp</div><div class="contact-val">+91 98400 XXXXX</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">↓</div>
+          <div><div class="contact-lbl">Resume</div><div class="contact-val">Download CV (PDF)</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Arun Murugan · Banking operations specialist · Chancenkarte holder · India → Germany
+  <br /><br />
+  <span style="font-size:11px;color:#9ca3af">Past performance reflects actual work history. This candidate is not a financial instrument, but the metaphor stands.</span>
+</footer>
+
+<script>
+  const expiry = new Date('2027-03-22T23:59:59');
+  function tick() {
+    const now = new Date(), diff = expiry - now;
+    if (diff <= 0) return;
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(3,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    const issued = new Date('2026-03-23'), total = expiry - issued;
+    document.getElementById('ck-fill').style.width = Math.min(100, Math.max(0, (now - issued) / total * 100)) + '%';
+  }
+  tick();
+  setInterval(tick, 1000);
+  document.querySelectorAll('a[href^="#"]').forEach(a =>
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    })
+  );
+</script>
+</body>
+</html>
