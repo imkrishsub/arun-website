@@ -560,6 +560,30 @@
       .topbar-nav   { display: none; }
       .container    { padding: 0 20px; }
     }
+
+    /* ── Phone ───────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .topbar       { padding: 10px 16px; }
+      .topbar-status { display: none; }
+      .container    { padding: 0 14px; }
+
+      .hero-stats   { grid-template-columns: repeat(2, 1fr); }
+
+      .skill-row    { grid-template-columns: minmax(0, 130px) 1fr 38px; }
+      .skill-name   { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+      .ledger-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      .chancenkarte-card { padding: 20px 16px; }
+      .ck-title     { font-size: 18px; }
+      .countdown-num { font-size: 20px; }
+      .ck-progress-label { flex-direction: column; gap: 4px; }
+
+      .contact-cta  { padding: 20px; }
+      .contact-cta h3 { font-size: 16px; }
+
+      section       { padding: 32px 0; }
+    }
   </style>
 </head>
 <body>
@@ -833,6 +857,7 @@
       <div class="section-line"></div>
     </div>
 
+    <div class="ledger-scroll">
     <table class="ledger">
       <thead>
         <tr>
@@ -885,6 +910,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </section>
 </div>
 
