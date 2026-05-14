@@ -300,27 +300,27 @@
 
     /* ── Skills / Asset allocation ───────────────────────────── */
     .skill-row {
-      display: grid;
-      grid-template-columns: 160px 1fr 48px;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
       margin-bottom: 14px;
     }
-    .skill-name { font-size: 12px; color: var(--muted); }
-    .skill-bar-bg {
-      height: 6px;
-      background: var(--surface2);
+    .skill-name { font-size: 12px; color: var(--muted); flex: 1; min-width: 0; }
+    .skill-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
       border-radius: 3px;
-      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .skill-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--gold), #f59e0b);
-    }
-    .skill-bar-fill.blue  { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-    .skill-bar-fill.green { background: linear-gradient(90deg, #22c55e, #4ade80); }
-    .skill-pct { font-size: 12px; color: var(--text); text-align: right; }
+    .skill-badge.expert    { background: rgba(212,175,55,0.15); color: var(--gold); }
+    .skill-badge.advanced  { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .skill-badge.proficient { background: rgba(20,184,166,0.15); color: #2dd4bf; }
+    .skill-badge.metric    { background: rgba(34,197,94,0.15); color: #4ade80; }
 
     /* ── Experience ledger ───────────────────────────────────── */
     .ledger { width: 100%; border-collapse: collapse; }
@@ -570,8 +570,7 @@
 
       .hero-stats   { grid-template-columns: repeat(2, 1fr); }
 
-      .skill-row    { grid-template-columns: minmax(0, 130px) 1fr 38px; }
-      .skill-name   { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .skill-name   { font-size: 11px; }
 
       .ledger-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
@@ -732,33 +731,27 @@
         <div class="panel-title">Core competencies</div>
         <div class="skill-row">
           <span class="skill-name">Operational efficiency</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
-          <span class="skill-pct">95%</span>
+          <span class="skill-badge expert">Expert</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Quality assurance &amp; monitoring</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:93%"></div></div>
-          <span class="skill-pct">93%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Reporting &amp; analysis</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
-          <span class="skill-pct">90%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Process optimisation</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div>
-          <span class="skill-pct">88%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Risk management</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div>
-          <span class="skill-pct">85%</span>
+          <span class="skill-badge proficient">Proficient</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Client engagement</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div>
-          <span class="skill-pct">82%</span>
+          <span class="skill-badge proficient">Proficient</span>
         </div>
       </div>
 
@@ -766,33 +759,27 @@
         <div class="panel-title">Tools &amp; soft skills</div>
         <div class="skill-row">
           <span class="skill-name">Microsoft Excel (advanced)</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:97%"></div></div>
-          <span class="skill-pct">97%</span>
+          <span class="skill-badge expert">Expert</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Microsoft Office</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:90%"></div></div>
-          <span class="skill-pct">90%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Problem solving</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:92%"></div></div>
-          <span class="skill-pct">92%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Team building</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:88%"></div></div>
-          <span class="skill-pct">88%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Leadership</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:85%"></div></div>
-          <span class="skill-pct">85%</span>
+          <span class="skill-badge proficient">Proficient</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Communication</span>
-          <div class="skill-bar-bg"><div class="skill-bar-fill blue" style="width:90%"></div></div>
-          <span class="skill-pct">90%</span>
+          <span class="skill-badge advanced">Advanced</span>
         </div>
       </div>
 
@@ -805,42 +792,35 @@
           <div>
             <div class="skill-row">
               <span class="skill-name">Allocation time reduced (TCS)</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:80%"></div></div>
-              <span class="skill-pct">&gt;80%</span>
+              <span class="skill-badge metric">&gt;80%</span>
             </div>
             <div class="skill-row">
               <span class="skill-name">Back Office appreciation award</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:100%"></div></div>
-              <span class="skill-pct">BNP</span>
+              <span class="skill-badge metric">BNP</span>
             </div>
           </div>
           <div>
             <div class="skill-row">
               <span class="skill-name">Daily reporting time saved (BNP)</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:85%"></div></div>
-              <span class="skill-pct">1–2 hrs</span>
+              <span class="skill-badge metric">1–2 hrs</span>
             </div>
             <div class="skill-row">
               <span class="skill-name">Best Performer in MIS (TCS)</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:100%"></div></div>
-              <span class="skill-pct">Award</span>
+              <span class="skill-badge metric">Award</span>
             </div>
             <div class="skill-row">
               <span class="skill-name">Best Performer Q3 (BNP)</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:100%"></div></div>
-              <span class="skill-pct">2023</span>
+              <span class="skill-badge metric">2023</span>
             </div>
           </div>
           <div>
             <div class="skill-row">
               <span class="skill-name">SOP documentation implemented</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:90%"></div></div>
-              <span class="skill-pct">BNP</span>
+              <span class="skill-badge metric">BNP</span>
             </div>
             <div class="skill-row">
               <span class="skill-name">Chancenkarte — Germany ready</span>
-              <div class="skill-bar-bg"><div class="skill-bar-fill green" style="width:100%"></div></div>
-              <span class="skill-pct">2027</span>
+              <span class="skill-badge metric">2027</span>
             </div>
           </div>
         </div>
