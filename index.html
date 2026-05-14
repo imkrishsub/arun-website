@@ -546,6 +546,41 @@
     }
     footer span { color: var(--gold); }
 
+    /* ── Arrival banner ─────────────────────────────────────── */
+    .arrival-banner {
+      background: rgba(212,175,55,0.07);
+      border-top: 1px solid rgba(212,175,55,0.25);
+      border-bottom: 1px solid rgba(212,175,55,0.25);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .arrival-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .arrival-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .arrival-text {
+      font-size: 13px;
+      color: var(--text);
+    }
+    .arrival-text strong { color: var(--gold); }
+    @media (max-width: 600px) {
+      .arrival-banner { padding: 10px 16px; gap: 12px; }
+      .arrival-text   { font-size: 12px; }
+    }
+
     /* ── Utilities ───────────────────────────────────────────── */
     .mono { font-family: 'Courier New', monospace; }
     .text-gold  { color: var(--gold);  }
@@ -593,7 +628,7 @@
   <div class="ticker-inner">
     <span class="ticker-item"><span class="label">ARUN.MUR</span> <span class="up">▲ AVAILABLE FOR HIRE</span></span>
     <span class="ticker-item"><span class="label">EXP</span> 4Y 2M <span class="up">+12%</span></span>
-    <span class="ticker-item"><span class="label">LOCATION</span> Coimbatore, IN → Germany</span>
+    <span class="ticker-item"><span class="label">LOCATION</span> Coimbatore, IN → Baesweiler, NRW · Jul 2026</span>
     <span class="ticker-item"><span class="label">CHANCENKARTE</span> <span class="up">ACTIVE</span> · 361 DAYS REMAINING</span>
     <span class="ticker-item"><span class="label">LANGUAGES</span> EN · DE(ELEMENTARY)</span>
     <span class="ticker-item"><span class="label">SECTOR</span> Banking &amp; Financial Services</span>
@@ -602,7 +637,7 @@
     <!-- duplicate for seamless loop -->
     <span class="ticker-item"><span class="label">ARUN.MUR</span> <span class="up">▲ AVAILABLE FOR HIRE</span></span>
     <span class="ticker-item"><span class="label">EXP</span> 4Y 2M <span class="up">+12%</span></span>
-    <span class="ticker-item"><span class="label">LOCATION</span> Coimbatore, IN → Germany</span>
+    <span class="ticker-item"><span class="label">LOCATION</span> Coimbatore, IN → Baesweiler, NRW · Jul 2026</span>
     <span class="ticker-item"><span class="label">CHANCENKARTE</span> <span class="up">ACTIVE</span> · 361 DAYS REMAINING</span>
     <span class="ticker-item"><span class="label">LANGUAGES</span> EN · DE(ELEMENTARY)</span>
     <span class="ticker-item"><span class="label">SECTOR</span> Banking &amp; Financial Services</span>
@@ -628,6 +663,13 @@
   </div>
 </div>
 
+<!-- ── Arrival banner ── -->
+<div class="arrival-banner">
+  <div class="arrival-dot"></div>
+  <span class="arrival-label">Arriving</span>
+  <span class="arrival-text"><strong>Germany · July 2026</strong> — Based in Baesweiler, NRW. Available to start immediately on arrival. No sponsorship required.</span>
+</div>
+
 <!-- ── Hero ── -->
 <div class="container">
   <section class="hero" style="border-bottom:none; padding-bottom:40px;">
@@ -645,7 +687,7 @@
           <span class="tag">Reporting &amp; analysis</span>
           <span class="tag">Operational efficiency</span>
           <span class="tag">Client engagement</span>
-          <span class="tag">Coimbatore, India</span>
+          <span class="tag">Baesweiler, NRW · Jul 2026</span>
         </div>
         <p class="hero-desc">
           Financial analyst at BNP Paribas handling commission reconciliation for global
@@ -671,8 +713,8 @@
         </div>
         <div class="stat-card">
           <div class="stat-label">Relocation</div>
-          <div class="stat-value" style="font-size:16px; margin-top:6px;">READY</div>
-          <div class="stat-sub" style="color: var(--gold);">Chancenkarte · 2027</div>
+          <div class="stat-value" style="font-size:16px; margin-top:6px;">JUL 2026</div>
+          <div class="stat-sub" style="color: var(--gold);">Baesweiler, NRW</div>
         </div>
       </div>
     </div>
@@ -1035,14 +1077,14 @@
           looking for a dependable, detail-oriented operations professional — the window is open.
           Reach out directly. No intermediaries, no friction.
         </p>
-        <a href="mailto:arunmuruganpage@gmail.com" class="btn-primary">→ Contact Arun</a>
+        <a href="mailto:arunmuruganmail@gmail.com" class="btn-primary">→ Contact Arun</a>
       </div>
       <div class="contact-details">
         <div class="contact-row">
           <div class="contact-icon">✉</div>
           <div class="contact-info">
             <div class="lbl">Email</div>
-            <div class="val">arunmuruganpage@gmail.com</div>
+            <div class="val">arunmuruganmail@gmail.com</div>
           </div>
         </div>
         <div class="contact-row">
