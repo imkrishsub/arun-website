@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "Arun.mur",
+      "slug": "arun-mur",
+      "port": 0,
+      "start_command": "",
+      "bundle_id": "com.user.arun-mur",
+      "version": "1.0.0",
+      "polyfill_path": ""
+    }
+  ]
+}

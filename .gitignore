@@ -1,1 +1,6 @@
 .vercel
+
+# app-it desktop launcher artifacts
+desktop/
+assets/icons/
+assets/icons/build/
