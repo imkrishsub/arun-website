@@ -237,11 +237,9 @@ body {
   color: var(--muted);
 }
 
-/* ── Two-column body ── */
+/* ── Single-column body ── */
 .cv-body {
-  display: grid;
-  grid-template-columns: 42% 1fr;
-  gap: 15pt;
+  display: block;
 }
 
 /* ── Section headings ── */
@@ -285,6 +283,11 @@ body {
 }
 
 /* ── Skills ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20pt;
+}
 .skill-panel + .skill-panel { margin-top: 7pt; }
 
 .skill-row {
@@ -528,71 +531,55 @@ def render_html(data: dict) -> str:
     <div class="cv-contact">{contact_html}</div>
   </div>
 
-  <!-- Sidebar layout: left = skills + edu + languages, right = summary + experience -->
+  <!-- Single-column layout: profile → experience → skills → education → languages -->
   <div class="cv-body">
 
-    <!-- Left sidebar -->
-    <div>
-
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">01</span>
-          <span class="sec-title">Core competencies</span>
-          <div class="sec-rule"></div>
-        </div>
-        <div class="skill-panel">{core_rows}</div>
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-num">01</span>
+        <span class="sec-title">Professional profile</span>
+        <div class="sec-rule"></div>
       </div>
-
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">02</span>
-          <span class="sec-title">Tools &amp; soft skills</span>
-          <div class="sec-rule"></div>
-        </div>
-        <div class="skill-panel">{tools_rows}</div>
-      </div>
-
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">03</span>
-          <span class="sec-title">Education &amp; awards</span>
-          <div class="sec-rule"></div>
-        </div>
-        {edu_html}
-      </div>
-
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">04</span>
-          <span class="sec-title">Languages</span>
-          <div class="sec-rule"></div>
-        </div>
-        {lang_rows}
-      </div>
-
+      {summary_html}
     </div>
 
-    <!-- Main column -->
-    <div>
-
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">05</span>
-          <span class="sec-title">Professional profile</span>
-          <div class="sec-rule"></div>
-        </div>
-        {summary_html}
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-num">02</span>
+        <span class="sec-title">Performance history</span>
+        <div class="sec-rule"></div>
       </div>
+      {exp_html}
+    </div>
 
-      <div class="section">
-        <div class="sec-hdr">
-          <span class="sec-num">06</span>
-          <span class="sec-title">Performance history</span>
-          <div class="sec-rule"></div>
-        </div>
-        {exp_html}
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-num">03</span>
+        <span class="sec-title">Skills</span>
+        <div class="sec-rule"></div>
       </div>
+      <div class="skills-grid">
+        <div class="skill-panel">{core_rows}</div>
+        <div class="skill-panel">{tools_rows}</div>
+      </div>
+    </div>
 
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-num">04</span>
+        <span class="sec-title">Education &amp; awards</span>
+        <div class="sec-rule"></div>
+      </div>
+      {edu_html}
+    </div>
+
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-num">05</span>
+        <span class="sec-title">Languages</span>
+        <div class="sec-rule"></div>
+      </div>
+      {lang_rows}
     </div>
 
   </div>
