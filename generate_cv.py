@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import base64
 import pathlib
 import sys
 
@@ -186,9 +187,25 @@ body {
 
 /* ── Header ── */
 .cv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14pt;
   border-bottom: 2px solid var(--rule);
   padding-bottom: 9pt;
   margin-bottom: 11pt;
+}
+
+.cv-header-main { flex: 1; min-width: 0; }
+
+/* Photo top-right (German Lebenslauf convention) */
+.cv-photo img {
+  width: 28mm;
+  height: 36mm;
+  object-fit: cover;
+  object-position: top;
+  border: 1.5pt solid var(--rule);
+  display: block;
 }
 
 .cv-name {
@@ -389,7 +406,7 @@ body {
 
 .dot.on { background: var(--gold); }
 
-.lang-level { font-size: 8pt; color: var(--muted); margin-left: auto; }
+.lang-level { font-size: 8pt; color: var(--muted); margin-left: auto; text-align: right; max-width: 65%; }
 
 /* ── Footer ── */
 .cv-footer {
@@ -433,6 +450,14 @@ def _dot_row(filled: int, total: int) -> str:
     return f'<div class="lang-dots">{dots}</div>'
 
 
+def _photo_data_uri(path: pathlib.Path) -> str:
+    """Return the portrait as a data URI (set_content has no file base URL)."""
+    if not path.exists():
+        return ""
+    encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:image/jpeg;base64,{encoded}"
+
+
 def render_html(data: dict) -> str:
     d = data
     contact = d["contact"]
@@ -459,6 +484,13 @@ def render_html(data: dict) -> str:
         contact_parts.append(f"&#9742; {ph}")
 
     contact_html = " &nbsp;|&nbsp; ".join(contact_parts)
+
+    photo_uri = _photo_data_uri(REPO_ROOT / "arun.jpg")
+    photo_html = (
+        f'<div class="cv-photo"><img src="{photo_uri}" alt="Arun Murugan"></div>'
+        if photo_uri
+        else ""
+    )
 
     # ── Stats ──
     stats_html = "".join(
@@ -525,10 +557,13 @@ def render_html(data: dict) -> str:
 
   <!-- Header -->
   <div class="cv-header">
-    <div class="cv-name">{name_html}</div>
-    <div class="cv-title">{d["full_name"]}</div>
-    <div class="cv-tags">{tag_html}</div>
-    <div class="cv-contact">{contact_html}</div>
+    <div class="cv-header-main">
+      <div class="cv-name">{name_html}</div>
+      <div class="cv-title">{d["full_name"]}</div>
+      <div class="cv-tags">{tag_html}</div>
+      <div class="cv-contact">{contact_html}</div>
+    </div>
+    {photo_html}
   </div>
 
   <!-- Single-column layout: profile → experience → skills → education → languages -->
@@ -585,7 +620,7 @@ def render_html(data: dict) -> str:
   </div>
 
   <div class="cv-footer">
-    ARUN.MUR &nbsp;·&nbsp; Financial Analyst &nbsp;·&nbsp;
+    ARUN.MUR &nbsp;·&nbsp; Reconciliation Analyst / Financial Operations &nbsp;·&nbsp;
     Chancenkarte holder — right to work in Germany, no sponsorship required
   </div>
 
