@@ -163,6 +163,36 @@ def extract(html: str) -> dict:
 # HTML template
 # ---------------------------------------------------------------------------
 
+_FONTS_DIR = REPO_ROOT / "assets" / "fonts"
+
+# (family, weight declaration, style, filename) — Sans is a variable font
+# covering 400–700 in one file; Mono ships as static weights.
+_FONT_FILES = [
+    ("IBM Plex Sans", "400 700", "normal", "IBMPlexSans-400-600-700-latin.woff2"),
+    ("IBM Plex Mono", "400", "normal", "IBMPlexMono-400-latin.woff2"),
+    ("IBM Plex Mono", "600", "normal", "IBMPlexMono-600-latin.woff2"),
+]
+
+
+def _font_css() -> str:
+    """Embed the CV fonts as data URIs (set_content has no file base URL)."""
+    faces = []
+    for family, weight, style, filename in _FONT_FILES:
+        path = _FONTS_DIR / filename
+        if not path.exists():
+            continue
+        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+        faces.append(
+            "@font-face {"
+            f"font-family:'{family}';"
+            f"font-weight:{weight};"
+            f"font-style:{style};"
+            f"src:url(data:font/woff2;base64,{encoded}) format('woff2');"
+            "}"
+        )
+    return "\n".join(faces)
+
+
 _CSS = """
 @page { size: A4; margin: 13mm 15mm 13mm 15mm; }
 
@@ -173,12 +203,13 @@ _CSS = """
   --border: #d4d4d4;
   --text: #1a1a1a;
   --rule: #c8a000;
+  --mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 9pt;
   color: var(--text);
   line-height: 1.5;
@@ -209,15 +240,17 @@ body {
 }
 
 .cv-name {
+  font-family: var(--mono);
   font-size: 21pt;
-  font-weight: bold;
-  letter-spacing: 4px;
+  font-weight: 600;
+  letter-spacing: 2px;
   line-height: 1.1;
 }
 
 .cv-name-accent { color: var(--gold); }
 
 .cv-title {
+  font-family: var(--mono);
   font-size: 8.5pt;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -233,6 +266,7 @@ body {
 }
 
 .tag {
+  font-family: var(--mono);
   border: 1px solid var(--border);
   padding: 1.5pt 6pt;
   font-size: 7.5pt;
@@ -247,10 +281,11 @@ body {
 }
 
 .cv-contact {
+  font-family: var(--mono);
   display: flex;
   gap: 13pt;
   margin-top: 6pt;
-  font-size: 8.5pt;
+  font-size: 8pt;
   color: var(--muted);
 }
 
@@ -270,6 +305,7 @@ body {
 }
 
 .sec-num {
+  font-family: var(--mono);
   font-size: 7.5pt;
   letter-spacing: 2px;
   color: var(--gold);
@@ -321,8 +357,9 @@ body {
 .skill-name { color: var(--muted); }
 
 .skill-badge {
+  font-family: var(--mono);
   font-size: 7.5pt;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   padding: 1pt 6pt;
@@ -345,9 +382,10 @@ body {
 
 .exp-company { font-weight: bold; font-size: 9.5pt; }
 
-.exp-period { font-size: 8pt; color: var(--muted); }
+.exp-period { font-family: var(--mono); font-size: 8pt; color: var(--muted); }
 
 .exp-role {
+  font-family: var(--mono);
   font-size: 7.5pt;
   color: var(--gold);
   letter-spacing: 1px;
@@ -410,6 +448,7 @@ body {
 
 /* ── Footer ── */
 .cv-footer {
+  font-family: var(--mono);
   margin-top: 12pt;
   padding-top: 7pt;
   border-top: 1px solid var(--border);
@@ -463,12 +502,20 @@ def render_html(data: dict) -> str:
     contact = d["contact"]
 
     # ── Header ──
-    raw_name = d["name"]
-    if "." in raw_name:
-        prefix, suffix = raw_name.split(".", 1)
-        name_html = f'{prefix}<span class="cv-name-accent">.{suffix}</span>'
+    # The site uses the ticker symbol "ARUN.MUR" as a design motif; the CV
+    # must stand alone, so use the real name from .full-name instead.
+    full_parts = [p.strip() for p in d["full_name"].split("·")]
+    person_name = full_parts[0] or "Arun Murugan"
+    role = full_parts[1] if len(full_parts) > 1 else ""
+
+    name_words = person_name.upper().split()
+    if len(name_words) > 1:
+        name_html = (
+            f'{" ".join(name_words[:-1])} '
+            f'<span class="cv-name-accent">{name_words[-1]}</span>'
+        )
     else:
-        name_html = raw_name
+        name_html = person_name.upper()
 
     tag_html = " ".join(
         f'<span class="tag{"  hi" if t["highlight"] else ""}">{t["text"]}</span>'
@@ -551,7 +598,8 @@ def render_html(data: dict) -> str:
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <style>{_CSS}</style>
+  <title>{person_name} — CV</title>
+  <style>{_font_css()}{_CSS}</style>
 </head>
 <body>
 
@@ -559,7 +607,7 @@ def render_html(data: dict) -> str:
   <div class="cv-header">
     <div class="cv-header-main">
       <div class="cv-name">{name_html}</div>
-      <div class="cv-title">{d["full_name"]}</div>
+      <div class="cv-title">{role or d["full_name"]}</div>
       <div class="cv-tags">{tag_html}</div>
       <div class="cv-contact">{contact_html}</div>
     </div>
@@ -620,7 +668,7 @@ def render_html(data: dict) -> str:
   </div>
 
   <div class="cv-footer">
-    ARUN.MUR &nbsp;·&nbsp; Reconciliation Analyst / Financial Operations &nbsp;·&nbsp;
+    {person_name} &nbsp;·&nbsp; {role or "Reconciliation Analyst / Financial Operations"} &nbsp;·&nbsp;
     Chancenkarte holder — right to work in Germany, no sponsorship required
   </div>
 
@@ -637,6 +685,7 @@ async def _render_pdf(html: str, output: pathlib.Path) -> None:
         browser = await pw.chromium.launch()
         page = await browser.new_page()
         await page.set_content(html, wait_until="domcontentloaded")
+        await page.evaluate("document.fonts.ready")
         await page.pdf(
             path=str(output),
             format="A4",
