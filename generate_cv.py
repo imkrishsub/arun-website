@@ -463,12 +463,20 @@ def render_html(data: dict) -> str:
     contact = d["contact"]
 
     # ── Header ──
-    raw_name = d["name"]
-    if "." in raw_name:
-        prefix, suffix = raw_name.split(".", 1)
-        name_html = f'{prefix}<span class="cv-name-accent">.{suffix}</span>'
+    # The site uses the ticker symbol "ARUN.MUR" as a design motif; the CV
+    # must stand alone, so use the real name from .full-name instead.
+    full_parts = [p.strip() for p in d["full_name"].split("·")]
+    person_name = full_parts[0] or "Arun Murugan"
+    role = full_parts[1] if len(full_parts) > 1 else ""
+
+    name_words = person_name.upper().split()
+    if len(name_words) > 1:
+        name_html = (
+            f'{" ".join(name_words[:-1])} '
+            f'<span class="cv-name-accent">{name_words[-1]}</span>'
+        )
     else:
-        name_html = raw_name
+        name_html = person_name.upper()
 
     tag_html = " ".join(
         f'<span class="tag{"  hi" if t["highlight"] else ""}">{t["text"]}</span>'
@@ -551,6 +559,7 @@ def render_html(data: dict) -> str:
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>{person_name} — CV</title>
   <style>{_CSS}</style>
 </head>
 <body>
@@ -559,7 +568,7 @@ def render_html(data: dict) -> str:
   <div class="cv-header">
     <div class="cv-header-main">
       <div class="cv-name">{name_html}</div>
-      <div class="cv-title">{d["full_name"]}</div>
+      <div class="cv-title">{role or d["full_name"]}</div>
       <div class="cv-tags">{tag_html}</div>
       <div class="cv-contact">{contact_html}</div>
     </div>
@@ -620,7 +629,7 @@ def render_html(data: dict) -> str:
   </div>
 
   <div class="cv-footer">
-    ARUN.MUR &nbsp;·&nbsp; Reconciliation Analyst / Financial Operations &nbsp;·&nbsp;
+    {person_name} &nbsp;·&nbsp; {role or "Reconciliation Analyst / Financial Operations"} &nbsp;·&nbsp;
     Chancenkarte holder — right to work in Germany, no sponsorship required
   </div>
 
