@@ -459,6 +459,50 @@ body {
 }
 """
 
+# Appended after _CSS when --high-contrast is set. Tuned for office laser
+# printers, which drop light tints and greyscale the gold: every accent is
+# darkened past 7:1 on white, and tinted fills are swapped for outlines so
+# they survive a mono print.
+_HIGH_CONTRAST_CSS = """
+:root {
+  --gold: #6b4e00;
+  --gold-bg: #ffffff;
+  --muted: #3a3a3a;
+  --border: #8a8a8a;
+  --text: #000;
+  --rule: #000;
+}
+
+.summary {
+  color: #000;
+  background: #f0f0f0;
+  border-left-width: 4px;
+  border-left-color: #000;
+}
+
+.exp-bullets li, .skill-name { color: #1a1a1a; }
+
+.skill-row, .lang-row { border-bottom-color: #9a9a9a; }
+
+/* Outlined badges instead of tinted fills — a 9% alpha wash prints as nothing. */
+.skill-badge {
+  background: #fff;
+  border: 1px solid currentColor;
+  padding: 0.5pt 5pt;
+}
+
+.badge-expert     { color: #5a4300; }
+.badge-advanced   { color: #17408b; }
+.badge-proficient { color: #0b524c; }
+.badge-metric     { color: #14532d; }
+
+/* Language dots read as filled vs hollow, not gold vs grey. */
+.dot { background: #fff; border: 1pt solid #000; }
+.dot.on { background: #000; }
+
+.cv-footer { color: #444; border-top-color: #8a8a8a; }
+"""
+
 
 def _skill_badge(cls: str, text: str) -> str:
     mapping = {
@@ -497,9 +541,10 @@ def _photo_data_uri(path: pathlib.Path) -> str:
     return f"data:image/jpeg;base64,{encoded}"
 
 
-def render_html(data: dict) -> str:
+def render_html(data: dict, high_contrast: bool = False) -> str:
     d = data
     contact = d["contact"]
+    extra_css = _HIGH_CONTRAST_CSS if high_contrast else ""
 
     # ── Header ──
     # The site uses the ticker symbol "ARUN.MUR" as a design motif; the CV
@@ -599,7 +644,7 @@ def render_html(data: dict) -> str:
 <head>
   <meta charset="UTF-8">
   <title>{person_name} — CV</title>
-  <style>{_font_css()}{_CSS}</style>
+  <style>{_font_css()}{_CSS}{extra_css}</style>
 </head>
 <body>
 
@@ -707,20 +752,31 @@ def main() -> None:
     )
     parser.add_argument(
         "--output",
-        default=str(REPO_ROOT / "Arun-Murugan-CV.pdf"),
-        help="Output PDF path (default: Arun-Murugan-CV.pdf)",
+        help="Output PDF path (default: Arun-Murugan-CV.pdf, "
+             "or Arun-Murugan-CV-print.pdf with --high-contrast)",
+    )
+    parser.add_argument(
+        "--high-contrast",
+        action="store_true",
+        help="Darken accents and outline the badges so the PDF stays legible "
+             "on greyscale office printers",
     )
     args = parser.parse_args()
 
     source = pathlib.Path(args.source)
-    output = pathlib.Path(args.output)
+    if args.output:
+        output = pathlib.Path(args.output)
+    elif args.high_contrast:
+        output = REPO_ROOT / "Arun-Murugan-CV-print.pdf"
+    else:
+        output = REPO_ROOT / "Arun-Murugan-CV.pdf"
 
     if not source.exists():
         sys.exit(f"Error: source file not found: {source}")
 
     html_source = source.read_text(encoding="utf-8")
     data = extract(html_source)
-    cv_html = render_html(data)
+    cv_html = render_html(data, high_contrast=args.high_contrast)
 
     print(f"Rendering PDF → {output}")
     asyncio.run(_render_pdf(cv_html, output))
