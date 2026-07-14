@@ -16,7 +16,7 @@ Requirements:
 
 Usage:
     python generate_cover_letter.py [--lang en|de] [--company NAME]
-        [--recipient LINES] [--role TITLE] [--date TEXT] [--output PDF]
+        [--recipient LINES] [--role TITLE] [--date TEXT] [--photo] [--output PDF]
 """
 
 from __future__ import annotations
@@ -347,6 +347,7 @@ def render_html(
     role: str = "",
     salutation_name: str = "",
     date: str = "",
+    photo: bool = False,
 ) -> str:
     loc = LOCALE[lang]
 
@@ -372,7 +373,10 @@ def render_html(
         f'<span class="lt-contact-item">{p}</span>' for p in contact_parts
     )
 
-    photo_uri = _photo_data_uri(REPO_ROOT / "arun.jpg")
+    # Off by default: a German Bewerbung carries the portrait on the Lebenslauf
+    # (or a Deckblatt), never on the Anschreiben, which is a business letter.
+    # --photo is here only for an employer who explicitly asks for one.
+    photo_uri = _photo_data_uri(REPO_ROOT / "arun.jpg") if photo else ""
     photo_html = (
         f'<div class="lt-photo"><img src="{photo_uri}" alt="{NAME}"></div>'
         if photo_uri
@@ -475,6 +479,12 @@ def main() -> None:
         help="Contact person, used in the salutation instead of the generic one",
     )
     parser.add_argument("--date", default="", help="Override the letter date")
+    parser.add_argument(
+        "--photo",
+        action="store_true",
+        help="Add the portrait to the header (off by default: the photo belongs "
+             "on the Lebenslauf, not the Anschreiben)",
+    )
     parser.add_argument("--output", help="Output PDF path (default: derived from --lang)")
     args = parser.parse_args()
 
@@ -496,6 +506,7 @@ def main() -> None:
         role=args.role,
         salutation_name=args.name,
         date=args.date,
+        photo=args.photo,
     )
 
     print(f"Rendering PDF → {output}")

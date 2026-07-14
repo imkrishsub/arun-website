@@ -67,6 +67,9 @@ python3 generate_cover_letter.py --lang de \
 - `--role` replaces the generic subject line.
 - `--name` replaces the generic salutation. In German, give the honorific
   (`Frau Schmidt`, `Herr Müller`) — the adjective ending follows from it.
+- `--photo` adds the portrait to the header. Off by default: in a German
+  Bewerbung the photo belongs on the Lebenslauf (or a Deckblatt), not on the
+  Anschreiben.
 - `--date` overrides the date, `--output` the file path.
 
 ## Desktop launcher
