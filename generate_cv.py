@@ -59,10 +59,12 @@ LOCALE = {
             "languages": "Languages",
         },
         "default_role": "Reconciliation Analyst / Financial Operations",
-        "footer": (
-            "Chancenkarte holder — right to work in Germany, no sponsorship required"
-            " &nbsp;·&nbsp; Willing to relocate anywhere in Germany"
-        ),
+        # One fact per line: as a single "·"-separated run these wrapped at
+        # whatever word hit the right margin, stranding fragments mid-clause.
+        "footer": [
+            "Chancenkarte holder — right to work in Germany, no sponsorship required",
+            "Willing to relocate anywhere in Germany",
+        ],
     },
     "de": {
         "doc_lang": "de",
@@ -76,10 +78,10 @@ LOCALE = {
             "languages": "Sprachkenntnisse",
         },
         "default_role": "Reconciliation Analyst / Financial Operations",
-        "footer": (
-            "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig"
-            " &nbsp;·&nbsp; Umzug innerhalb Deutschlands jederzeit möglich"
-        ),
+        "footer": [
+            "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
+            "Umzug innerhalb Deutschlands jederzeit möglich",
+        ],
     },
 }
 
@@ -533,6 +535,9 @@ body {
   text-align: center;
   letter-spacing: 1px;
 }
+
+.cv-footer-line { margin-bottom: 2.5pt; }
+.cv-footer-line:last-child { margin-bottom: 0; }
 """
 
 # Appended after _CSS. Tuned for office laser printers, which drop light tints
@@ -740,6 +745,10 @@ def render_html(data: dict, lang: str = "en") -> str:
         for lang in d["languages"]
     )
 
+    footer_html = "".join(
+        f'<div class="cv-footer-line">{line}</div>' for line in loc["footer"]
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="{loc["doc_lang"]}">
 <head>
@@ -814,8 +823,8 @@ def render_html(data: dict, lang: str = "en") -> str:
   </div>
 
   <div class="cv-footer">
-    {person_name} &nbsp;·&nbsp; {role or loc["default_role"]} &nbsp;·&nbsp;
-    {loc["footer"]}
+    <div class="cv-footer-line">{person_name} &nbsp;·&nbsp; {role or loc["default_role"]}</div>
+    {footer_html}
   </div>
 
 </body>
