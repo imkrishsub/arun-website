@@ -424,11 +424,19 @@ body {
   position: relative;
 }
 
+/* Drawn with borders rather than "▸" (U+25B8): the embedded Plex subsets are
+   latin-only and have no such glyph, so the character fell back to a system
+   font on every bullet. A CSS triangle depends on no font at all. */
 .exp-bullets li::before {
-  content: "▸";
-  color: var(--gold);
+  content: "";
   position: absolute;
   left: 0;
+  top: 4pt;
+  width: 0;
+  height: 0;
+  border-left: 3.2pt solid var(--gold);
+  border-top: 2.4pt solid transparent;
+  border-bottom: 2.4pt solid transparent;
 }
 
 /* ── Education ── */
@@ -594,17 +602,21 @@ def render_html(data: dict) -> str:
     def _link(href: str, label: str) -> str:
         return f'<a class="cv-link" href="{href}">{label}</a>'
 
+    # Markers are lowercase words, not symbols: the embedded Plex subsets are
+    # latin-only, so ✉ ☎ ⌂ (U+2709/260E/2302) fell back to a system font and
+    # printed at the wrong weight — the same defect as the language arrow.
+    # "in" and "www" already set this pattern.
     contact_parts = []
     if email := contact.get("email"):
-        contact_parts.append(f"&#9993; {_link(f'mailto:{email}', email)}")
+        contact_parts.append(f"mail {_link(f'mailto:{email}', email)}")
     if li := contact.get("linkedin"):
         contact_parts.append(f"in {_link(f'https://{li}', li)}")
     if site := contact.get("website"):
         contact_parts.append(f"www {_link(f'https://{site}', site)}")
     if ph := contact.get("phone"):
-        contact_parts.append(f"&#9742; {ph}")
+        contact_parts.append(f"tel {ph}")
     if addr := contact.get("address"):
-        contact_parts.append(f"&#8962; {addr}")
+        contact_parts.append(f"addr {addr}")
 
     # Each part is its own flex item so a long value (the site URL) wraps as a
     # whole instead of splitting mid-token at a hyphen. The flex gap separates
