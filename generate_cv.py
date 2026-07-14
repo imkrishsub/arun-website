@@ -9,14 +9,16 @@ suitable for recruiters and ATS scanners.
 
 Two languages, both two pages: --lang en renders index.html to
 Arun-Murugan-CV-print.pdf, --lang de renders de/index.html to
-Arun-Murugan-Lebenslauf-print.pdf.
+Arun-Murugan-Lebenslauf-print.pdf. --generic additionally drops the sought-role
+line under the name and in the footer, for applications outside reconciliation
+(--lang de --generic renders Arun-Murugan-Lebenslauf-generisch.pdf).
 
 Requirements:
     pip install -r requirements-cv.txt
     playwright install chromium
 
 Usage:
-    python generate_cv.py [--lang en|de] [--source PAGE] [--output PDF]
+    python generate_cv.py [--lang en|de] [--generic] [--source PAGE] [--output PDF]
 """
 
 from __future__ import annotations
@@ -59,7 +61,6 @@ LOCALE = {
             "education": "Education &amp; awards",
             "languages": "Languages",
         },
-        "default_role": "Reconciliation Analyst / Financial Operations",
         # One fact per line: as a single "·"-separated run these wrapped at
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
@@ -78,7 +79,6 @@ LOCALE = {
             "education": "Ausbildung &amp; Auszeichnungen",
             "languages": "Sprachkenntnisse",
         },
-        "default_role": "Reconciliation Analyst / Financial Operations",
         "footer": [
             "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",
@@ -622,7 +622,7 @@ def _photo_data_uri(path: pathlib.Path) -> str:
     return f"data:image/jpeg;base64,{encoded}"
 
 
-def render_html(data: dict, lang: str = "en") -> str:
+def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
     d = data
     contact = d["contact"]
     extra_css = _PRINT_CSS
@@ -635,7 +635,10 @@ def render_html(data: dict, lang: str = "en") -> str:
     # must stand alone, so use the real name from .full-name instead.
     full_parts = [p.strip() for p in d["full_name"].split("·")]
     person_name = full_parts[0] or "Arun Murugan"
-    role = full_parts[1] if len(full_parts) > 1 else ""
+    # generic drops the role line under the name and in the footer, for
+    # applications outside reconciliation where naming a sought role narrows
+    # the CV. Everything else — summary, tags, experience — is unchanged.
+    role = "" if generic else (full_parts[1] if len(full_parts) > 1 else "")
 
     name_words = person_name.upper().split()
     if len(name_words) > 1:
@@ -755,6 +758,11 @@ def render_html(data: dict, lang: str = "en") -> str:
         for lang in d["languages"]
     )
 
+    # With no role there is nothing to put on the title line, so it is dropped
+    # rather than falling back to .full-name, which carries the role itself.
+    title_html = f'<div class="cv-title">{role}</div>' if role else ""
+
+    footer_ident = f"{person_name} &nbsp;·&nbsp; {role}" if role else person_name
     footer_html = "".join(
         f'<div class="cv-footer-line">{line}</div>' for line in loc["footer"]
     )
@@ -772,7 +780,7 @@ def render_html(data: dict, lang: str = "en") -> str:
   <div class="cv-header">
     <div class="cv-header-main">
       <div class="cv-name">{name_html}</div>
-      <div class="cv-title">{role or d["full_name"]}</div>
+      {title_html}
       <div class="cv-tags">{tag_html}</div>
       <div class="cv-contact">{contact_html}</div>
     </div>
@@ -833,7 +841,7 @@ def render_html(data: dict, lang: str = "en") -> str:
   </div>
 
   <div class="cv-footer">
-    <div class="cv-footer-line">{person_name} &nbsp;·&nbsp; {role or loc["default_role"]}</div>
+    <div class="cv-footer-line">{footer_ident}</div>
     {footer_html}
   </div>
 
@@ -879,13 +887,20 @@ def main() -> None:
         "--output",
         help="Output PDF path (default: derived from --lang)",
     )
+    parser.add_argument(
+        "--generic",
+        action="store_true",
+        help="Drop the sought-role line under the name and in the footer",
+    )
     args = parser.parse_args()
 
     defaults = {
-        "en": (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
-        "de": (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-print.pdf"),
+        ("en", False): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
+        ("en", True): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-generic-print.pdf"),
+        ("de", False): (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-print.pdf"),
+        ("de", True): (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-generisch.pdf"),
     }
-    default_source, default_output = defaults[args.lang]
+    default_source, default_output = defaults[(args.lang, args.generic)]
 
     source = pathlib.Path(args.source) if args.source else default_source
     output = pathlib.Path(args.output) if args.output else default_output
@@ -895,7 +910,7 @@ def main() -> None:
 
     html_source = source.read_text(encoding="utf-8")
     data = extract(html_source)
-    cv_html = render_html(data, args.lang)
+    cv_html = render_html(data, args.lang, generic=args.generic)
 
     print(f"Rendering PDF → {output}")
     asyncio.run(_render_pdf(cv_html, output))
