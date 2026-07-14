@@ -296,6 +296,10 @@ body {
 
 .cv-contact-item { white-space: nowrap; }
 
+/* Clickable in a PDF reader, but visually identical to the surrounding text —
+   a printed CV should not sprout underlined blue links. */
+.cv-link { color: inherit; text-decoration: none; }
+
 /* ── Single-column body ── */
 .cv-body {
   display: block;
@@ -573,13 +577,20 @@ def render_html(data: dict) -> str:
         for t in d["tags"]
     )
 
+    # Chromium only emits a PDF link annotation for a real <a href>, so the
+    # linkable values are anchored. The phone value carries trailing prose
+    # ("— German number coming soon"), which a tel: link would swallow, so it
+    # stays plain text alongside the address.
+    def _link(href: str, label: str) -> str:
+        return f'<a class="cv-link" href="{href}">{label}</a>'
+
     contact_parts = []
     if email := contact.get("email"):
-        contact_parts.append(f"&#9993; {email}")
+        contact_parts.append(f"&#9993; {_link(f'mailto:{email}', email)}")
     if li := contact.get("linkedin"):
-        contact_parts.append(f"in {li}")
+        contact_parts.append(f"in {_link(f'https://{li}', li)}")
     if site := contact.get("website"):
-        contact_parts.append(f"www {site}")
+        contact_parts.append(f"www {_link(f'https://{site}', site)}")
     if ph := contact.get("phone"):
         contact_parts.append(f"&#9742; {ph}")
     if addr := contact.get("address"):
