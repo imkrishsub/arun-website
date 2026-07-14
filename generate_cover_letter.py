@@ -53,7 +53,8 @@ def _tel_href(value: str) -> str:
     bare = re.sub(r"\(.*?\)", "", value)
     return "tel:+" + "".join(c for c in bare if c.isdigit())
 
-NAME = "Arun Murugan Rathamani"
+
+NAME = "Arun Murugan"
 STREET = "Heinrich-Imbusch-Str. 12"
 CITY = "52499 Baesweiler"
 EMAIL = "arunmuruganmail@gmail.com"
