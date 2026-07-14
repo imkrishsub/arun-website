@@ -70,8 +70,10 @@ def extract(html: str) -> dict:
             contact["email"] = val
         elif "linkedin" in lbl:
             contact["linkedin"] = val
-        elif "phone" in lbl:
+        elif "phone" in lbl or "telefon" in lbl:
             contact["phone"] = val
+        elif "address" in lbl or "adresse" in lbl:
+            contact["address"] = val
 
     # Key stats
     stats = [
@@ -283,7 +285,8 @@ body {
 .cv-contact {
   font-family: var(--mono);
   display: flex;
-  gap: 13pt;
+  flex-wrap: wrap;
+  gap: 4pt 13pt;
   margin-top: 6pt;
   font-size: 8pt;
   color: var(--muted);
@@ -574,6 +577,8 @@ def render_html(data: dict, high_contrast: bool = False) -> str:
         contact_parts.append(f"in {li}")
     if ph := contact.get("phone"):
         contact_parts.append(f"&#9742; {ph}")
+    if addr := contact.get("address"):
+        contact_parts.append(f"&#8962; {addr}")
 
     contact_html = " &nbsp;|&nbsp; ".join(contact_parts)
 
@@ -714,7 +719,8 @@ def render_html(data: dict, high_contrast: bool = False) -> str:
 
   <div class="cv-footer">
     {person_name} &nbsp;·&nbsp; {role or "Reconciliation Analyst / Financial Operations"} &nbsp;·&nbsp;
-    Chancenkarte holder — right to work in Germany, no sponsorship required
+    Chancenkarte holder — right to work in Germany, no sponsorship required &nbsp;·&nbsp;
+    Willing to relocate anywhere in Germany
   </div>
 
 </body>
