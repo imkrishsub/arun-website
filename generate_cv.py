@@ -12,7 +12,7 @@ Requirements:
     playwright install chromium
 
 Usage:
-    python generate_cv.py [--source index.html] [--output Arun-Murugan-CV.pdf]
+    python generate_cv.py [--source index.html] [--output Arun-Murugan-CV-print.pdf]
 """
 
 from __future__ import annotations
@@ -462,11 +462,10 @@ body {
 }
 """
 
-# Appended after _CSS when --high-contrast is set. Tuned for office laser
-# printers, which drop light tints and greyscale the gold: every accent is
-# darkened past 7:1 on white, and tinted fills are swapped for outlines so
-# they survive a mono print.
-_HIGH_CONTRAST_CSS = """
+# Appended after _CSS. Tuned for office laser printers, which drop light tints
+# and greyscale the gold: every accent is darkened past 7:1 on white, and tinted
+# fills are swapped for outlines so they survive a mono print.
+_PRINT_CSS = """
 :root {
   --gold: #6b4e00;
   --gold-bg: #ffffff;
@@ -544,10 +543,10 @@ def _photo_data_uri(path: pathlib.Path) -> str:
     return f"data:image/jpeg;base64,{encoded}"
 
 
-def render_html(data: dict, high_contrast: bool = False) -> str:
+def render_html(data: dict) -> str:
     d = data
     contact = d["contact"]
-    extra_css = _HIGH_CONTRAST_CSS if high_contrast else ""
+    extra_css = _PRINT_CSS
 
     # ── Header ──
     # The site uses the ticker symbol "ARUN.MUR" as a design motif; the CV
@@ -758,31 +757,20 @@ def main() -> None:
     )
     parser.add_argument(
         "--output",
-        help="Output PDF path (default: Arun-Murugan-CV.pdf, "
-             "or Arun-Murugan-CV-print.pdf with --high-contrast)",
-    )
-    parser.add_argument(
-        "--high-contrast",
-        action="store_true",
-        help="Darken accents and outline the badges so the PDF stays legible "
-             "on greyscale office printers",
+        default=str(REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
+        help="Output PDF path (default: Arun-Murugan-CV-print.pdf)",
     )
     args = parser.parse_args()
 
     source = pathlib.Path(args.source)
-    if args.output:
-        output = pathlib.Path(args.output)
-    elif args.high_contrast:
-        output = REPO_ROOT / "Arun-Murugan-CV-print.pdf"
-    else:
-        output = REPO_ROOT / "Arun-Murugan-CV.pdf"
+    output = pathlib.Path(args.output)
 
     if not source.exists():
         sys.exit(f"Error: source file not found: {source}")
 
     html_source = source.read_text(encoding="utf-8")
     data = extract(html_source)
-    cv_html = render_html(data, high_contrast=args.high_contrast)
+    cv_html = render_html(data)
 
     print(f"Rendering PDF → {output}")
     asyncio.run(_render_pdf(cv_html, output))

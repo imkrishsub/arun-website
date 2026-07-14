@@ -1,10 +1,7 @@
-.PHONY: cv cv-print desktop-build desktop-icons desktop-install desktop-quit
+.PHONY: cv desktop-build desktop-icons desktop-install desktop-quit
 
 cv:
 	python3 generate_cv.py
-
-cv-print:
-	python3 generate_cv.py --high-contrast
 
 desktop-build:
 	./scripts/desktop-build.sh
