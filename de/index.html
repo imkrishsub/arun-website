@@ -535,6 +535,8 @@
       font-size: 14px;
       color: var(--accent);
     }
+    /* "www" is three glyphs where the others are one — shrink it to fit the box. */
+    .contact-icon.is-www { font-size: 10px; letter-spacing: -0.5px; }
     .contact-info .lbl { font-size: 11px; color: var(--muted); font-weight: 500; }
     .contact-info .val { font-size: 13.5px; color: var(--text); margin-top: 2px; }
 
@@ -1067,6 +1069,13 @@
           <div class="contact-info">
             <div class="lbl">LinkedIn</div>
             <div class="val">linkedin.com/in/arunmurugan</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon is-www">www</div>
+          <div class="contact-info">
+            <div class="lbl">Webseite</div>
+            <div class="val">arun-murugan-six.vercel.app</div>
           </div>
         </div>
         <div class="contact-row">

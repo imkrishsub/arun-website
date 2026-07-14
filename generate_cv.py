@@ -70,6 +70,8 @@ def extract(html: str) -> dict:
             contact["email"] = val
         elif "linkedin" in lbl:
             contact["linkedin"] = val
+        elif "website" in lbl or "webseite" in lbl:
+            contact["website"] = val
         elif "phone" in lbl or "telefon" in lbl:
             contact["phone"] = val
         elif "address" in lbl or "adresse" in lbl:
@@ -291,6 +293,8 @@ body {
   font-size: 8pt;
   color: var(--muted);
 }
+
+.cv-contact-item { white-space: nowrap; }
 
 /* ── Single-column body ── */
 .cv-body {
@@ -574,12 +578,19 @@ def render_html(data: dict) -> str:
         contact_parts.append(f"&#9993; {email}")
     if li := contact.get("linkedin"):
         contact_parts.append(f"in {li}")
+    if site := contact.get("website"):
+        contact_parts.append(f"www {site}")
     if ph := contact.get("phone"):
         contact_parts.append(f"&#9742; {ph}")
     if addr := contact.get("address"):
         contact_parts.append(f"&#8962; {addr}")
 
-    contact_html = " &nbsp;|&nbsp; ".join(contact_parts)
+    # Each part is its own flex item so a long value (the site URL) wraps as a
+    # whole instead of splitting mid-token at a hyphen. The flex gap separates
+    # them; a literal "|" would strand itself at the end of a wrapped line.
+    contact_html = "".join(
+        f'<span class="cv-contact-item">{p}</span>' for p in contact_parts
+    )
 
     photo_uri = _photo_data_uri(REPO_ROOT / "arun.jpg")
     photo_html = (
