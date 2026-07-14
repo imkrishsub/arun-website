@@ -666,11 +666,14 @@ def render_html(data: dict) -> str:
     edu_html = "".join(edu_items)
 
     # ── Languages ──
+    # The embedded IBM Plex subsets are latin-only and carry no U+2192, so the
+    # site's "A1→A2" falls back to a system font in the PDF and prints at the
+    # wrong weight. "»" is in the subset and reads the same.
     lang_rows = "".join(
         f'<div class="lang-row">'
         f'<span class="lang-name">{lang["name"]}</span>'
         f'{_dot_row(lang["filled"], lang["total"])}'
-        f'<span class="lang-level">{lang["level"]}</span>'
+        f'<span class="lang-level">{lang["level"].replace("→", " » ")}</span>'
         f'</div>'
         for lang in d["languages"]
     )
