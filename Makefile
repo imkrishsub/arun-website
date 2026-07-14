@@ -1,7 +1,12 @@
-.PHONY: cv desktop-build desktop-icons desktop-install desktop-quit
+.PHONY: cv cv-de cv-all desktop-build desktop-icons desktop-install desktop-quit
 
 cv:
-	python3 generate_cv.py
+	python3 generate_cv.py --lang en
+
+cv-de:
+	python3 generate_cv.py --lang de
+
+cv-all: cv cv-de
 
 desktop-build:
 	./scripts/desktop-build.sh
