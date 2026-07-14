@@ -25,6 +25,7 @@ import argparse
 import asyncio
 import base64
 import pathlib
+import re
 import sys
 
 try:
@@ -651,11 +652,20 @@ def render_html(data: dict, lang: str = "en") -> str:
     )
 
     # Chromium only emits a PDF link annotation for a real <a href>, so the
-    # linkable values are anchored. The phone value carries trailing prose
-    # ("— German number coming soon"), which a tel: link would swallow, so it
-    # stays plain text alongside the address.
+    # linkable values are anchored.
     def _link(href: str, label: str) -> str:
         return f'<a class="cv-link" href="{href}">{label}</a>'
+
+    def _tel_href(value: str) -> str:
+        """tel: URI for a displayed number.
+
+        The site writes the number the way a German reader expects to read it —
+        "+49 (0)1737950101 (WhatsApp)" — but the trunk zero is an alternative to
+        the country code, not part of it, and dialling it would fail. Drop the
+        parenthesised parts, then keep the digits.
+        """
+        bare = re.sub(r"\(.*?\)", "", value)
+        return "tel:+" + "".join(c for c in bare if c.isdigit())
 
     # Markers are lowercase words, not symbols: the embedded Plex subsets are
     # latin-only, so ✉ ☎ ⌂ (U+2709/260E/2302) fell back to a system font and
@@ -669,7 +679,7 @@ def render_html(data: dict, lang: str = "en") -> str:
     if site := contact.get("website"):
         contact_parts.append(f"www {_link(f'https://{site}', site)}")
     if ph := contact.get("phone"):
-        contact_parts.append(f"tel {ph}")
+        contact_parts.append(f"tel {_link(_tel_href(ph), ph)}")
     if addr := contact.get("address"):
         contact_parts.append(f"addr {addr}")
 
