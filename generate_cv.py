@@ -347,6 +347,10 @@ body {
 }
 
 /* ── Skills ── */
+/* The section straddled the page boundary; start it on page 2 so it reads as
+   one block. Everything after it (education, languages) follows on page 2. */
+.section-skills { break-before: page; }
+
 .skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -706,7 +710,7 @@ def render_html(data: dict) -> str:
       {exp_html}
     </div>
 
-    <div class="section">
+    <div class="section section-skills">
       <div class="sec-hdr">
         <span class="sec-num">03</span>
         <span class="sec-title">Skills</span>
