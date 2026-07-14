@@ -213,6 +213,12 @@ _CSS = """
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
+  /* Every size below is an absolute pt value, so a base font-size change does
+     not cascade. zoom scales the whole layout uniformly instead, filling the
+     page-1 gap left by moving skills to page 2 (9pt body reads as ~10pt).
+     1.12 fills page 1 to ~99%; at 1.16 an experience block no longer fits and
+     is pushed whole onto page 2, spilling the CV to three pages. */
+  zoom: 1.12;
   font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 9pt;
   color: var(--text);
