@@ -2,17 +2,21 @@
 """
 CV generation pipeline for arun-website.
 
-Reads index.html, extracts structured CV data, and renders a print-optimised
+Reads a source page, extracts structured CV data, and renders a print-optimised
 A4 PDF using Playwright. The PDF keeps the site's financial-terminal aesthetic
 (Courier New, gold accents, uppercase section labels) on a white background
 suitable for recruiters and ATS scanners.
+
+Two languages, both two pages: --lang en renders index.html to
+Arun-Murugan-CV-print.pdf, --lang de renders de/index.html to
+Arun-Murugan-Lebenslauf-print.pdf.
 
 Requirements:
     pip install -r requirements-cv.txt
     playwright install chromium
 
 Usage:
-    python generate_cv.py [--source index.html] [--output Arun-Murugan-CV-print.pdf]
+    python generate_cv.py [--lang en|de] [--source PAGE] [--output PDF]
 """
 
 from __future__ import annotations
@@ -38,6 +42,46 @@ except ImportError:
     )
 
 REPO_ROOT = pathlib.Path(__file__).parent
+
+# Chrome the CV adds on top of the site content: section headings, the footer
+# strapline and the document title. Everything else is lifted verbatim from the
+# source page, so index.html feeds the English CV and de/index.html the German.
+LOCALE = {
+    "en": {
+        "doc_lang": "en",
+        "doc_title": "CV",
+        "zoom": 1.12,
+        "sections": {
+            "profile": "Professional profile",
+            "experience": "Performance history",
+            "skills": "Skills",
+            "education": "Education &amp; awards",
+            "languages": "Languages",
+        },
+        "default_role": "Reconciliation Analyst / Financial Operations",
+        "footer": (
+            "Chancenkarte holder — right to work in Germany, no sponsorship required"
+            " &nbsp;·&nbsp; Willing to relocate anywhere in Germany"
+        ),
+    },
+    "de": {
+        "doc_lang": "de",
+        "doc_title": "Lebenslauf",
+        "zoom": 1.08,
+        "sections": {
+            "profile": "Kurzprofil",
+            "experience": "Berufserfahrung",
+            "skills": "Kenntnisse",
+            "education": "Ausbildung &amp; Auszeichnungen",
+            "languages": "Sprachkenntnisse",
+        },
+        "default_role": "Reconciliation Analyst / Financial Operations",
+        "footer": (
+            "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig"
+            " &nbsp;·&nbsp; Umzug innerhalb Deutschlands jederzeit möglich"
+        ),
+    },
+}
 
 
 # ---------------------------------------------------------------------------
@@ -66,7 +110,7 @@ def extract(html: str) -> dict:
     for row in soup.select(".contact-row"):
         lbl = _text(row.select_one(".lbl")).lower()
         val = _text(row.select_one(".val"))
-        if "email" in lbl:
+        if "mail" in lbl:  # "Email" (en) and "E-Mail" (de)
             contact["email"] = val
         elif "linkedin" in lbl:
             contact["linkedin"] = val
@@ -104,7 +148,7 @@ def extract(html: str) -> dict:
             for r in panel.select(".skill-row")
             if r.select_one(".skill-name") and r.select_one(".skill-badge")
         ]
-        if "core" in title:
+        if "core" in title or "kernkompetenzen" in title:
             skills["core"] = rows
         elif "tools" in title or "soft" in title:
             skills["tools"] = rows
@@ -124,7 +168,8 @@ def extract(html: str) -> dict:
     # Education — from the Academic record panel
     education = []
     for panel in soup.select(".panel"):
-        if "academic" in _text(panel.select_one(".panel-title")).lower():
+        panel_title = _text(panel.select_one(".panel-title")).lower()
+        if "academic" in panel_title or "akademischer" in panel_title:
             education = [
                 {
                     "degree": _text(i.select_one(".edu-degree")),
@@ -197,7 +242,7 @@ def _font_css() -> str:
     return "\n".join(faces)
 
 
-_CSS = """
+_CSS_TEMPLATE = """
 @page { size: A4; margin: 13mm 15mm 13mm 15mm; }
 
 :root {
@@ -216,9 +261,11 @@ body {
   /* Every size below is an absolute pt value, so a base font-size change does
      not cascade. zoom scales the whole layout uniformly instead, filling the
      page-1 gap left by moving skills to page 2 (9pt body reads as ~10pt).
-     1.12 fills page 1 to ~99%; at 1.16 an experience block no longer fits and
-     is pushed whole onto page 2, spilling the CV to three pages. */
-  zoom: 1.12;
+     Substituted per language from LOCALE["zoom"]: German prose runs ~15% longer
+     than the English, so it needs a smaller zoom to hold the same two pages.
+     Raising either value past its tuned point pushes a whole experience block
+     onto the next page and spills the CV to three pages. */
+  zoom: {zoom};
   font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 9pt;
   color: var(--text);
@@ -569,10 +616,13 @@ def _photo_data_uri(path: pathlib.Path) -> str:
     return f"data:image/jpeg;base64,{encoded}"
 
 
-def render_html(data: dict) -> str:
+def render_html(data: dict, lang: str = "en") -> str:
     d = data
     contact = d["contact"]
     extra_css = _PRINT_CSS
+    loc = LOCALE[lang]
+    sec = loc["sections"]
+    _css = _CSS_TEMPLATE.replace("{zoom}", str(loc["zoom"]))
 
     # ── Header ──
     # The site uses the ticker symbol "ARUN.MUR" as a design motif; the CV
@@ -691,11 +741,11 @@ def render_html(data: dict) -> str:
     )
 
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{loc["doc_lang"]}">
 <head>
   <meta charset="UTF-8">
-  <title>{person_name} — CV</title>
-  <style>{_font_css()}{_CSS}{extra_css}</style>
+  <title>{person_name} — {loc["doc_title"]}</title>
+  <style>{_font_css()}{_css}{extra_css}</style>
 </head>
 <body>
 
@@ -716,7 +766,7 @@ def render_html(data: dict) -> str:
     <div class="section">
       <div class="sec-hdr">
         <span class="sec-num">01</span>
-        <span class="sec-title">Professional profile</span>
+        <span class="sec-title">{sec["profile"]}</span>
         <div class="sec-rule"></div>
       </div>
       {summary_html}
@@ -725,7 +775,7 @@ def render_html(data: dict) -> str:
     <div class="section">
       <div class="sec-hdr">
         <span class="sec-num">02</span>
-        <span class="sec-title">Performance history</span>
+        <span class="sec-title">{sec["experience"]}</span>
         <div class="sec-rule"></div>
       </div>
       {exp_html}
@@ -734,7 +784,7 @@ def render_html(data: dict) -> str:
     <div class="section section-skills">
       <div class="sec-hdr">
         <span class="sec-num">03</span>
-        <span class="sec-title">Skills</span>
+        <span class="sec-title">{sec["skills"]}</span>
         <div class="sec-rule"></div>
       </div>
       <div class="skills-grid">
@@ -746,7 +796,7 @@ def render_html(data: dict) -> str:
     <div class="section">
       <div class="sec-hdr">
         <span class="sec-num">04</span>
-        <span class="sec-title">Education &amp; awards</span>
+        <span class="sec-title">{sec["education"]}</span>
         <div class="sec-rule"></div>
       </div>
       {edu_html}
@@ -755,7 +805,7 @@ def render_html(data: dict) -> str:
     <div class="section">
       <div class="sec-hdr">
         <span class="sec-num">05</span>
-        <span class="sec-title">Languages</span>
+        <span class="sec-title">{sec["languages"]}</span>
         <div class="sec-rule"></div>
       </div>
       {lang_rows}
@@ -764,9 +814,8 @@ def render_html(data: dict) -> str:
   </div>
 
   <div class="cv-footer">
-    {person_name} &nbsp;·&nbsp; {role or "Reconciliation Analyst / Financial Operations"} &nbsp;·&nbsp;
-    Chancenkarte holder — right to work in Germany, no sponsorship required &nbsp;·&nbsp;
-    Willing to relocate anywhere in Germany
+    {person_name} &nbsp;·&nbsp; {role or loc["default_role"]} &nbsp;·&nbsp;
+    {loc["footer"]}
   </div>
 
 </body>
@@ -798,26 +847,36 @@ async def _render_pdf(html: str, output: pathlib.Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate a PDF CV from index.html")
     parser.add_argument(
+        "--lang",
+        choices=sorted(LOCALE),
+        default="en",
+        help="CV language: en reads index.html, de reads de/index.html (default: en)",
+    )
+    parser.add_argument(
         "--source",
-        default=str(REPO_ROOT / "index.html"),
-        help="Path to index.html (default: index.html next to this script)",
+        help="Path to the source page (default: derived from --lang)",
     )
     parser.add_argument(
         "--output",
-        default=str(REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
-        help="Output PDF path (default: Arun-Murugan-CV-print.pdf)",
+        help="Output PDF path (default: derived from --lang)",
     )
     args = parser.parse_args()
 
-    source = pathlib.Path(args.source)
-    output = pathlib.Path(args.output)
+    defaults = {
+        "en": (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
+        "de": (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-print.pdf"),
+    }
+    default_source, default_output = defaults[args.lang]
+
+    source = pathlib.Path(args.source) if args.source else default_source
+    output = pathlib.Path(args.output) if args.output else default_output
 
     if not source.exists():
         sys.exit(f"Error: source file not found: {source}")
 
     html_source = source.read_text(encoding="utf-8")
     data = extract(html_source)
-    cv_html = render_html(data)
+    cv_html = render_html(data, args.lang)
 
     print(f"Rendering PDF → {output}")
     asyncio.run(_render_pdf(cv_html, output))
