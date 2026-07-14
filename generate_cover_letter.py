@@ -277,19 +277,17 @@ body {
 
 .lt-closing { margin-top: 12pt; }
 
-/* ── Signature ── */
-.lt-sign { margin-top: 16pt; }
+/* ── Sign-off ── */
+/* The typed name closes the letter; there is no rule above it and no blank gap,
+   because the PDF is sent as-is and nothing here is meant to be signed by hand. */
+.lt-sign { margin-top: 14pt; }
 
 .lt-sign-name {
   font-family: var(--mono);
   font-weight: 600;
   font-size: 10pt;
   letter-spacing: 1px;
-  margin-top: 16pt;
-  padding-top: 4pt;
-  border-top: 1px solid var(--border);
-  display: inline-block;
-  min-width: 150pt;
+  margin-top: 5pt;
 }
 
 /* ── Enclosures ── */
