@@ -6,6 +6,7 @@ on:
     paths:
       - index.html
       - generate_cv.py
+  workflow_dispatch:
 
 jobs:
   generate-cv:
@@ -20,6 +21,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements-cv.txt
 
       - name: Install dependencies
         run: pip install -r requirements-cv.txt
