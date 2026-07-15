@@ -59,7 +59,7 @@ STREET = "Heinrich-Imbusch-Str. 12"
 CITY = "52499 Baesweiler"
 EMAIL = "arunmuruganmail@gmail.com"
 PHONE = "+49 (0)1737950101"
-WEBSITE = "arun-murugan-six.vercel.app"
+WEBSITE = "arun-murugan.de"
 
 # German month names — strftime("%B") is locale-dependent and would print
 # English months on a machine without de_DE installed.
