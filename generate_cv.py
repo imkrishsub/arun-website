@@ -663,7 +663,7 @@ def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
         """tel: URI for a displayed number.
 
         The site writes the number the way a German reader expects to read it —
-        "+49 (0)1737950101 (WhatsApp)" — but the trunk zero is an alternative to
+        "+49 (0)1603488387 (WhatsApp)" — but the trunk zero is an alternative to
         the country code, not part of it, and dialling it would fail. Drop the
         parenthesised parts, then keep the digits.
         """
