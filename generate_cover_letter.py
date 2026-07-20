@@ -46,7 +46,7 @@ def _tel_href(value: str) -> str:
     """tel: URI for a displayed number.
 
     The number is written the way a German reader expects to read it —
-    "+49 (0)1737950101" — but the trunk zero is an alternative to the country
+    "+49 (0)1603488387" — but the trunk zero is an alternative to the country
     code, not part of it, and dialling it would fail. Drop the parenthesised
     parts, then keep the digits.
     """
@@ -58,7 +58,7 @@ NAME = "Arun Murugan"
 STREET = "Heinrich-Imbusch-Str. 12"
 CITY = "52499 Baesweiler"
 EMAIL = "arunmuruganmail@gmail.com"
-PHONE = "+49 (0)1737950101"
+PHONE = "+49 (0)1603488387"
 WEBSITE = "arun-murugan.de"
 
 # German month names — strftime("%B") is locale-dependent and would print
