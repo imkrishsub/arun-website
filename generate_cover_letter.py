@@ -95,8 +95,9 @@ LOCALE = {
             "professional team in Germany.",
             "I currently live in Baesweiler and hold a Chancenkarte (§20a AufenthG) — the right "
             "to live and work in Germany without employer sponsorship or a visa procedure. Its "
-            "work-hour limits apply only during the active job-search phase: once an offer is "
-            "signed, the permit converts to unrestricted full-time authorisation, and until then "
+            "work-hour limits apply only during the active job-search phase: a concrete job "
+            "offer is enough to start converting the permit to unrestricted full-time "
+            "authorisation — a signed contract is not required at that point — and until then "
             "the same law permits a risk-free two-week full-time trial (details enclosed).",
             "Alongside my work, I am progressing steadily with my German. I am preparing for "
             "telc A2 later this year and intend to continue to B1, and I am committed to "
@@ -136,10 +137,11 @@ LOCALE = {
             "Ich wohne derzeit in Baesweiler und besitze eine Chancenkarte (§20a AufenthG) — "
             "damit darf ich in Deutschland leben und arbeiten, ohne dass eine Sponsorship oder "
             "ein Visumverfahren durch den Arbeitgeber erforderlich ist. Die bekannte "
-            "20-Stunden-Grenze gilt nur während der aktiven Jobsuche: Mit unterschriebenem "
-            "Arbeitsvertrag wird der Aufenthaltstitel in eine uneingeschränkte Arbeitserlaubnis "
-            "umgewandelt, und bis dahin erlaubt dasselbe Gesetz eine risikofreie zweiwöchige "
-            "Probebeschäftigung in Vollzeit (Details in der Anlage).",
+            "20-Stunden-Grenze gilt nur während der aktiven Jobsuche: Ein konkretes "
+            "Arbeitsplatzangebot genügt, um die Umwandlung in eine uneingeschränkte "
+            "Arbeitserlaubnis in Vollzeit anzustoßen — ein unterschriebener Arbeitsvertrag ist "
+            "dafür noch nicht nötig —, und bis dahin erlaubt dasselbe Gesetz eine risikofreie "
+            "zweiwöchige Probebeschäftigung in Vollzeit (Details in der Anlage).",
             "Parallel dazu baue ich meine Deutschkenntnisse kontinuierlich aus: Für dieses Jahr "
             "ist die telc-Prüfung A2 geplant, anschließend strebe ich B1 an. Weiterbildung und "
             "Einarbeitung sind für mich selbstverständlich.",

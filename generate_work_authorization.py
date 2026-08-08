@@ -47,9 +47,10 @@ LOCALE = {
         "intro": (
             "You may have seen that my Chancenkarte limits me to 20 hours of work a week and "
             "wondered whether I could take on a full-time role. That limit — and the two-week "
-            "trial option below — only applies while I'm still job-hunting. The moment I have a "
-            "signed offer, my permit converts to full, unrestricted work authorization. No "
-            "sponsorship or visa procedure needed from you at any point."
+            "trial option below — only applies while I'm still job-hunting. Under German law "
+            "(§18 Abs. 2 AufenthG), a concrete job offer is enough to start converting my permit "
+            "to full, unrestricted work authorization — I don't need a signed contract in hand "
+            "yet. No sponsorship or visa procedure needed from you at any point."
         ),
         "stages_label": "How I get to full-time",
         "stages": [
@@ -61,15 +62,16 @@ LOCALE = {
             },
             {
                 "num": "2",
-                "title": "You make me an offer",
-                "detail": "Together, we file a permit conversion at my local "
-                "Ausländerbehörde — paperwork, not a new visa application.",
+                "title": "You give me a concrete offer",
+                "detail": "A written job offer starts the process — not a signed contract. "
+                "Together, we file the permit conversion at my local Ausländerbehörde.",
             },
             {
                 "num": "3",
                 "title": "Permit converted",
                 "detail": "Usually takes 1–3 months. No sponsorship needed from you — my "
-                "qualifications were already checked for the Chancenkarte.",
+                "qualifications were already checked for the Chancenkarte. (Some offices ask to "
+                "see the finalized contract before issuing the permit.)",
             },
             {
                 "num": "4",
@@ -90,11 +92,15 @@ LOCALE = {
         "sources": [
             ("§ 20a AufenthG — Chancenkarte", "https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html"),
             (
+                "§ 18 Abs. 2 AufenthG — concrete job offer requirement",
+                "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
                 "Make it in Germany — Employing Chancenkarte holders",
                 "https://www.make-it-in-germany.com/en/companies/entry/employing-chancenkarte-holders",
             ),
         ],
-        "footnote": "Prepared by me for your information, based on §20a AufenthG as of August 2026 — not legal advice.",
+        "footnote": "Prepared by me for your information, based on §§18, 20a AufenthG as of August 2026 — not legal advice.",
     },
     "de": {
         "doc_lang": "de",
@@ -105,10 +111,11 @@ LOCALE = {
             "Vielleicht ist Ihnen aufgefallen, dass meine Chancenkarte mich auf 20 Stunden pro "
             "Woche beschränkt, und Sie haben sich gefragt, ob ich überhaupt Vollzeit arbeiten "
             "kann. Diese Grenze — und die unten beschriebene Probebeschäftigung — gilt nur, "
-            "solange ich noch auf Jobsuche bin. Sobald ich einen unterschriebenen Arbeitsvertrag "
-            "habe, wird mein Aufenthaltstitel in eine uneingeschränkte Vollzeit-Arbeitserlaubnis "
-            "umgewandelt. Weder Sponsorship noch ein Visumverfahren sind dafür von Ihrer Seite "
-            "nötig."
+            "solange ich noch auf Jobsuche bin. Nach deutschem Recht (§18 Abs. 2 AufenthG) "
+            "genügt ein konkretes Arbeitsplatzangebot, um die Umwandlung meines Aufenthaltstitels "
+            "in eine uneingeschränkte Vollzeit-Arbeitserlaubnis anzustoßen — ein unterschriebener "
+            "Arbeitsvertrag ist dafür noch nicht nötig. Weder Sponsorship noch ein Visumverfahren "
+            "sind von Ihrer Seite erforderlich."
         ),
         "stages_label": "Mein Weg zur Vollzeitbeschäftigung",
         "stages": [
@@ -121,16 +128,17 @@ LOCALE = {
             },
             {
                 "num": "2",
-                "title": "Sie machen mir ein Angebot",
-                "detail": "Gemeinsam beantragen wir die Umwandlung meines Aufenthaltstitels bei "
-                "meiner zuständigen Ausländerbehörde — ein Verwaltungsschritt, kein neues "
-                "Visumverfahren.",
+                "title": "Sie machen mir ein konkretes Angebot",
+                "detail": "Ein schriftliches Jobangebot genügt zum Start — kein "
+                "unterschriebener Vertrag. Gemeinsam beantragen wir die Umwandlung bei meiner "
+                "zuständigen Ausländerbehörde.",
             },
             {
                 "num": "3",
                 "title": "Titel umgewandelt",
                 "detail": "Dauert in der Regel 1–3 Monate. Keine Sponsorship von Ihrer Seite "
-                "nötig: meine Qualifikation wurde bereits für die Chancenkarte geprüft.",
+                "nötig: meine Qualifikation wurde bereits für die Chancenkarte geprüft. (Manche "
+                "Ausländerbehörden verlangen vor der Erteilung noch den fertigen Vertrag.)",
             },
             {
                 "num": "4",
@@ -152,11 +160,15 @@ LOCALE = {
         "sources": [
             ("§ 20a AufenthG — Chancenkarte", "https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html"),
             (
+                "§ 18 Abs. 2 AufenthG — Erfordernis eines konkreten Arbeitsplatzangebots",
+                "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
                 "Make it in Germany — Beschäftigung von Chancenkarte-Inhabern",
                 "https://www.make-it-in-germany.com/de/unternehmen/einreise/beschaeftigung-chancenkarte-inhabern",
             ),
         ],
-        "footnote": "Von mir zur Information erstellt, Stand §20a AufenthG August 2026 — keine Rechtsberatung.",
+        "footnote": "Von mir zur Information erstellt, Stand §§18, 20a AufenthG August 2026 — keine Rechtsberatung.",
     },
 }
 
