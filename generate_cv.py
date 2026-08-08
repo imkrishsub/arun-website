@@ -64,7 +64,7 @@ LOCALE = {
         # One fact per line: as a single "·"-separated run these wrapped at
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
-            "Chancenkarte holder — right to work in Germany, no sponsorship required",
+            "Chancenkarte holder — eligible for full-time work, no sponsorship required",
             "Willing to relocate anywhere in Germany",
         ],
     },
@@ -80,7 +80,7 @@ LOCALE = {
             "languages": "Sprachkenntnisse",
         },
         "footer": [
-            "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
+            "Chancenkarte-Inhaber — Vollzeitarbeit möglich, keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",
         ],
     },
