@@ -85,8 +85,9 @@ LOCALE = {
         "trial_text": (
             "My Chancenkarte already lets me work full-time for up to two weeks at a stretch, "
             "as many times as useful, alongside other steps. No change to my permit, no "
-            "paperwork, no cost to you — just a straightforward way to see how I work before "
-            "deciding to hire me."
+            "paperwork on your side — just my normal pay for those two weeks (it's a genuine "
+            "employment relationship under §611a BGB, not unpaid work), and a straightforward "
+            "way to see how I work before deciding to hire me."
         ),
         "sources_label": "Sources",
         "sources": [
@@ -94,6 +95,10 @@ LOCALE = {
             (
                 "§ 18 Abs. 2 AufenthG — concrete job offer requirement",
                 "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
+                "§ 611a BGB — employment contract, pay obligation",
+                "https://www.gesetze-im-internet.de/bgb/__611a.html",
             ),
             (
                 "Erklärung zum Beschäftigungsverhältnis (EzB), Bundesagentur für Arbeit",
@@ -104,7 +109,7 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/en/companies/entry/employing-chancenkarte-holders",
             ),
         ],
-        "footnote": "Prepared by me for your information, based on §§18, 20a AufenthG as of August 2026 — not legal advice.",
+        "footnote": "Enclosed with my application, current as of August 2026 (§§18, 20a AufenthG, §611a BGB) — for orientation, not legal advice.",
     },
     "de": {
         "doc_lang": "de",
@@ -156,9 +161,11 @@ LOCALE = {
         "trial_text": (
             "Meine Chancenkarte erlaubt es mir bereits jetzt, bis zu zwei Wochen am Stück in "
             "Vollzeit zu arbeiten — so oft es hilfreich ist, zusätzlich zu anderen Schritten. "
-            "Ohne Änderung meines Aufenthaltstitels, ohne Verwaltungsaufwand und ohne Kosten für "
-            "Sie — einfach eine unkomplizierte Möglichkeit zu sehen, wie ich arbeite, bevor Sie "
-            "sich für eine Einstellung entscheiden."
+            "Ohne Änderung meines Aufenthaltstitels, ohne Verwaltungsaufwand auf Ihrer Seite — "
+            "nur die normale Vergütung für diese zwei Wochen (es ist ein echtes "
+            "Arbeitsverhältnis nach §611a BGB, keine unbezahlte Arbeit), und eine unkomplizierte "
+            "Möglichkeit zu sehen, wie ich arbeite, bevor Sie sich für eine Einstellung "
+            "entscheiden."
         ),
         "sources_label": "Quellen",
         "sources": [
@@ -166,6 +173,10 @@ LOCALE = {
             (
                 "§ 18 Abs. 2 AufenthG — Erfordernis eines konkreten Arbeitsplatzangebots",
                 "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
+                "§ 611a BGB — Arbeitsvertrag, Vergütungspflicht",
+                "https://www.gesetze-im-internet.de/bgb/__611a.html",
             ),
             (
                 "Erklärung zum Beschäftigungsverhältnis (EzB), Bundesagentur für Arbeit",
@@ -176,7 +187,7 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/de/unternehmen/einreise/beschaeftigung-chancenkarte-inhabern",
             ),
         ],
-        "footnote": "Von mir zur Information erstellt, Stand §§18, 20a AufenthG August 2026 — keine Rechtsberatung.",
+        "footnote": "Anlage zu meiner Bewerbung, Stand August 2026 (§§18, 20a AufenthG, §611a BGB) — zur Orientierung, keine Rechtsberatung.",
     },
 }
 
@@ -199,7 +210,7 @@ body {
   font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 10pt;
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.5;
   background: #fff;
 }
 
@@ -233,7 +244,7 @@ body {
 .wa-link { color: inherit; text-decoration: none; }
 
 /* ── Title block ── */
-.wa-title-block { margin-top: 16pt; }
+.wa-title-block { margin-top: 12pt; }
 
 .wa-kicker {
   font-family: var(--mono);
@@ -257,7 +268,7 @@ body {
 
 /* ── Intro ── */
 .wa-intro {
-  margin-top: 12pt;
+  margin-top: 8pt;
   text-align: justify;
   font-size: 9.5pt;
 }
@@ -283,7 +294,7 @@ body {
   flex: 1;
   min-width: 0;
   border: 1px solid var(--border);
-  padding: 7pt 8pt;
+  padding: 6pt 8pt;
 }
 
 .wa-stage-num {
@@ -303,7 +314,7 @@ body {
   font-size: 7.3pt;
   color: var(--muted);
   margin-top: 4pt;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
 .wa-stage-arrow {
@@ -318,10 +329,10 @@ body {
 
 /* ── Trial callout ── */
 .wa-trial {
-  margin-top: 12pt;
+  margin-top: 8pt;
   border-left: 3pt solid var(--gold);
   background: rgba(107,78,0,0.06);
-  padding: 10pt 12pt;
+  padding: 8pt 12pt;
 }
 
 .wa-trial-label {
@@ -342,13 +353,13 @@ body {
   font-size: 9pt;
   color: var(--muted);
   margin-top: 4pt;
-  line-height: 1.5;
+  line-height: 1.4;
   text-align: justify;
 }
 
 /* ── Sources ── */
 .wa-sources {
-  margin-top: 10pt;
+  margin-top: 6pt;
   padding-top: 8pt;
   border-top: 1px solid var(--border);
 }
@@ -370,7 +381,7 @@ body {
   font-family: var(--mono);
   font-size: 8pt;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.5;
   padding-left: 11pt;
   position: relative;
   margin-bottom: 3pt;
@@ -388,7 +399,7 @@ body {
 /* ── Footnote ── */
 .wa-footnote {
   font-family: var(--mono);
-  margin-top: 8pt;
+  margin-top: 5pt;
   padding-top: 7pt;
   border-top: 1px solid var(--border);
   font-size: 7pt;
