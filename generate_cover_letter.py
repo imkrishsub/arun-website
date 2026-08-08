@@ -109,7 +109,7 @@ LOCALE = {
         "closing": "Thank you for your time and consideration.",
         "signoff": "Kind regards,",
         "enclosures_label": "Enclosures",
-        "enclosures": "CV · Certificates · Chancenkarte · Work-authorization overview · Personal documents",
+        "enclosures": "CV · Certificates · Chancenkarte · Work-authorization overview · Blank EzB form · Personal documents",
         "footer": [
             "Chancenkarte holder — right to work in Germany, no sponsorship required",
             "Willing to relocate anywhere in Germany",
@@ -152,7 +152,7 @@ LOCALE = {
         "closing": "Vielen Dank für Ihre Zeit und Ihr Interesse.",
         "signoff": "Mit freundlichen Grüßen",
         "enclosures_label": "Anlagen",
-        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Arbeitserlaubnis-Übersicht · Persönliche Unterlagen",
+        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Arbeitserlaubnis-Übersicht · Leeres EzB-Formular · Persönliche Unterlagen",
         "footer": [
             "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",

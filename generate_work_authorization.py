@@ -62,9 +62,10 @@ LOCALE = {
             },
             {
                 "num": "2",
-                "title": "You give me a concrete offer",
-                "detail": "A written job offer starts the process — not a signed contract. "
-                "Together, we file the permit conversion at my local Ausländerbehörde.",
+                "title": "You fill in one standard form",
+                "detail": "The Erklärung zum Beschäftigungsverhältnis (EzB) — the standard "
+                "Bundesagentur für Arbeit form for every non-EU hire, not something special for "
+                "me (blank copy enclosed). No signed contract needed yet.",
             },
             {
                 "num": "3",
@@ -94,6 +95,10 @@ LOCALE = {
             (
                 "§ 18 Abs. 2 AufenthG — concrete job offer requirement",
                 "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
+                "Erklärung zum Beschäftigungsverhältnis (EzB), Bundesagentur für Arbeit",
+                "https://www.arbeitsagentur.de/datei/erklaerung-zum-beschaeftigungsverhaeltnis_ba047549.pdf",
             ),
             (
                 "Make it in Germany — Employing Chancenkarte holders",
@@ -128,10 +133,10 @@ LOCALE = {
             },
             {
                 "num": "2",
-                "title": "Sie machen mir ein konkretes Angebot",
-                "detail": "Ein schriftliches Jobangebot genügt zum Start — kein "
-                "unterschriebener Vertrag. Gemeinsam beantragen wir die Umwandlung bei meiner "
-                "zuständigen Ausländerbehörde.",
+                "title": "Sie füllen ein Standardformular aus",
+                "detail": "Die Erklärung zum Beschäftigungsverhältnis (EzB) — das "
+                "Standardformular für jede Drittstaats-Einstellung, nichts Besonderes für mich "
+                "(liegt bei). Kein unterschriebener Vertrag nötig.",
             },
             {
                 "num": "3",
@@ -162,6 +167,10 @@ LOCALE = {
             (
                 "§ 18 Abs. 2 AufenthG — Erfordernis eines konkreten Arbeitsplatzangebots",
                 "https://www.gesetze-im-internet.de/aufenthg_2004/__18.html",
+            ),
+            (
+                "Erklärung zum Beschäftigungsverhältnis (EzB), Bundesagentur für Arbeit",
+                "https://www.arbeitsagentur.de/datei/erklaerung-zum-beschaeftigungsverhaeltnis_ba047549.pdf",
             ),
             (
                 "Make it in Germany — Beschäftigung von Chancenkarte-Inhabern",
@@ -340,7 +349,7 @@ body {
 
 /* ── Sources ── */
 .wa-sources {
-  margin-top: 16pt;
+  margin-top: 10pt;
   padding-top: 8pt;
   border-top: 1px solid var(--border);
 }
@@ -364,7 +373,7 @@ body {
 /* ── Footnote ── */
 .wa-footnote {
   font-family: var(--mono);
-  margin-top: 14pt;
+  margin-top: 8pt;
   padding-top: 7pt;
   border-top: 1px solid var(--border);
   font-size: 7pt;
