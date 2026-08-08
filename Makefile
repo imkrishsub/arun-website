@@ -1,4 +1,4 @@
-.PHONY: cv cv-de cv-de-generic cv-all letter letter-de letter-all desktop-build desktop-icons desktop-install desktop-quit
+.PHONY: cv cv-de cv-de-generic cv-all letter letter-de letter-all authorization authorization-de authorization-all desktop-build desktop-icons desktop-install desktop-quit
 
 cv:
 	python3 generate_cv.py --lang en
@@ -21,6 +21,16 @@ letter-de:
 	python3 generate_cover_letter.py --lang de
 
 letter-all: letter letter-de
+
+# One-page enclosure explaining the Chancenkarte's 20h/week search-phase limit
+# and the two-week full-time trial, for readers who only know the headline.
+authorization:
+	python3 generate_work_authorization.py --lang en
+
+authorization-de:
+	python3 generate_work_authorization.py --lang de
+
+authorization-all: authorization authorization-de
 
 desktop-build:
 	./scripts/desktop-build.sh

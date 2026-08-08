@@ -93,9 +93,11 @@ LOCALE = {
             "operations and related support functions. I bring hands-on experience in "
             "reconciliation and financial operations, and I am motivated to contribute to a "
             "professional team in Germany.",
-            "I currently live in Baesweiler and hold a Chancenkarte (§20a), which gives me full "
-            "work authorisation in Germany — no employer sponsorship or visa procedure is "
-            "required, so I am able to start without administrative delay.",
+            "I currently live in Baesweiler and hold a Chancenkarte (§20a AufenthG) — the right "
+            "to live and work in Germany without employer sponsorship or a visa procedure. Its "
+            "work-hour limits apply only during the active job-search phase: once an offer is "
+            "signed, the permit converts to unrestricted full-time authorisation, and until then "
+            "the same law permits a risk-free two-week full-time trial (details enclosed).",
             "Alongside my work, I am progressing steadily with my German. I am preparing for "
             "telc A2 later this year and intend to continue to B1, and I am committed to "
             "ongoing learning and development on the job.",
@@ -106,7 +108,7 @@ LOCALE = {
         "closing": "Thank you for your time and consideration.",
         "signoff": "Kind regards,",
         "enclosures_label": "Enclosures",
-        "enclosures": "CV · Certificates · Chancenkarte · Personal documents",
+        "enclosures": "CV · Certificates · Chancenkarte · Work-authorization overview · Personal documents",
         "footer": [
             "Chancenkarte holder — right to work in Germany, no sponsorship required",
             "Willing to relocate anywhere in Germany",
@@ -131,10 +133,13 @@ LOCALE = {
             "kaufmännische Sachbearbeitung. Ich bringe praktische Erfahrung in der "
             "Kontenabstimmung und im Financial-Operations-Umfeld mit und möchte mich gerne in "
             "ein professionelles Team in Deutschland einbringen.",
-            "Ich wohne derzeit in Baesweiler und besitze eine Chancenkarte (§20a). Damit liegt "
-            "eine uneingeschränkte Arbeitserlaubnis vor — es ist weder eine Sponsorship noch ein "
-            "Visumverfahren durch den Arbeitgeber erforderlich, sodass ich ohne "
-            "Verwaltungsaufwand kurzfristig beginnen kann.",
+            "Ich wohne derzeit in Baesweiler und besitze eine Chancenkarte (§20a AufenthG) — "
+            "damit darf ich in Deutschland leben und arbeiten, ohne dass eine Sponsorship oder "
+            "ein Visumverfahren durch den Arbeitgeber erforderlich ist. Die bekannte "
+            "20-Stunden-Grenze gilt nur während der aktiven Jobsuche: Mit unterschriebenem "
+            "Arbeitsvertrag wird der Aufenthaltstitel in eine uneingeschränkte Arbeitserlaubnis "
+            "umgewandelt, und bis dahin erlaubt dasselbe Gesetz eine risikofreie zweiwöchige "
+            "Probebeschäftigung in Vollzeit (Details in der Anlage).",
             "Parallel dazu baue ich meine Deutschkenntnisse kontinuierlich aus: Für dieses Jahr "
             "ist die telc-Prüfung A2 geplant, anschließend strebe ich B1 an. Weiterbildung und "
             "Einarbeitung sind für mich selbstverständlich.",
@@ -145,7 +150,7 @@ LOCALE = {
         "closing": "Vielen Dank für Ihre Zeit und Ihr Interesse.",
         "signoff": "Mit freundlichen Grüßen",
         "enclosures_label": "Anlagen",
-        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Persönliche Unterlagen",
+        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Arbeitserlaubnis-Übersicht · Persönliche Unterlagen",
         "footer": [
             "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",
