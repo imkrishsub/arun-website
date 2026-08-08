@@ -111,7 +111,7 @@ LOCALE = {
         "enclosures_label": "Enclosures",
         "enclosures": "CV · Certificates · Chancenkarte · Work-authorization overview · Blank EzB form · Personal documents",
         "footer": [
-            "Chancenkarte holder — right to work in Germany, no sponsorship required",
+            "Chancenkarte holder — eligible for full-time work, no sponsorship required",
             "Willing to relocate anywhere in Germany",
         ],
     },
@@ -154,7 +154,7 @@ LOCALE = {
         "enclosures_label": "Anlagen",
         "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Arbeitserlaubnis-Übersicht · Leeres EzB-Formular · Persönliche Unterlagen",
         "footer": [
-            "Chancenkarte — Arbeitserlaubnis für Deutschland vorhanden, keine Sponsorship nötig",
+            "Chancenkarte-Inhaber — Vollzeitarbeit möglich, keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",
         ],
     },
