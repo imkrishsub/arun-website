@@ -1,7 +1,8 @@
 # arun-website
 
-Arun Murugan's personal site (`index.html`, German at `de/index.html`), plus the
-document generators that turn it into print-ready PDFs.
+Arun Murugan's personal site (`index.html`, German — the default — with English
+at `en/index.html`), plus the document generators that turn it into
+print-ready PDFs.
 
 ## Setup
 
@@ -29,15 +30,15 @@ site's aesthetic (IBM Plex Mono, gold accents) on a white background.
 
 | Command | Source | Output |
 | --- | --- | --- |
-| `make cv` | `index.html` | `Arun-Murugan-CV-print.pdf` |
-| `make cv-de` | `de/index.html` | `Arun-Murugan-Lebenslauf-print.pdf` |
-| `make cv-de-generic` | `de/index.html` | `Arun-Murugan-Lebenslauf-generisch.pdf` |
+| `make cv` | `en/index.html` | `Arun-Murugan-CV-print.pdf` |
+| `make cv-de` | `index.html` | `Arun-Murugan-Lebenslauf-print.pdf` |
+| `make cv-de-generic` | `index.html` | `Arun-Murugan-Lebenslauf-generisch.pdf` |
 | `make cv-all` | both | all three |
 
 `--generic` drops the sought-role line under the name and in the footer, for
 applications outside reconciliation.
 
-The CV content lives in the HTML pages — edit `index.html` / `de/index.html` and
+The CV content lives in the HTML pages — edit `index.html` / `en/index.html` and
 re-run the build. Nothing is duplicated in the Python.
 
 ## Cover letter / Anschreiben

@@ -7,8 +7,8 @@ A4 PDF using Playwright. The PDF keeps the site's financial-terminal aesthetic
 (Courier New, gold accents, uppercase section labels) on a white background
 suitable for recruiters and ATS scanners.
 
-Two languages, both two pages: --lang en renders index.html to
-Arun-Murugan-CV-print.pdf, --lang de renders de/index.html to
+Two languages, both two pages: --lang en renders en/index.html to
+Arun-Murugan-CV-print.pdf, --lang de renders index.html to
 Arun-Murugan-Lebenslauf-print.pdf. --generic additionally drops the sought-role
 line under the name and in the footer, for applications outside reconciliation
 (--lang de --generic renders Arun-Murugan-Lebenslauf-generisch.pdf).
@@ -48,7 +48,7 @@ REPO_ROOT = pathlib.Path(__file__).parent
 
 # Chrome the CV adds on top of the site content: section headings, the footer
 # strapline and the document title. Everything else is lifted verbatim from the
-# source page, so index.html feeds the English CV and de/index.html the German.
+# source page, so en/index.html feeds the English CV and index.html the German.
 LOCALE = {
     "en": {
         "doc_lang": "en",
@@ -877,7 +877,7 @@ def main() -> None:
         "--lang",
         choices=sorted(LOCALE),
         default="en",
-        help="CV language: en reads index.html, de reads de/index.html (default: en)",
+        help="CV language: en reads en/index.html, de reads index.html (default: en)",
     )
     parser.add_argument(
         "--source",
@@ -895,10 +895,10 @@ def main() -> None:
     args = parser.parse_args()
 
     defaults = {
-        ("en", False): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
-        ("en", True): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-CV-generic-print.pdf"),
-        ("de", False): (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-print.pdf"),
-        ("de", True): (REPO_ROOT / "de" / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-generisch.pdf"),
+        ("en", False): (REPO_ROOT / "en" / "index.html", REPO_ROOT / "Arun-Murugan-CV-print.pdf"),
+        ("en", True): (REPO_ROOT / "en" / "index.html", REPO_ROOT / "Arun-Murugan-CV-generic-print.pdf"),
+        ("de", False): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-print.pdf"),
+        ("de", True): (REPO_ROOT / "index.html", REPO_ROOT / "Arun-Murugan-Lebenslauf-generisch.pdf"),
     }
     default_source, default_output = defaults[(args.lang, args.generic)]
 
