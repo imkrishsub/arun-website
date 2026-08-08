@@ -78,7 +78,8 @@ python3 generate_cover_letter.py --lang de \
 alongside the CV and cover letter — that explains the Chancenkarte (§20a
 AufenthG) for a reader who only knows the "20 hours per week" headline: the
 search-phase hour limit, the two-week full-time trial-employment option, and
-the conversion path to unrestricted full-time work once an offer is signed.
+the conversion path to unrestricted full-time work, which a concrete job
+offer is enough to start — no signed contract required yet.
 
 | Command | Output |
 | --- | --- |
@@ -88,6 +89,17 @@ the conversion path to unrestricted full-time work once an offer is signed.
 
 Like the cover letter, the text lives in the script's `LOCALE` table.
 `--output` overrides the file path.
+
+The overview names and links the **Erklärung zum Beschäftigungsverhältnis
+(EzB)** — the standard Bundesagentur für Arbeit form used for every non-EU
+hire in Germany, and the actual document an employer files to give proof of
+a "concrete job offer" (§18 Abs. 2 AufenthG) without needing a signed
+contract yet. A blank copy is checked into the repo as
+`Erklaerung-zum-Beschaeftigungsverhaeltnis-EzB.pdf`, downloadable from the
+site's Work authorization section and listed as a cover-letter enclosure.
+It is the official form as published at arbeitsagentur.de (version EzB
+02/2024 at the time it was added) — re-download it from the source link in
+the overview's Sources section if a newer version is needed.
 
 ## Desktop launcher
 
