@@ -43,48 +43,48 @@ LOCALE = {
         "doc_lang": "en",
         "doc_title": "Work authorization",
         "kicker": "Chancenkarte · §20a AufenthG",
-        "subtitle": "How the 20-hour limit and the two-week trial actually work",
+        "subtitle": "What the 20-hour limit really means for me — and the trial that removes the risk",
         "intro": (
-            "The Chancenkarte is often read as capping Arun at 20 hours of work per week. "
-            "That limit — and the two-week trial-employment option below — applies only to the "
-            "active job-search phase. Once an offer is signed, the permit is converted to "
-            "unrestricted full-time work authorization. No employer sponsorship or visa "
-            "procedure is required at any point."
+            "You may have seen that my Chancenkarte limits me to 20 hours of work a week and "
+            "wondered whether I could take on a full-time role. That limit — and the two-week "
+            "trial option below — only applies while I'm still job-hunting. The moment I have a "
+            "signed offer, my permit converts to full, unrestricted work authorization. No "
+            "sponsorship or visa procedure needed from you at any point."
         ),
-        "stages_label": "The path to full-time employment",
+        "stages_label": "How I get to full-time",
         "stages": [
             {
                 "num": "1",
-                "title": "Job search — now",
-                "detail": "Chancenkarte active. Up to 20h/week paid side work, plus a two-week "
-                "full-time trial (see below), repeatable.",
+                "title": "Job search — where I am now",
+                "detail": "My Chancenkarte is active. I can work up to 20h/week, plus take a "
+                "two-week full-time trial (see below) as often as it's useful.",
             },
             {
                 "num": "2",
-                "title": "Offer signed",
-                "detail": "Employer and Arun file a permit conversion at the local "
-                "Ausländerbehörde — a paperwork step, not a new visa application.",
+                "title": "You make me an offer",
+                "detail": "Together, we file a permit conversion at my local "
+                "Ausländerbehörde — paperwork, not a new visa application.",
             },
             {
                 "num": "3",
                 "title": "Permit converted",
-                "detail": "Typically 1–3 months. No employer sponsorship: the qualification "
-                "check already happened for the Chancenkarte.",
+                "detail": "Usually takes 1–3 months. No sponsorship needed from you — my "
+                "qualifications were already checked for the Chancenkarte.",
             },
             {
                 "num": "4",
-                "title": "Full-time employment",
-                "detail": "Unrestricted work hours. Standard employment relationship from this "
-                "point on.",
+                "title": "Full-time, for good",
+                "detail": "Unrestricted hours, from here on a completely standard employment "
+                "relationship.",
             },
         ],
-        "trial_label": "Risk-free before you commit",
-        "trial_title": "Two-week full-time trial employment (Probebeschäftigung)",
+        "trial_label": "Try me before you commit",
+        "trial_title": "A risk-free, two-week full-time trial (Probebeschäftigung)",
         "trial_text": (
-            "The Chancenkarte itself already permits a full-time trial period of up to two "
-            "weeks per instance — repeatable or run in parallel with other steps. No permit "
-            "change, no paperwork, no cost: an employer can simply try Arun full-time before "
-            "deciding to hire."
+            "My Chancenkarte already lets me work full-time for up to two weeks at a stretch, "
+            "as many times as useful, alongside other steps. No change to my permit, no "
+            "paperwork, no cost to you — just a straightforward way to see how I work before "
+            "deciding to hire me."
         ),
         "sources_label": "Sources",
         "sources": [
@@ -94,58 +94,59 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/en/companies/entry/employing-chancenkarte-holders",
             ),
         ],
-        "footnote": "Prepared for information only, based on §20a AufenthG as of August 2026 — not legal advice.",
+        "footnote": "Prepared by me for your information, based on §20a AufenthG as of August 2026 — not legal advice.",
     },
     "de": {
         "doc_lang": "de",
         "doc_title": "Arbeitserlaubnis",
         "kicker": "Chancenkarte · §20a AufenthG",
-        "subtitle": "Wie die 20-Stunden-Grenze und die zweiwöchige Probebeschäftigung wirklich funktionieren",
+        "subtitle": "Was die 20-Stunden-Grenze für mich wirklich bedeutet — und wie die Probebeschäftigung das Risiko nimmt",
         "intro": (
-            "Die Chancenkarte wird oft so gelesen, als läge die Arbeitszeit dauerhaft bei "
-            "20 Stunden pro Woche. Diese Grenze — und die unten beschriebene zweiwöchige "
-            "Probebeschäftigung — gilt jedoch nur während der aktiven Jobsuche. Mit "
-            "unterschriebenem Arbeitsvertrag wird der Aufenthaltstitel in eine uneingeschränkte "
-            "Arbeitserlaubnis in Vollzeit umgewandelt. Weder Sponsorship noch ein Visumverfahren "
-            "sind dafür erforderlich."
+            "Vielleicht ist Ihnen aufgefallen, dass meine Chancenkarte mich auf 20 Stunden pro "
+            "Woche beschränkt, und Sie haben sich gefragt, ob ich überhaupt Vollzeit arbeiten "
+            "kann. Diese Grenze — und die unten beschriebene Probebeschäftigung — gilt nur, "
+            "solange ich noch auf Jobsuche bin. Sobald ich einen unterschriebenen Arbeitsvertrag "
+            "habe, wird mein Aufenthaltstitel in eine uneingeschränkte Vollzeit-Arbeitserlaubnis "
+            "umgewandelt. Weder Sponsorship noch ein Visumverfahren sind dafür von Ihrer Seite "
+            "nötig."
         ),
-        "stages_label": "Der Weg zur Vollzeitbeschäftigung",
+        "stages_label": "Mein Weg zur Vollzeitbeschäftigung",
         "stages": [
             {
                 "num": "1",
-                "title": "Jobsuche — jetzt",
-                "detail": "Chancenkarte aktiv. Bis zu 20 Std./Woche Nebenbeschäftigung, "
-                "zusätzlich zweiwöchige Probebeschäftigung in Vollzeit (siehe unten), "
-                "wiederholbar.",
+                "title": "Jobsuche — mein aktueller Stand",
+                "detail": "Meine Chancenkarte ist aktiv. Ich kann bis zu 20 Std./Woche arbeiten "
+                "und zusätzlich eine Probebeschäftigung in Vollzeit von bis zu zwei Wochen "
+                "antreten (siehe unten) — so oft es hilfreich ist.",
             },
             {
                 "num": "2",
-                "title": "Arbeitsvertrag unterschrieben",
-                "detail": "Arbeitgeber und Arun beantragen die Umwandlung des Aufenthaltstitels "
-                "bei der zuständigen Ausländerbehörde — ein Verwaltungsschritt, kein neues "
+                "title": "Sie machen mir ein Angebot",
+                "detail": "Gemeinsam beantragen wir die Umwandlung meines Aufenthaltstitels bei "
+                "meiner zuständigen Ausländerbehörde — ein Verwaltungsschritt, kein neues "
                 "Visumverfahren.",
             },
             {
                 "num": "3",
                 "title": "Titel umgewandelt",
-                "detail": "In der Regel 1–3 Monate. Keine Sponsorship nötig: die "
-                "Qualifikationsprüfung ist bereits für die Chancenkarte erfolgt.",
+                "detail": "Dauert in der Regel 1–3 Monate. Keine Sponsorship von Ihrer Seite "
+                "nötig: meine Qualifikation wurde bereits für die Chancenkarte geprüft.",
             },
             {
                 "num": "4",
-                "title": "Vollzeitbeschäftigung",
-                "detail": "Uneingeschränkte Arbeitszeit. Ab hier ein normales "
+                "title": "Dauerhaft Vollzeit",
+                "detail": "Uneingeschränkte Arbeitszeit — ab hier ein ganz normales "
                 "Beschäftigungsverhältnis.",
             },
         ],
-        "trial_label": "Risikofrei vor der Entscheidung",
-        "trial_title": "Zweiwöchige Probebeschäftigung in Vollzeit",
+        "trial_label": "Testen Sie mich, bevor Sie sich entscheiden",
+        "trial_title": "Risikofreie Probebeschäftigung in Vollzeit (zwei Wochen)",
         "trial_text": (
-            "Die Chancenkarte erlaubt bereits jetzt eine Probebeschäftigung in Vollzeit von bis "
-            "zu zwei Wochen je Einsatz — wiederholbar oder parallel zu anderen Schritten "
-            "möglich. Ohne Titeländerung, ohne Verwaltungsaufwand, ohne Kosten: ein Arbeitgeber "
-            "kann Arun einfach in Vollzeit testen, bevor er sich für eine Einstellung "
-            "entscheidet."
+            "Meine Chancenkarte erlaubt es mir bereits jetzt, bis zu zwei Wochen am Stück in "
+            "Vollzeit zu arbeiten — so oft es hilfreich ist, zusätzlich zu anderen Schritten. "
+            "Ohne Änderung meines Aufenthaltstitels, ohne Verwaltungsaufwand und ohne Kosten für "
+            "Sie — einfach eine unkomplizierte Möglichkeit zu sehen, wie ich arbeite, bevor Sie "
+            "sich für eine Einstellung entscheiden."
         ),
         "sources_label": "Quellen",
         "sources": [
@@ -155,7 +156,7 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/de/unternehmen/einreise/beschaeftigung-chancenkarte-inhabern",
             ),
         ],
-        "footnote": "Nur zur Information erstellt, Stand §20a AufenthG August 2026 — keine Rechtsberatung.",
+        "footnote": "Von mir zur Information erstellt, Stand §20a AufenthG August 2026 — keine Rechtsberatung.",
     },
 }
 
