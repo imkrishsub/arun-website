@@ -72,6 +72,23 @@ python3 generate_cover_letter.py --lang de \
   Anschreiben.
 - `--date` overrides the date, `--output` the file path.
 
+## Work authorization overview
+
+`generate_work_authorization.py` renders a one-page A4 enclosure — sent
+alongside the CV and cover letter — that explains the Chancenkarte (§20a
+AufenthG) for a reader who only knows the "20 hours per week" headline: the
+search-phase hour limit, the two-week full-time trial-employment option, and
+the conversion path to unrestricted full-time work once an offer is signed.
+
+| Command | Output |
+| --- | --- |
+| `make authorization` | `Arun-Murugan-Work-Authorization.pdf` |
+| `make authorization-de` | `Arun-Murugan-Arbeitserlaubnis.pdf` |
+| `make authorization-all` | both |
+
+Like the cover letter, the text lives in the script's `LOCALE` table.
+`--output` overrides the file path.
+
 ## Desktop launcher
 
 `make desktop-build`, `desktop-icons`, `desktop-install`, `desktop-quit` build a
