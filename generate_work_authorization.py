@@ -63,16 +63,15 @@ LOCALE = {
             {
                 "num": "2",
                 "title": "You fill in one standard form",
-                "detail": "The Erklärung zum Beschäftigungsverhältnis (EzB) — the standard "
-                "Bundesagentur für Arbeit form for every non-EU hire, not something special for "
-                "me (blank copy enclosed). No signed contract needed yet.",
+                "detail": "Just the basics — role, hours, pay, start date — on the EzB, the "
+                "standard form for every non-EU hire (blank copy enclosed). No signed contract "
+                "yet.",
             },
             {
                 "num": "3",
                 "title": "Permit converted",
-                "detail": "Usually takes 1–3 months. No sponsorship needed from you — my "
-                "qualifications were already checked for the Chancenkarte. (Some offices ask to "
-                "see the finalized contract before issuing the permit.)",
+                "detail": "Often just a few weeks, rarely more than three months — and I keep "
+                "working the entire time: up to 20h/week, or full-time via the trial below.",
             },
             {
                 "num": "4",
@@ -134,16 +133,16 @@ LOCALE = {
             {
                 "num": "2",
                 "title": "Sie füllen ein Standardformular aus",
-                "detail": "Die Erklärung zum Beschäftigungsverhältnis (EzB) — das "
-                "Standardformular für jede Drittstaats-Einstellung, nichts Besonderes für mich "
-                "(liegt bei). Kein unterschriebener Vertrag nötig.",
+                "detail": "Nur die Basics — Rolle, Stunden, Gehalt, Starttermin — auf der EzB, "
+                "dem Standardformular für jede Drittstaats-Einstellung (liegt bei). Noch kein "
+                "unterschriebener Vertrag nötig.",
             },
             {
                 "num": "3",
                 "title": "Titel umgewandelt",
-                "detail": "Dauert in der Regel 1–3 Monate. Keine Sponsorship von Ihrer Seite "
-                "nötig: meine Qualifikation wurde bereits für die Chancenkarte geprüft. (Manche "
-                "Ausländerbehörden verlangen vor der Erteilung noch den fertigen Vertrag.)",
+                "detail": "Oft nur wenige Wochen, selten mehr als drei Monate — und ich arbeite "
+                "die ganze Zeit weiter: bis zu 20 Std./Woche oder in Vollzeit über die "
+                "Probebeschäftigung unten.",
             },
             {
                 "num": "4",
@@ -270,7 +269,7 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--gold);
-  margin-top: 16pt;
+  margin-top: 12pt;
   margin-bottom: 6pt;
 }
 
@@ -319,7 +318,7 @@ body {
 
 /* ── Trial callout ── */
 .wa-trial {
-  margin-top: 16pt;
+  margin-top: 12pt;
   border-left: 3pt solid var(--gold);
   background: rgba(107,78,0,0.06);
   padding: 10pt 12pt;
@@ -363,11 +362,27 @@ body {
   margin-bottom: 4pt;
 }
 
+.wa-sources-list {
+  list-style: none;
+}
+
 .wa-source-line {
   font-family: var(--mono);
   font-size: 8pt;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.6;
+  padding-left: 11pt;
+  position: relative;
+  margin-bottom: 3pt;
+}
+
+.wa-source-line:last-child { margin-bottom: 0; }
+
+.wa-source-line::before {
+  content: "–";
+  color: var(--gold);
+  position: absolute;
+  left: 0;
 }
 
 /* ── Footnote ── */
@@ -421,7 +436,7 @@ def render_html(lang: str) -> str:
     stages_html = "".join(stage_html_parts)
 
     sources_html = "".join(
-        f'<div class="wa-source-line">{label} — {_link(url, url)}</div>'
+        f'<li class="wa-source-line">{label} — {_link(url, url)}</li>'
         for label, url in loc["sources"]
     )
 
@@ -458,7 +473,7 @@ def render_html(lang: str) -> str:
 
   <div class="wa-sources">
     <div class="wa-sources-label">{loc["sources_label"]}</div>
-    {sources_html}
+    <ul class="wa-sources-list">{sources_html}</ul>
   </div>
 
   <div class="wa-footnote">{loc["footnote"]}</div>
