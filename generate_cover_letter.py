@@ -55,7 +55,7 @@ def _tel_href(value: str) -> str:
 
 
 NAME = "Arun Murugan"
-STREET = "Heinrich-Imbusch-Str. 12"
+STREET = "Heinrich-Imbusch-Str."
 CITY = "52499 Baesweiler"
 EMAIL = "arunmuruganmail@gmail.com"
 PHONE = "+49 (0)1603488387"
