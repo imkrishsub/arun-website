@@ -64,7 +64,7 @@ LOCALE = {
         # One fact per line: as a single "·"-separated run these wrapped at
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
-            "Chancenkarte holder — eligible for full-time work, no sponsorship required",
+            "Chancenkarte holder — no sponsorship required",
             "Willing to relocate anywhere in Germany",
         ],
     },
@@ -80,7 +80,7 @@ LOCALE = {
             "languages": "Sprachkenntnisse",
         },
         "footer": [
-            "Chancenkarte-Inhaber — Vollzeitarbeit möglich, keine Sponsorship nötig",
+            "Chancenkarte-Inhaber — keine Sponsorship nötig",
             "Umzug innerhalb Deutschlands jederzeit möglich",
         ],
     },
@@ -735,7 +735,7 @@ def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
     # ── Education ──
     edu_items = []
     for i, edu in enumerate(d["education"]):
-        if i > 0 and i < len(d["education"]) - 1:
+        if i > 0:
             edu_items.append('<div class="edu-divider"></div>')
         edu_items.append(f"""
         <div class="edu-item">
