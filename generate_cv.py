@@ -53,7 +53,7 @@ LOCALE = {
     "en": {
         "doc_lang": "en",
         "doc_title": "CV",
-        "zoom": 1.12,
+        "zoom": 1.08,
         "sections": {
             "profile": "Professional profile",
             "experience": "Performance history",
