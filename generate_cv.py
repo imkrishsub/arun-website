@@ -442,7 +442,7 @@ body {
 .badge-metric    { background: rgba(22,163,74,0.10); color: #15803d; }
 
 /* ── Experience ── */
-.exp-item { margin-bottom: 11pt; }
+.exp-item { margin-bottom: 11pt; break-inside: avoid; }
 .exp-item:last-child { margin-bottom: 0; }
 
 .exp-top {
