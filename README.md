@@ -36,7 +36,7 @@ site's aesthetic (IBM Plex Mono, gold accents) on a white background.
 | `make cv-all` | both | all three |
 
 `--generic` drops the sought-role line under the name and in the footer, for
-applications outside reconciliation.
+applications outside securities operations.
 
 The CV content lives in the HTML pages — edit `index.html` / `en/index.html` and
 re-run the build. Nothing is duplicated in the Python.

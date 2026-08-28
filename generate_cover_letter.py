@@ -89,30 +89,30 @@ LOCALE = {
         "salutation_named": "Dear {recipient},",
         "body": [
             "Thank you for the opportunity to submit my details. I am writing to express my "
-            "interest in joining your organisation in a role within management or back-office "
-            "operations and related support functions. I bring hands-on experience in "
-            "reconciliation and financial operations, and I am motivated to contribute to a "
-            "professional team in Germany.",
-            "I currently live in Baesweiler and hold a Chancenkarte (§20a AufenthG) — the right "
-            "to live and work in Germany without employer sponsorship or a visa procedure. Its "
-            "work-hour limits apply only during the active job-search phase: a concrete job "
-            "offer is enough to start converting the permit to unrestricted full-time "
-            "authorisation — a signed contract is not required at that point — and until then "
-            "the same law permits a risk-free two-week full-time trial (details enclosed).",
-            "Alongside my work, I am progressing steadily with my German. I am preparing for "
-            "telc A2 later this year and intend to continue to B1, and I am committed to "
-            "ongoing learning and development on the job.",
+            "interest in a role in securities operations — reconciliation, settlements or "
+            "custody. Over 5+ years at BNP Paribas I reconciled cash and custody positions on "
+            "SWIFT MT 535/536/940/950, matched trades and settlements across FX, money "
+            "markets, commodities and equity, and ran fee and commission reconciliation for "
+            "BGC/GFI, TP ICAP, Tradition, Bloomberg, Morgan Stanley and JP Morgan.",
+            "Hiring me costs nothing beyond the salary. I already live in Germany and already "
+            "hold a Chancenkarte (§20a AufenthG), so there is no sponsorship to arrange, no "
+            "visa procedure to run and no fee — I can start immediately. A concrete job offer "
+            "is enough to begin converting the permit to unrestricted full-time authorisation, "
+            "no signed contract required at that point, and until then the same law permits a "
+            "risk-free two-week full-time trial (details enclosed).",
+            "I am relocating to Frankfurt am Main from 1 November 2026. My working language is "
+            "English; I am also building my German alongside my day-to-day work.",
             "I have attached my CV together with the requested personal and educational "
-            "documents. I would be glad to discuss how I can support your team and contribute "
-            "to your operational goals, and I am available for an interview at any time.",
+            "documents. I would be glad to discuss how I can support your team, and I am "
+            "available for an interview at any time.",
         ],
         "closing": "Thank you for your time and consideration.",
         "signoff": "Kind regards,",
         "enclosures_label": "Enclosures",
-        "enclosures": "CV · Certificates · Chancenkarte · Work-authorization overview · Blank EzB form · Personal documents",
+        "enclosures": "CV · Certificates · Chancenkarte · What hiring me costs you · Blank EzB form · Personal documents",
         "footer": [
             "Chancenkarte holder — eligible for full-time work, no sponsorship required",
-            "Willing to relocate anywhere in Germany",
+            "Relocating to Frankfurt am Main from 1 November 2026",
         ],
     },
     "de": {
@@ -130,21 +130,22 @@ LOCALE = {
         "salutation_named": "Sehr geehrte{ending} {recipient},",
         "body": [
             "vielen Dank für die Möglichkeit, Ihnen meine Unterlagen zu übersenden. Hiermit "
-            "bewerbe ich mich um eine Position im Bereich Management, Back-Office bzw. "
-            "kaufmännische Sachbearbeitung. Ich bringe praktische Erfahrung in der "
-            "Kontenabstimmung und im Financial-Operations-Umfeld mit und möchte mich gerne in "
-            "ein professionelles Team in Deutschland einbringen.",
-            "Ich wohne derzeit in Baesweiler und besitze eine Chancenkarte (§20a AufenthG) — "
-            "damit darf ich in Deutschland leben und arbeiten, ohne dass eine Sponsorship oder "
-            "ein Visumverfahren durch den Arbeitgeber erforderlich ist. Die bekannte "
-            "20-Stunden-Grenze gilt nur während der aktiven Jobsuche: Ein konkretes "
-            "Arbeitsplatzangebot genügt, um die Umwandlung in eine uneingeschränkte "
-            "Arbeitserlaubnis in Vollzeit anzustoßen — ein unterschriebener Arbeitsvertrag ist "
-            "dafür noch nicht nötig —, und bis dahin erlaubt dasselbe Gesetz eine risikofreie "
-            "zweiwöchige Probebeschäftigung in Vollzeit (Details in der Anlage).",
-            "Parallel dazu baue ich meine Deutschkenntnisse kontinuierlich aus: Für dieses Jahr "
-            "ist die telc-Prüfung A2 geplant, anschließend strebe ich B1 an. Weiterbildung und "
-            "Einarbeitung sind für mich selbstverständlich.",
+            "bewerbe ich mich um eine Position in der Wertpapierabwicklung — Reconciliation, "
+            "Settlement oder Custody. In über 5 Jahren bei BNP Paribas habe ich Cash- und "
+            "Custody-Positionen über SWIFT MT 535/536/940/950 abgestimmt, Trades und "
+            "Settlements über FX, Geldmarkt, Commodities und Equity gematcht und die "
+            "Gebühren- und Provisionsabstimmung für BGC/GFI, TP ICAP, Tradition, Bloomberg, "
+            "Morgan Stanley und JP Morgan verantwortet.",
+            "Meine Einstellung kostet Sie nichts außer dem Gehalt. Ich lebe bereits in "
+            "Deutschland und besitze bereits eine Chancenkarte (§20a AufenthG) — daher ist "
+            "keine Sponsorship, kein Visumverfahren und keine Gebühr erforderlich, und ich "
+            "kann sofort beginnen. Ein konkretes Arbeitsplatzangebot genügt, um die Umwandlung "
+            "in eine uneingeschränkte Arbeitserlaubnis in Vollzeit anzustoßen — ein "
+            "unterschriebener Arbeitsvertrag ist dafür noch nicht nötig —, und bis dahin "
+            "erlaubt dasselbe Gesetz eine risikofreie zweiwöchige Probebeschäftigung in "
+            "Vollzeit (Details in der Anlage).",
+            "Zum 1. November 2026 ziehe ich nach Frankfurt am Main. Meine Arbeitssprache ist "
+            "Englisch; parallel baue ich meine Deutschkenntnisse weiter aus.",
             "Meinen Lebenslauf sowie die angeforderten persönlichen Unterlagen und Zeugnisse "
             "habe ich beigefügt. Über die Einladung zu einem persönlichen Gespräch würde ich "
             "mich sehr freuen — Termine kann ich jederzeit wahrnehmen.",
@@ -152,10 +153,10 @@ LOCALE = {
         "closing": "Vielen Dank für Ihre Zeit und Ihr Interesse.",
         "signoff": "Mit freundlichen Grüßen",
         "enclosures_label": "Anlagen",
-        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Arbeitserlaubnis-Übersicht · Leeres EzB-Formular · Persönliche Unterlagen",
+        "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Was meine Einstellung Sie kostet · Leeres EzB-Formular · Persönliche Unterlagen",
         "footer": [
             "Chancenkarte-Inhaber — Vollzeitarbeit möglich, keine Sponsorship nötig",
-            "Umzug innerhalb Deutschlands jederzeit möglich",
+            "Umzug nach Frankfurt am Main ab 1. November 2026",
         ],
     },
 }
