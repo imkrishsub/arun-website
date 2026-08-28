@@ -53,7 +53,7 @@ LOCALE = {
     "en": {
         "doc_lang": "en",
         "doc_title": "CV",
-        "zoom": 1.08,
+        "zoom": 1.05,
         "sections": {
             "profile": "Professional profile",
             "experience": "Performance history",
@@ -65,13 +65,13 @@ LOCALE = {
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
             "Chancenkarte holder — no sponsorship required",
-            "Willing to relocate anywhere in Germany",
+            "Relocating to Frankfurt am Main from 1 November 2026",
         ],
     },
     "de": {
         "doc_lang": "de",
         "doc_title": "Lebenslauf",
-        "zoom": 1.08,
+        "zoom": 1.05,
         "sections": {
             "profile": "Kurzprofil",
             "experience": "Berufserfahrung",
@@ -81,7 +81,7 @@ LOCALE = {
         },
         "footer": [
             "Chancenkarte-Inhaber — keine Sponsorship nötig",
-            "Umzug innerhalb Deutschlands jederzeit möglich",
+            "Umzug nach Frankfurt am Main ab 1. November 2026",
         ],
     },
 }
