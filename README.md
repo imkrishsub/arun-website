@@ -73,14 +73,27 @@ python3 generate_cover_letter.py --lang de \
   Anschreiben.
 - `--date` overrides the date, `--output` the file path.
 
-## Work authorization overview
+## Cost-to-hire overview (work authorization)
 
 `generate_work_authorization.py` renders a one-page A4 enclosure — sent
-alongside the CV and cover letter — that explains the Chancenkarte (§20a
-AufenthG) for a reader who only knows the "20 hours per week" headline: the
-search-phase hour limit, the two-week full-time trial-employment option, and
-the conversion path to unrestricted full-time work, which a concrete job
-offer is enough to start — no signed contract required yet.
+alongside the CV and cover letter — that answers the question employers
+actually ask about a non-EU candidate: what does this cost me?
+
+It opens with a myth-versus-fact block addressing the four assumptions that
+most often end an application:
+
+- **"I would have to pay you €48,000."** That figure is the minimum salary for
+  the EU Blue Card (§18b Abs. 2 AufenthG), a route Arun is not applying for.
+- **"I would have to sponsor your visa."** Germany has no employer sponsorship
+  system and no sponsorship fee — the point most often confused with UK sponsor
+  licences and the US H-1B.
+- **"There would be a lot of paperwork."** One standard form, the EzB.
+- **"You could not start until it is approved."** He can work today at
+  20 h/week, plus a two-week full-time trial.
+
+It then explains the conversion path to unrestricted full-time work — which a
+concrete job offer is enough to start, no signed contract required yet — and
+the two-week Probebeschäftigung.
 
 | Command | Output |
 | --- | --- |
@@ -90,6 +103,10 @@ offer is enough to start — no signed contract required yet.
 
 Like the cover letter, the text lives in the script's `LOCALE` table.
 `--output` overrides the file path.
+
+Both languages are tuned to fit a single A4 page. German runs roughly 15 mm
+longer than English at the same copy length, so it is the binding constraint —
+after editing `LOCALE`, re-check that the German still fits before committing.
 
 The overview names and links the **Erklärung zum Beschäftigungsverhältnis
 (EzB)** — the standard Bundesagentur für Arbeit form used for every non-EU
