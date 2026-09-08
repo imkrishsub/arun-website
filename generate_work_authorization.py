@@ -48,8 +48,8 @@ LOCALE = {
         "subtitle": "Nothing beyond the salary — no sponsorship, no fee, no visa procedure",
         "intro": (
             "Hiring someone from outside the EU is widely assumed to be expensive and slow. In "
-            "my case it is neither. I already live in Germany and already hold a permit that "
-            "lets me work, so there is no visa procedure, no sponsorship and no fee — Germany "
+            "my case it is neither. I already live in Frankfurt am Main and already hold a permit "
+            "that lets me work, so there is no visa procedure, no sponsorship and no fee — Germany "
             "levies no employer charge of the kind the UK and the US do."
         ),
         "myths_label": "The four things employers usually assume",
@@ -130,7 +130,7 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/en/companies/entry/employing-chancenkarte-holders",
             ),
         ],
-        "footnote": "Enclosed with my application, current as of August 2026 (§§18, 18b, 19c, 20a AufenthG, §6 BeschV, §611a BGB) — for orientation, not legal advice.",
+        "footnote": "Enclosed with my application, current as of September 2026 (§§18, 18b, 19c, 20a AufenthG, §6 BeschV, §611a BGB) — for orientation, not legal advice.",
     },
     "de": {
         "doc_lang": "de",
@@ -139,8 +139,8 @@ LOCALE = {
         "subtitle": "Nichts außer dem Gehalt — kein Sponsoring, keine Gebühr, kein Visumverfahren",
         "intro": (
             "Eine Einstellung aus einem Drittstaat gilt als teuer und langwierig. In meinem Fall "
-            "ist sie weder das eine noch das andere. Ich lebe bereits in Deutschland und besitze "
-            "einen Aufenthaltstitel, der mir das Arbeiten erlaubt — kein Visumverfahren, kein "
+            "ist sie weder das eine noch das andere. Ich lebe bereits in Frankfurt am Main und "
+            "besitze einen Aufenthaltstitel, der mir das Arbeiten erlaubt — kein Visumverfahren, kein "
             "Sponsoring, keine Gebühr. Eine Arbeitgeberabgabe wie im Vereinigten Königreich oder "
             "in den USA gibt es hier nicht."
         ),
@@ -223,7 +223,7 @@ LOCALE = {
                 "https://www.make-it-in-germany.com/de/unternehmen/einreise/beschaeftigung-chancenkarte-inhabern",
             ),
         ],
-        "footnote": "Anlage zu meiner Bewerbung, Stand August 2026 (§§18, 18b, 19c, 20a AufenthG, §6 BeschV, §611a BGB) — zur Orientierung, keine Rechtsberatung.",
+        "footnote": "Anlage zu meiner Bewerbung, Stand September 2026 (§§18, 18b, 19c, 20a AufenthG, §6 BeschV, §611a BGB) — zur Orientierung, keine Rechtsberatung.",
     },
 }
 
@@ -497,7 +497,7 @@ def render_html(lang: str) -> str:
         return f'<a class="wa-link" href="{href}">{label}</a>'
 
     contact_parts = [
-        f"addr {STREET}, {CITY}",
+        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
         f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
         f"tel {_link(_tel_href(PHONE), PHONE)}",
         f"www {_link(f'https://{WEBSITE}', WEBSITE)}",

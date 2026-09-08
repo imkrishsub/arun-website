@@ -55,8 +55,8 @@ def _tel_href(value: str) -> str:
 
 
 NAME = "Arun Murugan"
-STREET = "Heinrich-Imbusch-Str."
-CITY = "52499 Baesweiler"
+STREET = ""
+CITY = "Frankfurt am Main"
 EMAIL = "arunmuruganmail@gmail.com"
 PHONE = "+49 (0)1603488387"
 WEBSITE = "arun-murugan.de"
@@ -72,8 +72,8 @@ _DE_MONTHS = [
 def _default_date(lang: str) -> str:
     today = dt.date.today()
     if lang == "de":
-        return f"Baesweiler, {today.day}. {_DE_MONTHS[today.month - 1]} {today.year}"
-    return f"Baesweiler, {today:%d %B %Y}".replace(" 0", " ")
+        return f"{CITY}, {today.day}. {_DE_MONTHS[today.month - 1]} {today.year}"
+    return f"{CITY}, {today:%d %B %Y}".replace(" 0", " ")
 
 
 LOCALE = {
@@ -94,13 +94,13 @@ LOCALE = {
             "SWIFT MT 535/536/940/950, matched trades and settlements across FX, money "
             "markets, commodities and equity, and ran fee and commission reconciliation for "
             "BGC/GFI, TP ICAP, Tradition, Bloomberg, Morgan Stanley and JP Morgan.",
-            "Hiring me costs nothing beyond the salary. I already live in Germany and already "
-            "hold a Chancenkarte (§20a AufenthG), so there is no sponsorship to arrange, no "
+            "Hiring me costs nothing beyond the salary. I already live in Frankfurt am Main and "
+            "already hold a Chancenkarte (§20a AufenthG), so there is no sponsorship to arrange, no "
             "visa procedure to run and no fee — I can start immediately. A concrete job offer "
             "is enough to begin converting the permit to unrestricted full-time authorisation, "
             "no signed contract required at that point, and until then the same law permits a "
             "risk-free two-week full-time trial (details enclosed).",
-            "I am relocating to Frankfurt am Main from 1 November 2026. My working language is "
+            "I am based in Frankfurt am Main. My working language is "
             "English; I am also building my German alongside my day-to-day work.",
             "I have attached my CV together with the requested personal and educational "
             "documents. I would be glad to discuss how I can support your team, and I am "
@@ -112,7 +112,7 @@ LOCALE = {
         "enclosures": "CV · Certificates · Chancenkarte · What hiring me costs you · Blank EzB form · Personal documents",
         "footer": [
             "Chancenkarte holder — eligible for full-time work, no sponsorship required",
-            "Relocating to Frankfurt am Main from 1 November 2026",
+            "Based in Frankfurt am Main",
         ],
     },
     "de": {
@@ -137,14 +137,14 @@ LOCALE = {
             "Gebühren- und Provisionsabstimmung für BGC/GFI, TP ICAP, Tradition, Bloomberg, "
             "Morgan Stanley und JP Morgan verantwortet.",
             "Meine Einstellung kostet Sie nichts außer dem Gehalt. Ich lebe bereits in "
-            "Deutschland und besitze bereits eine Chancenkarte (§20a AufenthG) — daher ist "
+            "Frankfurt am Main und besitze bereits eine Chancenkarte (§20a AufenthG) — daher ist "
             "keine Sponsorship, kein Visumverfahren und keine Gebühr erforderlich, und ich "
             "kann sofort beginnen. Ein konkretes Arbeitsplatzangebot genügt, um die Umwandlung "
             "in eine uneingeschränkte Arbeitserlaubnis in Vollzeit anzustoßen — ein "
             "unterschriebener Arbeitsvertrag ist dafür noch nicht nötig —, und bis dahin "
             "erlaubt dasselbe Gesetz eine risikofreie zweiwöchige Probebeschäftigung in "
             "Vollzeit (Details in der Anlage).",
-            "Zum 1. November 2026 ziehe ich nach Frankfurt am Main. Meine Arbeitssprache ist "
+            "Ich wohne in Frankfurt am Main. Meine Arbeitssprache ist "
             "Englisch; parallel baue ich meine Deutschkenntnisse weiter aus.",
             "Meinen Lebenslauf sowie die angeforderten persönlichen Unterlagen und Zeugnisse "
             "habe ich beigefügt. Über die Einladung zu einem persönlichen Gespräch würde ich "
@@ -156,7 +156,7 @@ LOCALE = {
         "enclosures": "Lebenslauf · Zeugnisse · Chancenkarte · Was meine Einstellung Sie kostet · Leeres EzB-Formular · Persönliche Unterlagen",
         "footer": [
             "Chancenkarte-Inhaber — Vollzeitarbeit möglich, keine Sponsorship nötig",
-            "Umzug nach Frankfurt am Main ab 1. November 2026",
+            "Wohnhaft in Frankfurt am Main",
         ],
     },
 }
@@ -370,7 +370,7 @@ def render_html(
     # Same lowercase word markers as the CV: the embedded Plex subsets are
     # latin-only, so ✉ ☎ ⌂ would fall back to a system font.
     contact_parts = [
-        f"addr {STREET}, {CITY}",
+        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
         f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
         f"tel {_link(_tel_href(PHONE), PHONE)}",
         f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
