@@ -46,6 +46,35 @@ except ImportError:
 
 REPO_ROOT = pathlib.Path(__file__).parent
 
+# Header contact icons as (viewBox, path). Material Symbols (outlined) for mail,
+# call, language and location_on; Material has no LinkedIn mark, so that one is
+# the Simple Icons brand glyph.
+CONTACT_ICONS = {
+    "mail": ("0 -960 960 960", "M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"),
+    "linkedin": ("0 0 24 24", "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"),
+    "website": ("0 -960 960 960", "M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q83 0 155.5 31.5t127 86q54.5 54.5 86 127T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Zm0-82q26-36 45-75t31-83H404q12 44 31 83t45 75Zm-104-16q-18-33-31.5-68.5T322-320H204q29 50 72.5 87t99.5 55Zm208 0q56-18 99.5-55t72.5-87H638q-9 38-22.5 73.5T584-178ZM170-400h136q-3-20-4.5-39.5T300-480q0-21 1.5-40.5T306-560H170q-5 20-7.5 39.5T160-480q0 21 2.5 40.5T170-400Zm216 0h188q3-20 4.5-39.5T580-480q0-21-1.5-40.5T574-560H386q-3 20-4.5 39.5T380-480q0 21 1.5 40.5T386-400Zm268 0h136q5-20 7.5-39.5T800-480q0-21-2.5-40.5T790-560H654q3 20 4.5 39.5T660-480q0 21-1.5 40.5T654-400Zm-16-240h118q-29-50-72.5-87T584-782q18 33 31.5 68.5T638-640Zm-234 0h152q-12-44-31-83t-45-75q-26 36-45 75t-31 83Zm-200 0h118q9-38 22.5-73.5T376-782q-56 18-99.5 55T204-640Z"),
+    "phone": ("0 -960 960 960", "M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"),
+    "address": ("0 -960 960 960", "M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"),
+}
+
+
+def _contact_icon(name: str) -> str:
+    """Inline SVG marker for a header contact item.
+
+    SVG, not font glyphs: the embedded Plex subsets are latin-only, so symbols
+    like U+2709/260E fell back to a system font and printed at the wrong
+    weight. SVG also stays out of the extracted text, so ATS parsers read the
+    bare values. Sized inline so the cover letter and work-authorization pages
+    can reuse it without copying CSS.
+    """
+    view_box, path = CONTACT_ICONS[name]
+    return (
+        f'<svg viewBox="{view_box}" aria-hidden="true" '
+        f'style="width:8.5pt;height:8.5pt;fill:currentColor;flex:none">'
+        f'<path d="{path}"/></svg>'
+    )
+
+
 # Chrome the CV adds on top of the site content: section headings, the footer
 # strapline and the document title. Everything else is lifted verbatim from the
 # source page, so en/index.html feeds the English CV and index.html the German.
@@ -350,7 +379,12 @@ body {
   color: var(--muted);
 }
 
-.cv-contact-item { white-space: nowrap; }
+.cv-contact-item {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3pt;
+}
 
 /* Clickable in a PDF reader, but visually identical to the surrounding text —
    a printed CV should not sprout underlined blue links. */
@@ -670,21 +704,17 @@ def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
         bare = re.sub(r"\(.*?\)", "", value)
         return "tel:+" + "".join(c for c in bare if c.isdigit())
 
-    # Markers are lowercase words, not symbols: the embedded Plex subsets are
-    # latin-only, so ✉ ☎ ⌂ (U+2709/260E/2302) fell back to a system font and
-    # printed at the wrong weight — the same defect as the language arrow.
-    # "in" and "www" already set this pattern.
     contact_parts = []
     if email := contact.get("email"):
-        contact_parts.append(f"mail {_link(f'mailto:{email}', email)}")
+        contact_parts.append(f"{_contact_icon('mail')}{_link(f'mailto:{email}', email)}")
     if li := contact.get("linkedin"):
-        contact_parts.append(f"in {_link(f'https://{li}', li)}")
+        contact_parts.append(f"{_contact_icon('linkedin')}{_link(f'https://{li}', li)}")
     if site := contact.get("website"):
-        contact_parts.append(f"www {_link(f'https://{site}', site)}")
+        contact_parts.append(f"{_contact_icon('website')}{_link(f'https://{site}', site)}")
     if ph := contact.get("phone"):
-        contact_parts.append(f"tel {_link(_tel_href(ph), ph)}")
+        contact_parts.append(f"{_contact_icon('phone')}{_link(_tel_href(ph), ph)}")
     if addr := contact.get("address"):
-        contact_parts.append(f"addr {addr}")
+        contact_parts.append(f"{_contact_icon('address')}<span>{addr}</span>")
 
     # Each part is its own flex item so a long value (the site URL) wraps as a
     # whole instead of splitting mid-token at a hyphen. The flex gap separates
