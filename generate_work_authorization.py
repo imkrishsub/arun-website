@@ -48,7 +48,7 @@ LOCALE = {
         "subtitle": "Nothing beyond the salary — no sponsorship, no fee, no visa procedure",
         "intro": (
             "Hiring someone from outside the EU is widely assumed to be expensive and slow. In "
-            "my case it is neither. I already live in Frankfurt am Main and already hold a permit "
+            "my case it is neither. I already live in {city} and already hold a permit "
             "that lets me work, so there is no visa procedure, no sponsorship and no fee — Germany "
             "levies no employer charge of the kind the UK and the US do."
         ),
@@ -139,7 +139,7 @@ LOCALE = {
         "subtitle": "Nichts außer dem Gehalt — kein Sponsoring, keine Gebühr, kein Visumverfahren",
         "intro": (
             "Eine Einstellung aus einem Drittstaat gilt als teuer und langwierig. In meinem Fall "
-            "ist sie weder das eine noch das andere. Ich lebe bereits in Frankfurt am Main und "
+            "ist sie weder das eine noch das andere. Ich lebe bereits in {city} und "
             "besitze einen Aufenthaltstitel, der mir das Arbeiten erlaubt — kein Visumverfahren, kein "
             "Sponsoring, keine Gebühr. Eine Arbeitgeberabgabe wie im Vereinigten Königreich oder "
             "in den USA gibt es hier nicht."
@@ -483,7 +483,7 @@ body {
 """
 
 
-def render_html(lang: str) -> str:
+def render_html(lang: str, city: str = CITY) -> str:
     loc = LOCALE[lang]
 
     words = NAME.upper().split()
@@ -497,7 +497,7 @@ def render_html(lang: str) -> str:
         return f'<a class="wa-link" href="{href}">{label}</a>'
 
     contact_parts = [
-        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
+        f"addr {', '.join(p for p in (STREET, city) if p)}",
         f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
         f"tel {_link(_tel_href(PHONE), PHONE)}",
         f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
@@ -552,7 +552,7 @@ def render_html(lang: str) -> str:
     <div class="wa-subtitle">{loc["subtitle"]}</div>
   </div>
 
-  <p class="wa-intro">{loc["intro"]}</p>
+  <p class="wa-intro">{loc["intro"].format(city=city)}</p>
 
   <div class="wa-myths-label">{loc["myths_label"]}</div>
   {myths_html}
@@ -590,6 +590,11 @@ async def _render_pdf(html: str, output: pathlib.Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate the work-authorization overview PDF")
     parser.add_argument("--lang", choices=sorted(LOCALE), default="en")
+    parser.add_argument(
+        "--city",
+        default=CITY,
+        help=f"City in the header and intro, for a vacancy elsewhere (default: {CITY})",
+    )
     parser.add_argument("--output", help="Output PDF path (default: derived from --lang)")
     args = parser.parse_args()
 
@@ -599,7 +604,7 @@ def main() -> None:
     }
     output = pathlib.Path(args.output) if args.output else defaults[args.lang]
 
-    html = render_html(args.lang)
+    html = render_html(args.lang, args.city)
 
     print(f"Rendering PDF → {output}")
     asyncio.run(_render_pdf(html, output))

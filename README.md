@@ -113,6 +113,9 @@ the two-week Probebeschäftigung.
 | `make authorization-de` | `Arun-Murugan-Arbeitserlaubnis.pdf` |
 | `make authorization-all` | both |
 
+`--city` swaps the city in the header and intro for a vacancy elsewhere, e.g.
+`python3 generate_work_authorization.py --city Düsseldorf --output applications/Arun-Murugan-Work-Authorization-trivago.pdf`.
+
 Like the cover letter, the text lives in the script's `LOCALE` table.
 `--output` overrides the file path.
 
