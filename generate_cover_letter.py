@@ -16,7 +16,8 @@ Requirements:
 
 Usage:
     python generate_cover_letter.py [--lang en|de] [--company NAME]
-        [--recipient LINES] [--role TITLE] [--date TEXT] [--photo] [--output PDF]
+        [--recipient LINES] [--role TITLE] [--date TEXT] [--photo] [--content JSON]
+        [--output PDF]
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import datetime as dt
+import json
 import pathlib
 import re
 import sys
@@ -69,11 +71,11 @@ _DE_MONTHS = [
 ]
 
 
-def _default_date(lang: str) -> str:
+def _default_date(lang: str, city: str = CITY) -> str:
     today = dt.date.today()
     if lang == "de":
-        return f"{CITY}, {today.day}. {_DE_MONTHS[today.month - 1]} {today.year}"
-    return f"{CITY}, {today:%d %B %Y}".replace(" 0", " ")
+        return f"{city}, {today.day}. {_DE_MONTHS[today.month - 1]} {today.year}"
+    return f"{city}, {today:%d %B %Y}".replace(" 0", " ")
 
 
 LOCALE = {
@@ -354,8 +356,12 @@ def render_html(
     salutation_name: str = "",
     date: str = "",
     photo: bool = False,
+    content: dict | None = None,
 ) -> str:
-    loc = LOCALE[lang]
+    # content overrides any LOCALE key (body, footer, enclosures, ...) plus
+    # "city", so a vacancy-specific letter needs no edits to this script.
+    loc = {**LOCALE[lang], **(content or {})}
+    city = loc.get("city", CITY)
 
     words = NAME.upper().split()
     name_html = (
@@ -370,7 +376,7 @@ def render_html(
     # Same lowercase word markers as the CV: the embedded Plex subsets are
     # latin-only, so ✉ ☎ ⌂ would fall back to a system font.
     contact_parts = [
-        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
+        f"addr {', '.join(p for p in (STREET, city) if p)}",
         f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
         f"tel {_link(_tel_href(PHONE), PHONE)}",
         f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
@@ -423,7 +429,7 @@ def render_html(
       <div class="lt-block-label">{loc["recipient_label"]}</div>
       {recipient_html}
     </div>
-    <div class="lt-date">{date or _default_date(lang)}</div>
+    <div class="lt-date">{date or _default_date(lang, city)}</div>
   </div>
 
   <div class="lt-subject">
@@ -491,10 +497,20 @@ def main() -> None:
         help="Add the portrait to the header (off by default: the photo belongs "
              "on the Lebenslauf, not the Anschreiben)",
     )
+    parser.add_argument(
+        "--content",
+        help="JSON file overriding letter text for one vacancy (any LOCALE key, "
+             "plus \"city\")",
+    )
     parser.add_argument("--output", help="Output PDF path (default: derived from --lang)")
     args = parser.parse_args()
 
-    loc = LOCALE[args.lang]
+    content = (
+        json.loads(pathlib.Path(args.content).read_text(encoding="utf-8"))
+        if args.content
+        else {}
+    )
+    loc = {**LOCALE[args.lang], **content}
     lines = [args.company] if args.company else []
     lines += loc["default_recipient"] if not args.name else [args.name]
     if args.recipient:
@@ -513,6 +529,7 @@ def main() -> None:
         salutation_name=args.name,
         date=args.date,
         photo=args.photo,
+        content=content,
     )
 
     print(f"Rendering PDF → {output}")

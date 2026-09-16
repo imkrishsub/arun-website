@@ -81,6 +81,9 @@ python3 generate_cover_letter.py --lang de \
   Bewerbung the photo belongs on the Lebenslauf (or a Deckblatt), not on the
   Anschreiben.
 - `--date` overrides the date, `--output` the file path.
+- `--content` takes a JSON file that overrides any letter text for one vacancy
+  (`body`, `footer`, `enclosures`, ...) plus `city`, e.g.
+  `applications/trivago-letter.json`.
 
 ## Cost-to-hire overview (work authorization)
 
