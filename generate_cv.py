@@ -65,7 +65,7 @@ LOCALE = {
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
             "Chancenkarte holder — no sponsorship required",
-            "Based in Frankfurt am Main",
+            "Based in {city}",
         ],
     },
     "de": {
@@ -81,7 +81,7 @@ LOCALE = {
         },
         "footer": [
             "Chancenkarte-Inhaber — keine Sponsorship nötig",
-            "Wohnhaft in Frankfurt am Main",
+            "Wohnhaft in {city}",
         ],
     },
 }
@@ -763,8 +763,12 @@ def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
     title_html = f'<div class="cv-title">{role}</div>' if role else ""
 
     footer_ident = f"{person_name} &nbsp;·&nbsp; {role}" if role else person_name
+    # The footer names the city from the contact address, so a CV reworded for
+    # a vacancy elsewhere cannot contradict its own header.
+    city = contact.get("address", "Frankfurt am Main").split(",")[0].strip()
     footer_html = "".join(
-        f'<div class="cv-footer-line">{line}</div>' for line in loc["footer"]
+        f'<div class="cv-footer-line">{line.format(city=city)}</div>'
+        for line in loc["footer"]
     )
 
     return f"""<!DOCTYPE html>

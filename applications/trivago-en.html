@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arun Murugan — Securities Operations · Reconciliation, Settlements &amp; Custody</title>
+  <meta name="description" content="Arun Murugan — Reconciliation Analyst / Financial Operations. 5+ years at BNP Paribas. Chancenkarte holder, based in Düsseldorf, Germany. No sponsorship required." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="alternate" hreflang="de" href="../index.html" />
+  <style>
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+      src: url('../assets/fonts/IBMPlexSans-400-600-700-latin.woff2') format('woff2');
+    }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --surface2: #eef1f5;
+      --border: #dde1e7;
+      --accent: #1d4ed8;
+      --accent-dark: #1741b0;
+      --accent-soft: #eaf0fd;
+      --green: #1f8a53;
+      --green-soft: #e7f5ee;
+      --text: #1b2430;
+      --text-soft: #3d4654;
+      --muted: #667080;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    a:link, a:visited { color: inherit; text-decoration: none; }
+    a.btn-primary:link, a.btn-primary:visited { color: #fff; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ── Top bar ─────────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .topbar-brand {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--text);
+    }
+    .topbar-nav { display: flex; align-items: center; gap: 24px; }
+    .topbar-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .topbar-nav a:hover { color: var(--accent); }
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 8px;
+      padding-left: 20px;
+      border-left: 1px solid var(--border);
+    }
+    .lang-switch a {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .lang-switch a.active { color: var(--accent); background: var(--accent-soft); }
+    .lang-switch a:hover { color: var(--accent); }
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ── Layout ──────────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Availability banner ─────────────────────────────────── */
+    .arrival-banner {
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .arrival-text {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+    .arrival-text strong { color: var(--accent); }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero {
+      padding: 48px 0 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 40px;
+      align-items: start;
+    }
+    .avatar-wrap { position: relative; }
+    .avatar {
+      width: 104px; height: 104px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .hero-main {}
+    .symbol {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .symbol span { color: var(--accent); }
+    .full-name {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .hero-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .tag.highlight {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .hero-desc {
+      margin-top: 16px;
+      color: var(--text-soft);
+      font-size: 14px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      min-width: 260px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .stat-value.green  { color: var(--green);  }
+    .stat-value.gold   { color: var(--accent); }
+    .stat-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Sections ─────────────────────────────────────────────── */
+    section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Two/three-column layout ─────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ── Panel ───────────────────────────────────────────────── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+    .panel-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Professional profile note ───────────────────────────── */
+    .analyst-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 24px 28px;
+      border-radius: 6px;
+    }
+    .analyst-note .meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .analyst-note p {
+      line-height: 1.8;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+    .analyst-note .rating {
+      display: inline-block;
+      margin-top: 16px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 3px;
+    }
+
+    /* ── Skills ───────────────────────────────────────────────── */
+    .skill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .skill-name { font-size: 13px; color: var(--text-soft); flex: 1; min-width: 0; }
+    .skill-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .skill-badge.expert     { background: var(--accent-soft); color: var(--accent); }
+    .skill-badge.advanced   { background: #eef2ff; color: #4338ca; }
+    .skill-badge.proficient { background: var(--green-soft); color: var(--green); }
+    .skill-badge.metric     { background: var(--green-soft); color: var(--green); }
+    .skill-badge.basic      { background: var(--surface2); color: var(--muted); }
+
+    /* ── Experience ledger ───────────────────────────────────── */
+    .ledger { width: 100%; border-collapse: collapse; }
+    .ledger th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ledger td {
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--text-soft);
+      vertical-align: top;
+    }
+    .ledger tr:last-child td { border-bottom: none; }
+    .ledger .company { color: var(--text); font-weight: 700; }
+    .ledger .period {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .ledger .role-tag {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 3px;
+      color: var(--text-soft);
+    }
+    .ledger .kpi {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .ledger ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 8px;
+    }
+    .ledger ul li::before { content: "– "; color: var(--muted); }
+    .ledger ul li { margin-bottom: 5px; font-size: 13px; color: var(--text-soft); }
+
+    /* ── Work authorization ──────────────────────────────────── */
+    .chancenkarte-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+    .ck-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .ck-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .ck-desc {
+      font-size: 13.5px;
+      color: var(--text-soft);
+      line-height: 1.75;
+      max-width: 440px;
+    }
+    .ck-facts {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ck-facts li {
+      font-size: 13px;
+      color: var(--text-soft);
+      padding-left: 18px;
+      position: relative;
+    }
+    .ck-facts li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+    .ck-status {
+      text-align: center;
+      background: var(--green-soft);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      min-width: 200px;
+    }
+    .ck-status .lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .ck-status .val {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 6px;
+    }
+    .ck-status .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── Language table ──────────────────────────────────────── */
+    .lang-row {
+      display: grid;
+      grid-template-columns: 90px auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-name { color: var(--text); font-size: 13.5px; font-weight: 500; }
+    .lang-dots { display: flex; gap: 5px; }
+    .lang-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .lang-dot.filled { background: var(--accent); }
+    .lang-level { font-size: 12px; color: var(--muted); text-align: right; }
+
+    /* ── Education ───────────────────────────────────────────── */
+    .edu-item { margin-bottom: 20px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-degree { font-size: 14.5px; color: var(--text); font-weight: 700; }
+    .edu-school { font-size: 12.5px; color: var(--accent); margin-top: 3px; }
+    .edu-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Contact ─────────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .contact-cta {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+    }
+    .contact-cta h3 {
+      font-size: 19px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .contact-cta p {
+      font-size: 13.5px;
+      color: var(--text-soft);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    a.btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color .2s;
+    }
+    a.btn-primary:hover { background: var(--accent-dark); }
+    .contact-details { display: flex; flex-direction: column; gap: 12px; }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .contact-icon {
+      width: 32px; height: 32px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--accent);
+    }
+    /* "www" is three glyphs where the others are one — shrink it to fit the box. */
+    .contact-icon.is-www { font-size: 10px; letter-spacing: -0.5px; }
+    .contact-info .lbl { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .contact-info .val { font-size: 13.5px; color: var(--text); margin-top: 2px; }
+    .contact-info .val a { color: inherit; text-decoration: none; }
+    .contact-info .val a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer {
+      padding: 24px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+    footer span { color: var(--text); font-weight: 600; }
+
+    /* ── Utilities ───────────────────────────────────────────── */
+    .text-gold  { color: var(--accent); }
+    .text-green { color: var(--green); }
+    .text-muted { color: var(--muted); }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-grid    { grid-template-columns: 1fr; }
+      .hero-stats   { grid-template-columns: repeat(4, 1fr); }
+      .two-col, .three-col, .contact-grid { grid-template-columns: 1fr; }
+      .chancenkarte-card { grid-template-columns: 1fr; }
+      .topbar-nav   { display: none; }
+      .container    { padding: 0 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar       { padding: 12px 16px; }
+      .topbar-status { display: none; }
+      .container    { padding: 0 14px; }
+
+      .hero-stats   { grid-template-columns: repeat(2, 1fr); }
+
+      .skill-name   { font-size: 12px; }
+
+      .ledger-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      .chancenkarte-card { padding: 20px 16px; }
+      .ck-title     { font-size: 18px; }
+
+      .contact-cta  { padding: 20px; }
+      .contact-cta h3 { font-size: 16px; }
+
+      section       { padding: 32px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top bar ── -->
+<div class="topbar">
+  <div class="topbar-brand">Arun Murugan</div>
+  <nav class="topbar-nav">
+    <a href="#profile">Profile</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#authorization">Work authorization</a>
+    <a href="#contact">Contact</a>
+    <div class="lang-switch">
+      <a href="index.html" class="active">EN</a>
+      <a href="../index.html">DE</a>
+    </div>
+  </nav>
+  <div class="topbar-status">
+    <div class="status-dot"></div>
+    Available · Düsseldorf
+  </div>
+</div>
+
+<!-- ── Availability banner ── -->
+<div class="arrival-banner">
+  <span class="arrival-text"><strong>Based in Düsseldorf — able to start immediately</strong> — no sponsorship, no visa procedure, no fee to the employer.</span>
+</div>
+
+<!-- ── Hero ── -->
+<div class="container">
+  <section class="hero" style="border-bottom:none; padding-bottom:40px;">
+    <div class="hero-grid">
+      <div class="avatar-wrap">
+        <div class="avatar"><img src="../arun.jpg" alt="Arun Murugan"></div>
+      </div>
+      <div class="hero-main">
+        <div class="symbol">Arun Murugan</div>
+        <div class="full-name">Arun Murugan · Accounts Payable &amp; Receivable — Reconciliation &amp; Operational Accounting</div>
+        <div class="hero-tags">
+          <span class="tag highlight">Invoice processing &amp; reconciliation</span>
+          <span class="tag">Accounts payable &amp; receivable</span>
+          <span class="tag">Process automation</span>
+          <span class="tag">Quality checking &amp; SOPs</span>
+          <span class="tag">Chancenkarte holder</span>
+        </div>
+        <p class="hero-desc">
+          Financial operations professional with 5+ years of invoice processing and
+          reconciliation, most recently at BNP Paribas — checking and processing broker invoices
+          every month, reconciling fees, commissions and payments against trades and bank
+          statements, and automating the process: a reconciliation template that halved handling
+          time and auto-matching rules that cut manual effort by 30%. Works in English, reviews
+          as well as prepares, and writes the SOPs others follow. Already resident in Germany and
+          permitted to work — no sponsorship, no visa procedure, no fee.
+        </p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-label">Experience</div>
+          <div class="stat-value green">5+<span style="font-size:14px"> yrs</span></div>
+          <div class="stat-sub">Banking &amp; fin. services</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Manual effort cut</div>
+          <div class="stat-value gold">30%</div>
+          <div class="stat-sub">Auto-matching rules (BNP)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">AHT reduced</div>
+          <div class="stat-value green">50%</div>
+          <div class="stat-sub">Reconciliation template (BNP)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Based in</div>
+          <div class="stat-value" style="font-size:16px; margin-top:6px;">Düsseldorf</div>
+          <div class="stat-sub" style="color: var(--accent);">open to relocation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="height:1px; background: var(--border);"></div>
+
+<!-- ── Professional profile ── -->
+<div class="container">
+  <section id="profile">
+    <div class="section-header">
+      <span class="section-tag">01</span>
+      <h2 class="section-title">Professional profile</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="analyst-note">
+      <div class="meta">SUMMARY · UPDATED SEPTEMBER 2026</div>
+      <p>
+        I'm a financial operations professional with a track record in reconciliation, reporting
+        and process improvement across three companies. At BNP Paribas I most recently served as
+        Associate – Fee Shared Services in Bangalore, reconciling broker invoices and
+        trades for BGC/GFI, TP ICAP, Tradition and Bloomberg — before that, as an Analyst –
+        Shared Services Commission in Mumbai, I ran commission reconciliation for Morgan Stanley,
+        JP Morgan and BNP Paribas itself. Before BNP, at Tata Consultancy Services, I worked as a
+        Process Associate managing end-to-end mortgage operations for ICICI and was recognised as
+        Best Performer in MIS for redesigning shift roster planning for 210 associates, cutting
+        allocation time by over 80%.
+      </p>
+      <br />
+      <p>
+        I'm in Germany on a Chancenkarte, so no employer sponsorship is required and I can
+        start immediately. I'm based in Düsseldorf and can start at short notice.
+        Financial operations processes —
+        reconciliation, reporting, controls — are largely standardised across markets, so ramp-up
+        time is short. I'm methodical, detail-oriented and comfortable owning a process end to end,
+        and I'm actively building my German language skills alongside my day-to-day work.
+      </p>
+      <br />
+      <p>
+        I'm looking for a role in securities operations — reconciliation, settlements, custody
+        or middle office — with a bank, custodian, fund administrator or fintech in Düsseldorf
+        am Main. My working language is English.
+      </p>
+      <span class="rating">Actively seeking · Securities operations · Düsseldorf</span>
+    </div>
+  </section>
+</div>
+
+<!-- ── Skills ── -->
+<div class="container">
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-tag">02</span>
+      <h2 class="section-title">Skills &amp; competencies</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="two-col">
+
+      <div class="panel">
+        <div class="panel-title">Core competencies</div>
+        <div class="skill-row">
+          <span class="skill-name">Accounts payable &amp; receivable</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Invoice, fee &amp; payment reconciliation</span>
+          <span class="skill-badge expert">Expert</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Operational efficiency</span>
+          <span class="skill-badge expert">Expert</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Quality checking &amp; controls</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Reporting &amp; analysis</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Process optimisation</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Team leadership &amp; development</span>
+          <span class="skill-badge proficient">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Risk management</span>
+          <span class="skill-badge proficient">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Stakeholder communication</span>
+          <span class="skill-badge proficient">Proficient</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Tools &amp; soft skills</div>
+        <div class="skill-row">
+          <span class="skill-name">Microsoft Excel (advanced)</span>
+          <span class="skill-badge expert">Expert</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Microsoft Office</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Problem solving</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Team building</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Leadership</span>
+          <span class="skill-badge proficient">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Communication</span>
+          <span class="skill-badge advanced">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SAP (ERP)</span>
+          <span class="skill-badge basic">Familiar</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Power BI</span>
+          <span class="skill-badge basic">Familiar</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AI-assisted workflows</span>
+          <span class="skill-badge basic">Familiar</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div class="panel">
+        <div class="panel-title">Key achievements</div>
+        <div class="three-col" style="margin-top: 4px;">
+          <div>
+            <div class="skill-row">
+              <span class="skill-name">Allocation time reduced (TCS)</span>
+              <span class="skill-badge metric">&gt;80%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">AHT reduced via BROKK automation</span>
+              <span class="skill-badge metric">50%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Back Office appreciation award</span>
+              <span class="skill-badge metric">BNP</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-row">
+              <span class="skill-name">Daily reporting time saved (BNP)</span>
+              <span class="skill-badge metric">1–2 hrs</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Manual effort cut via auto-matching</span>
+              <span class="skill-badge metric">30%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Best Performer in MIS (TCS)</span>
+              <span class="skill-badge metric">Award</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Best Performer Q3 (BNP)</span>
+              <span class="skill-badge metric">2023</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-row">
+              <span class="skill-name">Stellar Award — client appreciation</span>
+              <span class="skill-badge metric">Feb 2025</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Client appreciation note (BNP)</span>
+              <span class="skill-badge metric">Received</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">SOP documentation implemented</span>
+              <span class="skill-badge metric">BNP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── Experience ── -->
+<div class="container">
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-tag">03</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="ledger-scroll">
+    <table class="ledger">
+      <thead>
+        <tr>
+          <th style="width:220px">Institution</th>
+          <th style="width:160px">Role</th>
+          <th>Key deliverables</th>
+          <th style="width:150px">Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="company">Telis Finanz GmbH</div>
+            <div class="period">Since July 2026 · Remote</div>
+          </td>
+          <td><span class="role-tag">ASSISTANT (PART-TIME)</span></td>
+          <td>
+            <ul>
+              <li>Personal assistant to a finance consultant — diary management, client correspondence and preparation of meeting documents; taken on part-time alongside the job search</li>
+            </ul>
+          </td>
+          <td class="kpi">
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company">BNP Paribas</div>
+            <div class="period">Jun 2024 – Jun 2026 · Bangalore</div>
+          </td>
+          <td><span class="role-tag">ASSOCIATE – FEE SHARED SERVICES</span></td>
+          <td>
+            <ul>
+              <li>Processed and checked vendor invoices from brokers BGC/GFI, TP ICAP, Tradition &amp; Bloomberg every month before payment</li>
+              <li>Reconciled invoiced fees against internal trade records across FX, money markets, commodities &amp; equity; resolved breaks with brokers and traders</li>
+              <li>Maintained agreed brokerage rates as the reference for invoice checks, working with procurement, trader &amp; broker teams</li>
+              <li>Led automation of the equity reconciliation (BROKK) — built a template that cut handling time from 8 hrs to 4 hrs</li>
+              <li>Worked with the technology team on process improvements for reconciliation &amp; payments</li>
+            </ul>
+          </td>
+          <td class="kpi">
+            50% AHT reduction<br />
+            <span style="color: var(--muted); font-weight: 400; font-size:11px">Stellar Award, Feb 2025</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company">BNP Paribas</div>
+            <div class="period">Dec 2022 – Jun 2024 · Mumbai</div>
+          </td>
+          <td><span class="role-tag">ANALYST – SHARED SERVICES COMMISSION</span></td>
+          <td>
+            <ul>
+              <li>Reconciled commission receivables and payables for Morgan Stanley, JP Morgan &amp; BNP Paribas</li>
+              <li>Reconciled cash against bank statements and payment confirmations (SWIFT MT 940/950/910/900)</li>
+              <li>Implemented auto-matching rules, cutting manual reconciliation effort by 30%</li>
+              <li>Built an Excel tool for Back Office and Settlements reporting — saving 1–2 hrs daily</li>
+              <li>Reviewed colleagues' work as key checker for quality monitoring; authored the team's SOP documentation</li>
+            </ul>
+          </td>
+          <td class="kpi">
+            1–2 hrs/day saved<br />
+            <span style="color: var(--muted); font-weight: 400; font-size:11px">Back Office award</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company">Tata Consultancy Services</div>
+            <div class="period">Oct 2020 – Nov 2022 · Chennai</div>
+          </td>
+          <td><span class="role-tag">PROCESS ASSOCIATE</span></td>
+          <td>
+            <ul>
+              <li>ICICI Mortgage Operations — end-to-end mortgage loan processing</li>
+              <li>Maintained proactive client communication on process changes, adhering to SLAs</li>
+              <li>Collaborated with MIS operations team to mitigate risks, improving TAT and quality</li>
+              <li>Designed innovative shift roster planning for 210 associates — &gt;80% reduction in allocation time</li>
+              <li>Awarded Best Performer in MIS; developed customised training programs for the team</li>
+            </ul>
+          </td>
+          <td class="kpi">
+            &gt;80% faster rosters<br />
+            <span style="color: var(--muted); font-weight: 400; font-size:11px">Best Performer award</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+</div>
+
+<!-- ── Education & languages ── -->
+<div class="container">
+  <section id="education">
+    <div class="section-header">
+      <span class="section-tag">04</span>
+      <h2 class="section-title">Education &amp; languages</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">Academic record</div>
+        <div class="edu-item">
+          <div class="edu-degree">B.Com — Computer Applications</div>
+          <div class="edu-school">Sri Ramakrishna Mission Vidyalaya College of Arts and Science, Coimbatore</div>
+          <div class="edu-meta">06/2017 – 04/2020</div>
+        </div>
+        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
+        <div class="edu-item">
+          <div class="edu-degree">Financial Modelling &amp; Analysis</div>
+          <div class="edu-school">PwC India</div>
+          <div class="edu-meta">Course — in progress</div>
+        </div>
+        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
+        <div class="edu-item">
+          <div class="edu-degree">Stellar Award — client appreciation</div>
+          <div class="edu-school">BNP Paribas</div>
+          <div class="edu-meta">Feb 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Best Performer of Quarter 3 Awards</div>
+          <div class="edu-school">BNP Paribas</div>
+          <div class="edu-meta">2023</div>
+        </div>
+        <div style="height:1px; background:var(--border); margin: 16px 0;"></div>
+        <div class="edu-item">
+          <div class="edu-degree">Back Office appreciation award — on-time delivery</div>
+          <div class="edu-school">BNP Paribas</div>
+          <div class="edu-meta">Completing all requests within deadline</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Language portfolio</div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div>
+            <div class="lang-dot filled"></div>
+          </div>
+          <span class="lang-level">Full professional</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">German</span>
+          <div class="lang-dots">
+            <div class="lang-dot filled"></div>
+            <div class="lang-dot"></div>
+            <div class="lang-dot"></div>
+            <div class="lang-dot"></div>
+            <div class="lang-dot"></div>
+          </div>
+          <span class="lang-level" style="color:var(--accent)">A2 · in daily tuition</span>
+        </div>
+
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border);">
+          <div class="panel-title" style="margin-bottom:12px;">Personal profile</div>
+          <div style="color:var(--muted); font-size:12.5px; line-height:1.9;">
+            Work authorization: <span style="color:var(--text)">Chancenkarte — full employment permitted, no sponsorship</span><br />
+            Based in: <span style="color:var(--accent)">Düsseldorf, Germany</span><br />
+            Availability: <span style="color:var(--green)">Immediate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── Work authorization ── -->
+<div class="container">
+  <section id="authorization">
+    <div class="section-header">
+      <span class="section-tag">05</span>
+      <h2 class="section-title">Work authorization</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="chancenkarte-card">
+      <div>
+        <div class="ck-label">Chancenkarte · Opportunity Card</div>
+        <div class="ck-title">Free to work in Germany — no sponsorship needed</div>
+        <p class="ck-desc">
+          Issued under §20a AufenthG, my Chancenkarte gives me the legal right to live in
+          Germany and take up employment directly, without an employer needing to sponsor a visa.
+        </p>
+        <ul class="ck-facts">
+          <li>Valid 23 March 2026 – 22 March 2027</li>
+          <li>No employer sponsorship or visa process required</li>
+          <li>Resident in Düsseldorf — available to start immediately</li>
+        </ul>
+      </div>
+      <div class="ck-status">
+        <div class="lbl">Status</div>
+        <div class="val">Active</div>
+        <div class="sub">Chancenkarte holder<br />valid until March 2027</div>
+      </div>
+    </div>
+
+    <div class="analyst-note" style="margin-top:20px;">
+      <div class="meta">FOR EMPLOYERS · THE 20-HOUR MISCONCEPTION</div>
+      <p>
+        My Chancenkarte's 20-hour cap applies only while I'm job-hunting. Under §18 Abs. 2
+        AufenthG, a concrete job offer is enough to start converting my permit to full,
+        unrestricted work authorization — a signed contract is not required yet. The same law
+        also allows a risk-free two-week full-time trial (Probebeschäftigung) before any
+        commitment.
+      </p>
+      <br />
+      <p>
+        The paperwork is one standard form — the Erklärung zum Beschäftigungsverhältnis (EzB) —
+        already used for every non-EU hire in Germany, nothing bespoke for this application.
+        <a href="../Erklaerung-zum-Beschaeftigungsverhaeltnis-EzB.pdf" style="color:var(--accent)">Download the blank EzB form (PDF) →</a>
+        ·
+        <a href="../Arun-Murugan-Work-Authorization.pdf" style="color:var(--accent)">Full explainer with sources (PDF) →</a>
+      </p>
+    </div>
+  </section>
+</div>
+
+<!-- ── Contact ── -->
+<div class="container">
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-tag">06</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-cta">
+        <h3>Let's talk</h3>
+        <p>
+          If you're a recruiter, hiring manager, or team lead in the German banking sector
+          looking for a dependable, detail-oriented operations professional, I'd welcome a
+          conversation. Feel free to reach out directly.
+        </p>
+        <a href="mailto:arunmuruganmail@gmail.com" class="btn-primary">Get in touch →</a>
+      </div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <div class="lbl">Email</div>
+            <div class="val"><a href="mailto:arunmuruganmail@gmail.com">arunmuruganmail@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">in</div>
+          <div class="contact-info">
+            <div class="lbl">LinkedIn</div>
+            <div class="val"><a href="https://linkedin.com/in/arunmurugan" target="_blank" rel="noopener">linkedin.com/in/arunmurugan</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon is-www">www</div>
+          <div class="contact-info">
+            <div class="lbl">Website</div>
+            <div class="val"><a href="https://arun-murugan.de">arun-murugan.de</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">☎</div>
+          <div class="contact-info">
+            <div class="lbl">Phone</div>
+            <div class="val">+49 (0)1603488387</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">⌂</div>
+          <div class="contact-info">
+            <div class="lbl">Address</div>
+            <div class="val">Düsseldorf, Germany</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">↓</div>
+          <div class="contact-info">
+            <div class="lbl">Resume</div>
+            <div class="val"><a href="../Arun-Murugan-CV-print.pdf" style="color:var(--accent)">Download CV (PDF) →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <span>Arun Murugan</span> · Reconciliation Analyst / Financial Operations · Chancenkarte Holder · India → Germany
+  </div>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

@@ -41,6 +41,15 @@ applications outside securities operations.
 The CV content lives in the HTML pages — edit `index.html` / `en/index.html` and
 re-run the build. Nothing is duplicated in the Python.
 
+Vacancy-specific CVs live in `applications/` (kept off the site by
+`.vercelignore`): a copy of a source page reworded for one role, rendered with
+`--source`:
+
+```bash
+python3 generate_cv.py --lang en --source applications/trivago-en.html \
+    --output applications/Arun-Murugan-CV-trivago.pdf
+```
+
 ## Cover letter / Anschreiben
 
 `generate_cover_letter.py` renders a one-page A4 letter in the same visual
