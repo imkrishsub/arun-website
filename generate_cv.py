@@ -67,6 +67,9 @@ LOCALE = {
             "Chancenkarte holder — no sponsorship required",
             "Based in Frankfurt am Main",
         ],
+        # The site no longer publishes an address; the CV still prints one.
+        # A source page that has its own Address row overrides this.
+        "address": "Frankfurt am Main, Germany",
     },
     "de": {
         "doc_lang": "de",
@@ -83,6 +86,7 @@ LOCALE = {
             "Chancenkarte-Inhaber — keine Sponsorship nötig",
             "Wohnhaft in Frankfurt am Main",
         ],
+        "address": "Frankfurt am Main, Deutschland",
     },
 }
 
@@ -683,7 +687,7 @@ def render_html(data: dict, lang: str = "en", generic: bool = False) -> str:
         contact_parts.append(f"www {_link(f'https://{site}', site)}")
     if ph := contact.get("phone"):
         contact_parts.append(f"tel {_link(_tel_href(ph), ph)}")
-    if addr := contact.get("address"):
+    if addr := contact.get("address", loc["address"]):
         contact_parts.append(f"addr {addr}")
 
     # Each part is its own flex item so a long value (the site URL) wraps as a
