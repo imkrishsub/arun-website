@@ -46,9 +46,6 @@ except ImportError:
 
 REPO_ROOT = pathlib.Path(__file__).parent
 
-# Chrome the CV adds on top of the site content: section headings, the footer
-# strapline and the document title. Everything else is lifted verbatim from the
-# source page, so index.html feeds the English CV and de/index.html the German.
 # Header contact icons as (viewBox, path). Material Symbols (outlined) for mail,
 # call, language and location_on; Material has no LinkedIn mark, so that one is
 # the Simple Icons brand glyph.
@@ -78,6 +75,9 @@ def _contact_icon(name: str) -> str:
     )
 
 
+# Chrome the CV adds on top of the site content: section headings, the footer
+# strapline and the document title. Everything else is lifted verbatim from the
+# source page, so index.html feeds the English CV and de/index.html the German.
 LOCALE = {
     "en": {
         "doc_lang": "en",
