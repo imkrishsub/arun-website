@@ -37,7 +37,7 @@ except ImportError:
         "  playwright install chromium"
     )
 
-from generate_cv import _font_css, _photo_data_uri
+from generate_cv import _contact_icon, _font_css, _photo_data_uri
 
 REPO_ROOT = pathlib.Path(__file__).parent
 
@@ -222,7 +222,12 @@ body {
   color: var(--muted);
 }
 
-.lt-contact-item { white-space: nowrap; }
+.lt-contact-item {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3pt;
+}
 .lt-link { color: inherit; text-decoration: none; }
 
 .lt-photo img {
@@ -367,13 +372,12 @@ def render_html(
     def _link(href: str, label: str) -> str:
         return f'<a class="lt-link" href="{href}">{label}</a>'
 
-    # Same lowercase word markers as the CV: the embedded Plex subsets are
-    # latin-only, so ✉ ☎ ⌂ would fall back to a system font.
+    # Same SVG icon markers as the CV.
     contact_parts = [
-        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
-        f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
-        f"tel {_link(_tel_href(PHONE), PHONE)}",
-        f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
+        f"{_contact_icon('address')}<span>{', '.join(p for p in (STREET, CITY) if p)}</span>",
+        f"{_contact_icon('mail')}{_link(f'mailto:{EMAIL}', EMAIL)}",
+        f"{_contact_icon('phone')}{_link(_tel_href(PHONE), PHONE)}",
+        f"{_contact_icon('website')}{_link(f'https://{WEBSITE}', WEBSITE)}",
     ]
     contact_html = "".join(
         f'<span class="lt-contact-item">{p}</span>' for p in contact_parts

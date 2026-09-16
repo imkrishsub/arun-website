@@ -36,7 +36,7 @@ except ImportError:
     )
 
 from generate_cover_letter import CITY, EMAIL, NAME, PHONE, STREET, WEBSITE, _tel_href
-from generate_cv import _font_css
+from generate_cv import _contact_icon, _font_css
 
 REPO_ROOT = pathlib.Path(__file__).parent
 
@@ -277,6 +277,13 @@ body {
   color: var(--muted);
 }
 
+.wa-contact-item {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3pt;
+}
+
 .wa-link { color: inherit; text-decoration: none; }
 
 /* ── Title block ── */
@@ -497,10 +504,10 @@ def render_html(lang: str) -> str:
         return f'<a class="wa-link" href="{href}">{label}</a>'
 
     contact_parts = [
-        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
-        f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
-        f"tel {_link(_tel_href(PHONE), PHONE)}",
-        f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
+        f"{_contact_icon('address')}<span>{', '.join(p for p in (STREET, CITY) if p)}</span>",
+        f"{_contact_icon('mail')}{_link(f'mailto:{EMAIL}', EMAIL)}",
+        f"{_contact_icon('phone')}{_link(_tel_href(PHONE), PHONE)}",
+        f"{_contact_icon('website')}{_link(f'https://{WEBSITE}', WEBSITE)}",
     ]
     contact_html = "".join(
         f'<span class="wa-contact-item">{p}</span>' for p in contact_parts
