@@ -65,11 +65,11 @@ LOCALE = {
         # whatever word hit the right margin, stranding fragments mid-clause.
         "footer": [
             "Chancenkarte holder — no sponsorship required",
-            "Based in Frankfurt am Main",
+            "Based in Germany",
         ],
-        # The site no longer publishes an address; the CV still prints one.
+        # The site no longer publishes a location; the CV still prints the country.
         # A source page that has its own Address row overrides this.
-        "address": "Frankfurt am Main, Germany",
+        "address": "Germany",
     },
     "de": {
         "doc_lang": "de",
@@ -84,9 +84,9 @@ LOCALE = {
         },
         "footer": [
             "Chancenkarte-Inhaber — keine Sponsorship nötig",
-            "Wohnhaft in Frankfurt am Main",
+            "Wohnhaft in Deutschland",
         ],
-        "address": "Frankfurt am Main, Deutschland",
+        "address": "Deutschland",
     },
 }
 
