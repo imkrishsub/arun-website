@@ -35,7 +35,7 @@ except ImportError:
         "  playwright install chromium"
     )
 
-from generate_cover_letter import CITY, EMAIL, NAME, PHONE, STREET, WEBSITE, _tel_href
+from generate_cover_letter import COUNTRY, EMAIL, NAME, PHONE, STREET, WEBSITE, _tel_href
 from generate_cv import _font_css
 
 REPO_ROOT = pathlib.Path(__file__).parent
@@ -48,7 +48,7 @@ LOCALE = {
         "subtitle": "Nothing beyond the salary — no sponsorship, no fee, no visa procedure",
         "intro": (
             "Hiring someone from outside the EU is widely assumed to be expensive and slow. In "
-            "my case it is neither. I already live in Frankfurt am Main and already hold a permit "
+            "my case it is neither. I already live in Germany and already hold a permit "
             "that lets me work, so there is no visa procedure, no sponsorship and no fee — Germany "
             "levies no employer charge of the kind the UK and the US do."
         ),
@@ -139,7 +139,7 @@ LOCALE = {
         "subtitle": "Nichts außer dem Gehalt — kein Sponsoring, keine Gebühr, kein Visumverfahren",
         "intro": (
             "Eine Einstellung aus einem Drittstaat gilt als teuer und langwierig. In meinem Fall "
-            "ist sie weder das eine noch das andere. Ich lebe bereits in Frankfurt am Main und "
+            "ist sie weder das eine noch das andere. Ich lebe bereits in Deutschland und "
             "besitze einen Aufenthaltstitel, der mir das Arbeiten erlaubt — kein Visumverfahren, kein "
             "Sponsoring, keine Gebühr. Eine Arbeitgeberabgabe wie im Vereinigten Königreich oder "
             "in den USA gibt es hier nicht."
@@ -497,7 +497,7 @@ def render_html(lang: str) -> str:
         return f'<a class="wa-link" href="{href}">{label}</a>'
 
     contact_parts = [
-        f"addr {', '.join(p for p in (STREET, CITY) if p)}",
+        f"addr {', '.join(p for p in (STREET, COUNTRY[lang]) if p)}",
         f"mail {_link(f'mailto:{EMAIL}', EMAIL)}",
         f"tel {_link(_tel_href(PHONE), PHONE)}",
         f"www {_link(f'https://{WEBSITE}', WEBSITE)}",
